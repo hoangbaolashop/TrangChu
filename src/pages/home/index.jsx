@@ -1237,7 +1237,7 @@ const Home = () => {
                     <div className="rts-btn-banner-area" style={{justifyContent: "center", display: "flex", top: -80, position: "relative", cursor: "pointer"}}>
                       <a onClick={() => navigate("/register-web")} className="rts-btn btn-primary radious-sm with-icon" data-bs-dismiss="modal">
                         <div className="btn-text" >
-                        Đi đăng ký để nhận ngay 3 lượt quay số trúng thưởng
+                        Đi đăng ký để nhận ngay 1 lượt quay số trúng thưởng
                         </div>
                         <div className="arrow-icon">
                           <i className="fa-light fa-arrow-right" />
