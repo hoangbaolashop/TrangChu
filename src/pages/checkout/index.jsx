@@ -336,9 +336,9 @@ const Checkout = () => {
                                         name="paymentMethod"
                                         value="online"
                                         checked={paymentMethod === 'online'}
-                                        onChange={handlePaymentChange}
+                                        // onChange={handlePaymentChange}
                                     />
-                                    <span style={{padding: "10px"}}>Thanh toán trực tuyến</span>
+                                    <span style={{padding: "10px"}}>Thanh toán trực tuyến (bảo trì, sắp ra mắt)</span>
                                 </label>
                             </div>
                             <br/>
