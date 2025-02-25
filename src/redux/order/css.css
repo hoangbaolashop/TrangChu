@@ -1,0 +1,8 @@
+/* Tạo màu sắc riêng cho thông báo success */
+.custom-success .ant-notification-notice {
+    background-color: #28a745;  /* Màu xanh lá */
+    color: white;
+}
+.custom-error .ant-notification-notice {
+    font-weight: bold;  /* Làm chữ đậm */
+}

@@ -1,0 +1,6 @@
+.thumb-filter.active img {
+    border: 2px solid #000; /* Viền đậm cho ảnh thu nhỏ đang được chọn */
+    opacity: 0.7;  /* Giảm độ sáng để dễ nhận diện */
+  }
+  
+  @import "react-image-gallery/styles/scss/image-gallery.scss";

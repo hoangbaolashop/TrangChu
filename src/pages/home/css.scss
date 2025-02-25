@@ -1,0 +1,126 @@
+// /* Wrapper cho phần sản phẩm */
+// .feature-product-list-wrapper {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: flex-start;
+//     background-color: #fff;  /* Màu nền trắng cho phần tử */
+//     border-radius: 8px;       /* Làm tròn góc */
+//     padding: 15px;
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ */
+//     border: 1px solid #ddd;  /* Đường viền mỏng xung quanh */
+//     max-height: 800px; /* Giới hạn chiều cao */
+//     overflow-y: auto;  /* Cho phép cuộn dọc khi nội dung quá dài */
+//     padding-right: 10px;  /* Khoảng cách bên phải khi cuộn */
+// }
+
+// /* Điều chỉnh thanh cuộn cho trình duyệt Webkit (Chrome, Safari, Edge) */
+// .feature-product-list-wrapper::-webkit-scrollbar {
+//     width: 2px;  /* Đặt chiều rộng thanh cuộn */
+// }
+
+// /* Thanh cuộn có kiểu dáng */
+// .feature-product-list-wrapper::-webkit-scrollbar-track {
+//     background: #f1f1f1;  /* Màu nền của track (vùng chứa thanh cuộn) */
+//     border-radius: 10px;
+// }
+
+// /* Thanh cuộn */
+// .feature-product-list-wrapper::-webkit-scrollbar-thumb {
+//     background: rgb(45, 183, 68);  /* Màu thanh cuộn */
+//     border-radius: 10px;
+// }
+
+// /* Khi hover vào thanh cuộn */
+// .feature-product-list-wrapper::-webkit-scrollbar-thumb:hover {
+//     background: #555;  /* Màu thanh cuộn khi hover */
+// }
+/* Wrapper cho phần sản phẩm */
+/* Wrapper cho phần sản phẩm */
+// .feature-product-list-wrapper {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: flex-start;
+//     background-color: #fff;
+//     border-radius: 8px;
+//     // padding: 15px;
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//     border: 1px solid #ddd;
+//     height: 750px; /* Giới hạn chiều cao */
+//     overflow: hidden; /* Ẩn phần tử tràn ra ngoài */
+//     position: relative;
+//   }
+//   .title-area {
+//     overflow: hidden; /* Ẩn phần tử tràn ra ngoài */
+//     background-color: #ffffff;
+//     z-index: 10;
+//     width: 100%;
+//   }
+  
+//   /* Container chứa các sản phẩm */
+//   .feature-product-list-wrapper .product-container {
+//     display: flex;
+//     flex-direction: column;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     transition: transform 2s ease; /* Tạo hiệu ứng chuyển động */
+//   }
+  
+//   /* Đảm bảo các sản phẩm này được ẩn khi chạy vào vùng tiêu đề */
+//   .single-product-list.hidden {
+//     opacity: 0; /* Ẩn sản phẩm */
+//     pointer-events: none; /* Ngừng tương tác */
+//   }
+  
+//   /* Thiết lập khoảng cách giữa các sản phẩm */
+//   .single-product-list {
+//     margin-bottom: 15px; /* Khoảng cách giữa các sản phẩm */
+//     transition: opacity 0.3s ease; /* Mượt mà khi ẩn */
+//   }
+  /* Wrapper cho phần sản phẩm */
+.feature-product-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: #fff;
+    border-radius: 8px;
+    // padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    height: 770px; /* Giới hạn chiều cao */
+    overflow: hidden; /* Ẩn phần tử tràn ra ngoài */
+    position: relative;
+  }
+  
+  /* Container chứa các sản phẩm */
+  .feature-product-list-wrapper .product-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 90px;
+    left: 0;
+    right: 0;
+    transition: transform 1s ease; /* Tạo hiệu ứng chuyển động */
+  }
+  
+  /* Đảm bảo các sản phẩm này được ẩn khi chạy vào vùng tiêu đề */
+  .single-product-list.hidden {
+    opacity: 0; /* Ẩn sản phẩm */
+    pointer-events: none; /* Ngừng tương tác */
+  }
+  
+  /* Thiết lập khoảng cách giữa các sản phẩm */
+  .single-product-list {
+    margin-bottom: 15px; /* Khoảng cách giữa các sản phẩm */
+    transition: opacity 0.3s ease; /* Mượt mà khi ẩn */
+  }
+    .title-area {
+    overflow: hidden; /* Ẩn phần tử tràn ra ngoài */
+    background-color: #ffffff;
+    z-index: 10;
+    width: 100%;
+  }
+  .titlee {
+    text-align: center;
+  }
