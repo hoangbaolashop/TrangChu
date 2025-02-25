@@ -205,7 +205,7 @@ const Header = () => {
                                   </div>
                                   <div className="information">
                                     <span>Số điện thoại đường dây nóng</span>
-                                    <a href="#"><p>0972 138 493</p></a>
+                                    <a href="#"><p>0564 942 086</p></a>
                                   </div>
                                 </div>
                                 {/* search */}
@@ -591,11 +591,11 @@ const Header = () => {
               <div className="contact-area">
                 <div className="phone">
                   <i className="fa-light fa-headset" />
-                  <a href="#">0972 138 493</a>
+                  <a href="#">0564 942 086</a>
                 </div>
                 <div className="phone">
                   <i className="fa-light fa-envelope" />
-                  <a href="#">0972 138 493</a>
+                  <a href="#">0564 942 086</a>
                 </div>
               </div>
               {!isAuthenticated ? <>

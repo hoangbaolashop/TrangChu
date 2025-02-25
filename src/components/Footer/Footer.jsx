@@ -15,14 +15,14 @@ const Footer = () => {
                 <div className="footer-main-content-wrapper pb--70">
                   {/* single footer area wrapper */}
                   <div className="single-footer-wized">
-                    <h3 className="footer-title">Giới thiệu về công ty</h3>
+                    <h3 className="footer-title">Giới thiệu về Tigar</h3>
                     <div className="call-area">
                       <div className="icon">
                         <i className="fa-solid fa-phone-rotary" />
                       </div>
                       <div className="info">
                         <span>Có thắc mắc? Gọi cho chúng tôi 24/7</span>
-                        <a href="#" className="number">+(84) 972 138 493</a>
+                        <a href="#" className="number">+(84) 564 942 086</a>
                       </div>
                     </div>
                     <div className="opening-hour">
@@ -114,13 +114,13 @@ const Footer = () => {
                 <div className="col-lg-12">
                   <div className="copyright-between-1">
                     <p className="disc">
-                    Bản quyền 2024 <a href="https://shopbandodientu.dokhactu.site/" target="_blank">©WebShop NA KT</a>. Bảo lưu mọi quyền.
+                    Bản quyền 2024 <a href="https://www.tigarboardgame.com/" target="_blank">©tigarboardgame</a>. Bảo lưu mọi quyền.
                     </p>
-                    <a href="#" className="playstore-app-area">
+                    {/* <a href="#" className="playstore-app-area">
                       <span>Tải ứng dụng</span>
                       <img src={payment02} alt="" />
                       <img src={payment03} alt="" />
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
