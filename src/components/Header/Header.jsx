@@ -162,7 +162,7 @@ const Header = () => {
                       {/* <p class="marquee-text">Chào mừng bạn {user.fullName} đến với&nbsp;WebShop Khắc Tú!</p> */}
                       {!isAuthenticated ? 
                       <>
-                        <p class="marquee-text">Hãy đăng ký tài khoản để nhận ngay 3 lượt quay số trúng thưởng 🧧🧧🧧</p>
+                        <p class="marquee-text">Hãy đăng ký tài khoản để nhận ngay 1 lượt quay số trúng thưởng 🧧</p>
                         <div className="follow-us-social" style={{cursor: "pointer"}} onClick={() => navigate('/login-web')}>
                           <BiLogIn size={25} style={{color: "white"}} /> &nbsp;&nbsp;
                           <span>Đăng nhập</span>                      
@@ -170,7 +170,7 @@ const Header = () => {
                       </> 
                       : 
                       <>
-                        <p class="marquee-text">Chào mừng bạn {user.fullName} đến với&nbsp;WebShop Khắc Tú! &nbsp;&nbsp; 
+                        <p class="marquee-text">Chào mừng bạn {user.fullName} đến với&nbsp;Tigarboardgame! &nbsp;&nbsp; 
                           {/* {user.quayMayManCount > 0 ? <><span>Bạn đang có {user.quayMayManCount} lượt quay số trúng thưởng</span></> : ''} */}
                         </p>
                         {/* <p class="marquee-text">Số người đang online: {onlineUsers}</p> */}
