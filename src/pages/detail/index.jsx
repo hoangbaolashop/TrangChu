@@ -590,7 +590,7 @@ const DetailProduct = () => {
                                                     </span> {dataDetailSP?.IdHangSX.TenHangSX} </span>
                                                 <span className="catagorys product-unipue mb--10">
                                                     <span style={{fontWeight: 400, marginRight: '10px'}}>
-                                                    Loại sản phẩm: </span> 
+                                                    Loại game: </span> 
                                                     {dataDetailSP?.IdLoaiSP?.map((item, index) => {
                                                         return (
                                                             <span key={index}>  &nbsp;

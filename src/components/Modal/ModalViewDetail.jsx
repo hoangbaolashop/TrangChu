@@ -291,7 +291,7 @@ const ModalViewDetail = (props) => {
                                             <div className="product-uniques">                                
                                                 <span className="sku product-unipue" ><span style={{fontWeight: "400"}}>Thương hiệu: </span> {dataDetailSP?.IdHangSX.TenHangSX}</span>
                                                 <span className="catagorys product-unipue">
-                                                    <span style={{fontWeight: "400"}}>Loại sản phẩm:
+                                                    <span style={{fontWeight: "400"}}>Thể Loại game:
                                                     {dataDetailSP?.IdLoaiSP?.map((item, index) => {
                                                         return (
                                                             <span key={index} style={{fontWeight: "400"}}> &nbsp;

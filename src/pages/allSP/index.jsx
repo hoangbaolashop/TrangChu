@@ -245,7 +245,7 @@ const AllProduct = () => {
                             </div>
                             <div className="single-filter-box">
                                 <h5 className="title">
-                                    Lọc theo loại sản phẩm                                   
+                                    Lọc theo thể loại game                                   
                                 </h5>
                                 <div className="filterbox-body">
                                     <div className="category-wrapper ">

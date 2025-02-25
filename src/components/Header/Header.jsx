@@ -379,7 +379,7 @@ const Header = () => {
                       <div className="right-btn-area header-five">
                         {/* <a href="#" className="btn-narrow">Nhận ngay giảm giá</a> */}
                         <button className="rts-btn btn-primary">
-                        Nhận ngay giảm giá 30%
+                        Giảm giá
                           <span>Sale</span>
                         </button>
                       </div>
