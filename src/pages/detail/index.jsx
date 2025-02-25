@@ -1125,7 +1125,7 @@ const DetailProduct = () => {
                     <div className="information">
                         <h4 className="title">Giá tốt nhất &amp; Ưu đãi</h4>
                         <p className="disc">
-                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
+                         Tigar cung cấp mức giá cạnh tranh nhất thị trường và nhiều ưu đãi hấp dẫn
                         </p>
                     </div>
                     </div>
@@ -1142,9 +1142,9 @@ const DetailProduct = () => {
                         </svg>
                     </div>
                     <div className="information">
-                        <h4 className="title">Chính sách hoàn trả 100%</h4>
+                        <h4 className="title">Chính sách đổi trả</h4>
                         <p className="disc">
-                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
+                        Tigar luôn hỗ trợ boardgamer đổi trả khi game gặp vấn đề
                         </p>
                     </div>
                     </div>
@@ -1167,7 +1167,7 @@ const DetailProduct = () => {
                     <div className="information">
                         <h4 className="title">Hỗ trợ 24/7</h4>
                         <p className="disc">
-                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
+                        Hỗ trợ/hướng dẫn game 24/7 qua Zalo 092 616 9374
                         </p>
                     </div>
                     </div>
@@ -1186,9 +1186,9 @@ const DetailProduct = () => {
                         </svg>
                     </div>
                     <div className="information">
-                        <h4 className="title">Khuyến mãi lớn Khuyến mãi hàng ngày</h4>
+                        <h4 className="title">Hậu mãi</h4>
                         <p className="disc">
-                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
+                        Luôn có nhiều chương trình ưu đãi hậu mãi cho khách hàng mới và khách VIP
                         </p>
                     </div>
                     </div>
