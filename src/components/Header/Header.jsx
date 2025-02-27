@@ -204,8 +204,8 @@ const Header = () => {
                                     <i className="fa-regular fa-phone-volume" />
                                   </div>
                                   <div className="information">
-                                    <span>Số điện thoại đường dây nóng</span>
-                                    <a href="#"><p>0564 942 086</p></a>
+                                    <span>Zalo</span>
+                                    <a href="#"><p>092.616.9374</p></a>
                                   </div>
                                 </div>
                                 {/* search */}
