@@ -946,7 +946,7 @@ const DetailProduct = () => {
                                 <img src={svg03} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Miễn phí vận chuyển toàn thế giới cho tất cả các đơn hàng trên 1.000.000d</p>
+                                <p>Miễn phí vận chuyển toàn quốc cho tất cả các đơn hàng trên 2.000.000d</p>
                                 </div>
                             </div>
                             </div>

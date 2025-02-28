@@ -208,7 +208,7 @@ const MyCart = () => {
                         </div>
                         <div className="subtotal">
                             <span>Phí giao hàng</span>
-                            <h6 className="price" style={{color: "green",}}>Miễn phí vận chuyển</h6>
+                            <h6 className="price" style={{color: "green",}}>Phí vận chuyển</h6>
                         </div>
                         <div className="bottom">
                             <div className="wrapper">
