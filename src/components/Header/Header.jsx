@@ -571,8 +571,10 @@ const Header = () => {
                               <a 
                               onClick={() => {
                                 // navigate(`/all-product-category?IdLoaiSP=${item._id}`)
-                                window.location.href = `/all-product-category?IdLoaiSP=${item._id}`;
                                 message.success(`Trang sản phẩm của ${item.TenLoaiSP}`)
+                                setTimeout(() => {
+                                  window.location.href = `/all-product-category?IdLoaiSP=${item._id}`;
+                                }, 1000);
                               }} 
                               className="menu-item"                       
                               >
