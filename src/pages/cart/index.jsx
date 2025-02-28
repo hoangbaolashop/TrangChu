@@ -176,9 +176,9 @@ const MyCart = () => {
                                 onChange={(e) => setVoucherCode(e.target.value)}  // Cập nhật voucherCode khi người dùng nhập
                             />
                             {/* <Input placeholder="Basic usage" /> */}
-                            <button style={{marginLeft: "50px"}} onClick={handleApplyVoucher} className="rts-btn btn-primary">
+                           <p> <button style={{marginLeft: "50px"}} onClick={handleApplyVoucher} className="rts-btn btn-primary">
                                 Apply Voucher
-                            </button>                       
+                            </button>  </p>                     
                         </div>
                         </>
                         ) : (
