@@ -340,7 +340,7 @@ const Checkout = () => {
                                         checked={paymentMethod === 'online'}
                                         // onChange={handlePaymentChange}
                                     />
-                                    <span style={{padding: "10px"}}>Thanh toán trực tuyến (bảo trì, sắp ra mắt)</span>
+                                    <span style={{padding: "10px"}}>Thanh toán trực tuyến (đang bảo trì)</span>
                                 </label>
                             </div>
                             <br/>
@@ -354,7 +354,7 @@ const Checkout = () => {
                                         onChange={handlePaymentChange}
                                     />
                                     <span style={{padding: "10px"}}>Nhận hàng và Thanh toán</span>
-                                    <img width={300} src={logomomo} alt="logo-momo" className="logomomo" />
+                                    
                                 </label>
                             </div>                           
                         </div>
