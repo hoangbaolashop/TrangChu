@@ -679,11 +679,13 @@ const DetailProduct = () => {
                                     </table>
                                 </div>
                                 <p className="cansellation mt--20">
-                                    <span> Trả hàng/hủy hàng:</span> 
-                                    Không áp dụng đổi hàng đã giao cho khách hàng. Nếu phát hiện vấn đề về chất lượng hoặc số lượng sản phẩm, khách hàng có thể trả hàng/hủy đơn hàng khi có mặt người giao hàng.
+                                    <span> Hỗ trợ sau mua hàng:</span> 
+                                    <span>Tigarboardgame hỗ trợ đổi hàng trong các trường hợp có vấn đề về sản phẩm. </span> 
+                                    Có vấn đề về game/thái độ phục vụ xin vui lòng liên hệ Zalo 092 616 9374 hoặc 0564 942 086 để gặp quản lý shop
                                 </p>
                                 <p className="note">
-                                    <span>Lưu ý:</span> Thời gian giao sản phẩm có thể thay đổi tùy theo tình trạng còn hàng trong kho.
+                                    <span>Lưu ý:</span> Thời gian giao sản phẩm có thể thay đổi tùy theo tình trạng còn hàng trong kho. Riêng các game có sub thời gian ước tính gửi hàng sẽ vào khoảng 2-5 ngày, game order từ 10-15 ngày
+                                     (thời gian từ lúc gửi đến lúc giao hàng sẽ phụ thuộc vào khu vực khách hàng)
                                 </p>
                                 <div                           
                                     className="youtube-video"
@@ -924,13 +926,13 @@ const DetailProduct = () => {
                     <div className="col-xl-3 col-lg-4 col-md-4 offset-xl-1  rts-sticky-column-item" style={{zIndex: 100}}>
                         <div className="theiaStickySidebar">
                             <div className="shop-sight-sticky-sidevbar  mb--20">
-                            <h6 className="title">Các ưu đãi có sẵn</h6>
+                            <h6 className="title">Các ưu đãi có sẵn tại Tigarboardgame</h6>
                             <div className="single-offer-area">
                                 <div className="icon">
                                 <img src={svg01} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Nhận ngay chiết khấu %5 cho đơn hàng Flipkart đầu tiên khi sử dụng Điều khoản & Điều kiện của Ekomart UPI</p>
+                                <p>Voucher VIP cho Boardgamer VIP có tổng giá trị đã mua đặt 5 triệu</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
@@ -938,7 +940,7 @@ const DetailProduct = () => {
                                 <img src={svg02} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Giảm giá cố định 500K cho các giao dịch thanh toán trả góp bằng thẻ tín dụng Citi khi đặt hàng từ 9M trở lên Điều khoản và điều kiện</p>
+                                <p>Tặng thêm 1 minigame trị giá từ 5-10% cho đơn hàng từ 2 triệu</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
@@ -946,7 +948,7 @@ const DetailProduct = () => {
                                 <img src={svg03} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Miễn phí vận chuyển toàn quốc cho tất cả các đơn hàng trên 2.000.000d</p>
+                                <p>Miễn phí vận chuyển toàn quốc cho tất cả các đơn hàng trên 1.000.000d</p>
                                 </div>
                             </div>
                             </div>
