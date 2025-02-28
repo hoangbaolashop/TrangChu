@@ -926,13 +926,15 @@ const DetailProduct = () => {
                     <div className="col-xl-3 col-lg-4 col-md-4 offset-xl-1  rts-sticky-column-item" style={{zIndex: 100}}>
                         <div className="theiaStickySidebar">
                             <div className="shop-sight-sticky-sidevbar  mb--20">
-                            <h6 className="title">Các ưu đãi có sẵn tại Tigarboardgame</h6>
+                            <h6 className="title">Cách thức thuê boardgame</h6>
                             <div className="single-offer-area">
                                 <div className="icon">
                                 <img src={svg01} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Voucher VIP cho Boardgamer VIP có tổng giá trị đã mua đạt 10 triệu</p>
+                                <p>Khách chọn phân loại "Thuê game" và thanh toán</p>
+                                <p>Tiền cọc sẽ là tiền thanh toán game, sẽ hoàn lại khi khách trả game</p>
+                                
                                 </div>
                             </div>
                             <div className="single-offer-area">
@@ -940,7 +942,8 @@ const DetailProduct = () => {
                                 <img src={svg02} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Tặng thêm 1 minigame trị giá từ 5-10% cho đơn hàng từ 2 triệu</p>
+                                <p>Giá thuê game 10% giá trị game/3 ngày, +1.5% cho mỗi ngày tiếp theo</p>
+                                <p>Thời gian thuê sẽ bắt đầu tính từ ngày kế tiếp ngày thuê và kết thúc vào ngày trả game</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
@@ -948,7 +951,7 @@ const DetailProduct = () => {
                                 <img src={svg03} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Miễn phí vận chuyển toàn quốc cho tất cả các đơn hàng trên 1.000.000d</p>
+                                <p>Hỗ trợ giao hàng và nhận lại game tận nơi toàn khu vực TP.HCM, phí giao nhận sẽ tuỳ khu vực</p>
                                 </div>
                             </div>
                             </div>
