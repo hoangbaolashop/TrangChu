@@ -470,8 +470,8 @@ const Header = () => {
                                   
                                   <div className="sub-total-cart-balance">                                          
                                     <div className="button-wrapper d-flex align-items-center justify-content-between">
-                                      <a onClick={() => navigate('/mycart')} className="rts-btn btn-primary border-only">Xem chi tiết</a>
-                                      <a onClick={() => navigate('/checkout')} className="rts-btn btn-primary border-only">Đặt hàng</a>
+                                      <a onClick={() => navigate('/mycart')} href='/mycart' className="rts-btn btn-primary border-only">Xem chi tiết</a>
+                                      <a onClick={() => navigate('/checkout')} href='/checkout' className="rts-btn btn-primary border-only">Đặt hàng</a>
                                     </div>
                                   </div>
                                 </>
