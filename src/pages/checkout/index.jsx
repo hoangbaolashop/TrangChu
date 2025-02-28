@@ -322,7 +322,7 @@ const Checkout = () => {
                         </div>
                         <div className="top-wrapper">
                             <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Phí vận chuyển</div>
-                            <div className="price" style={{fontSize: "17px", fontWeight: "500", color: "green"}}>20.000-30.000đ</div>                            
+                            <div className="price" style={{fontSize: "17px", fontWeight: "500", color: "green"}}>Miễn phí cho đơn từ 1 triệu</div>                            
                         </div>
                         <div className="top-wrapper">
                             <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Cần thanh toán</div>
