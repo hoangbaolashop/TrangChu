@@ -1,4 +1,4 @@
-import { Button, Input, InputNumber, message, notification, Popconfirm, Tooltip } from "antd";
+import { Button, Col, Input, InputNumber, message, notification, Popconfirm, Row, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
@@ -168,17 +168,23 @@ const MyCart = () => {
                         })}
 
                         <div style={{display: "flex", padding: "40px"}}>
-                            <input   
-                            style={{border: "2px solid green", height: "50px", width: "400px", borderRadius: "10px"}}                             
+                        <Row style={{display: "flex", justifyContent: "flex-end", padding: "20px"}} gutter={[20,20]}>
+                            <Col md={24} xs={24} sm={24}>
+                                <input   
+                                style={{border: "2px solid green", height: "50px", width: "400px", borderRadius: "10px"}}                             
                                 type="text"
                                 placeholder="Nhập mã giảm giá vào đây..."
                                 value={voucherCode}  // Liên kết với state voucherCode
                                 onChange={(e) => setVoucherCode(e.target.value)}  // Cập nhật voucherCode khi người dùng nhập
-                            />
-                            {/* <Input placeholder="Basic usage" /> */}
-                           <p> <button style={{marginLeft: "50px"}} onClick={handleApplyVoucher} className="rts-btn btn-primary">
-                                Apply Voucher
-                            </button>  </p>                     
+                                />
+                            </Col>
+                            <Col md={24} xs={24} sm={24}>
+                                {/* <Input placeholder="Basic usage" /> */}
+                                <button style={{marginLeft: "50px"}} onClick={handleApplyVoucher} className="rts-btn btn-primary">
+                                    Apply Voucher
+                                </button>                       
+                            </Col>
+                        </Row>
                         </div>
                         </>
                         ) : (
