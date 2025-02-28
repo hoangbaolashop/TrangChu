@@ -75,127 +75,63 @@ const CauHoiThuongGap = () => {
             </div>
         </div>      
 
-        <div className="rts-faq-area-start rts-section-gap">
-            <div className="container">
-                <div className="row g-5">
-                <div className="col-lg-4">
-                    <div className="faq-content-left-main-wrapper">
-                        <h3 className="title" style={{textAlign: "center", color: "navy"}}>Bạn có thể đặt câu hỏi ở đây.</h3>
-                        <Row>
-                            <Col span={24} md={24} xs={24} sm={24} lg={24}>
-                                <Form
-                                // className="contact-form-1"
-                                form={form}
-                                layout="vertical"
-                                onFinish={submitCauHoi}   
-                                >
-                                    <Row>
-                                        <Col span={24} md={24} xs={24} sm={24} lg={24}>
-                                            <div className="single">
-                                                <Form.Item
-                                                    label="Họ và Tên"
-                                                    name="fullName"
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message: 'Vui lòng nhập đầy đủ thông tin!',
-                                                        },
-                                                        {
-                                                            required: false,
-                                                            pattern: new RegExp(/^[A-Za-zÀ-ỹ\s]+$/),
-                                                            message: 'Không được nhập số!',
-                                                        },
-                                                    ]}
-                                                    hasFeedback
-                                                >
-                                                    <Input style={{fontSize: "16px"}} placeholder="Nhập họ và tên của bạn" />
-                                                </Form.Item>
-                                            </div>
-                                        </Col>
-                                        <Col span={24} md={24} xs={24} sm={24} lg={24}>
-                                            <div className="single">
-                                                <Form.Item
-                                                    label="Email"                                        
-                                                    name="email"                                                
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message: 'Vui lòng nhập đầy đủ thông tin!',
-                                                        },
-                                                        {
-                                                            type: "email",
-                                                            message: 'Vui lòng nhập đúng định dạng địa chỉ email',
-                                                        },
+        <!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thuê Xe Máy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Thuê Xe Máy</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#xe">Xe</a></li>
+                <li><a href="#lienhe">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </header>
 
-                                                    ]}
-                                                    hasFeedback
-                                                ><Input style={{fontSize: "16px"}} placeholder="Nhập email của bạn" />
-                                                </Form.Item>
-                                            </div>                                        
-                                        </Col>
-                                        <Col span={24} md={24} xs={24} sm={24} lg={24}>
-                                            <div className="single">
-                                                <Form.Item
-                                                    label="Nhập câu hỏi?"
-                                                    name="cauHoi"
-                                                    rules={[{ required: true, message: 'Nhập câu hỏi?' }]}
-                                                >
-                                                <   Input.TextArea style={{fontSize: "16px"}} rows={4} placeholder="Nhập câu hỏi?" />
-                                                </Form.Item>
-                                            </div>
-                                        </Col>
-                                        <Col span={24} md={24} xs={24} sm={24} lg={24}>
-                                            <button type='button' loading={loading} onClick={() => form.submit()} className="rts-btn btn-primary mt--20" style={{fontSize: "20px"}}>Gửi câu hỏi?</button>
-                                        </Col>
-                                    </Row>   
-                                </Form>                            
-                            </Col>    
-                        </Row>              
-                    </div>
-                </div>
-                <div className="col-lg-7 offset-lg-1">
-                    <div className="accordion-main-area-wrapper-style-1">
-                    <div className="accordion" id="accordionExample">
-                        <h3 className="title" style={{textAlign: "center", color: "navy"}}>Dưới đây là các câu trả lời</h3>
-                        {dataCauHoi?.length > 0 ? dataCauHoi?.map((item, index) => {
-                            return (
-                                <>
-                                <div key={item?._id} className="accordion-item">
-                                    <h2 className="accordion-header">
-                                        <button className="accordion-button" type="button" data-bs-toggle='collapse' data-bs-target={`#collapseOne${item?._id}`} aria-expanded="true" aria-controls={`collapseOne${item?._id}`}>
-                                        {item?.cauHoi}?
-                                        </button>
-                                    </h2>
-                                    <div id={`collapseOne${item?._id}`} className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                                        <div className="accordion-body">
-                                        {item?.cauTraLoi ? <div style={{color: "brown"}} className="truncate"  dangerouslySetInnerHTML={{ __html: item?.cauTraLoi }} /> : <span style={{color: "gray"}}>⚠ chưa có câu trả lời</span> }
-                                        </div>
-                                    </div>
-                                </div>
-                                </>
-                            )
-                        }) : 'chưa có câu hỏi và câu trả lời nào'}       
-                        <br/>                 
-                       <Pagination          
-                        style={{justifyContent: "center"}}                               
-                            responsive
-                            current={currentCauHoi}
-                            pageSize={pageSizeCauHoi}
-                            total={totalCauHoi}
-                            onChange={(p, s) => handleOnchangePage({ current: p, pageSize: s })} // Gọi hàm onChangePagination khi thay đổi trang
-                            // onChange={(page, pageSize) => onChangePagination(page, pageSize)}  // Gọi hàm onChangePagination khi thay đổi trang
-                            showSizeChanger={true}
-                            showQuickJumper={true}
-                            showTotal={(total, range) => (
-                                <div>{range[0]}-{range[1]} trên {total} câu hỏi</div>
-                            )}
-                            locale={{
-                                items_per_page: 'dòng / trang',  // Điều chỉnh "items per page"
-                                jump_to: 'Đến trang số',  // Điều chỉnh "Go to"
-                                jump_to_confirm: 'Xác nhận',  // Điều chỉnh "Go"
-                                page: '',  // Bỏ hoặc thay đổi chữ "Page" nếu cần
-                            }}
-                        /> 
+    <section id="xe" class="xe-container">
+        <h2>Các loại xe</h2>
+        <div class="xe-item">
+            <img src="xe1.jpg" alt="Xe 1">
+            <h3>Xe tay ga 1</h3>
+            <p>Giá: 150.000 VND/ngày</p>
+            <button class="thue-btn" data-tenxe="Xe tay ga 1" data-gia="150000">Thuê ngay</button>
+        </div>
+        <div class="xe-item">
+             <img src="xe2.jpg" alt="Xe 2">
+            <h3>Xe số 1</h3>
+            <p>Giá: 100.000 VND/ngày</p>
+            <button class="thue-btn" data-tenxe="Xe số 1" data-gia="100000">Thuê ngay</button>
+        </div>
+        <div class="xe-item">
+            <img src="xe3.jpg" alt="Xe 3">
+            <h3>Xe tay ga 2</h3>
+            <p>Giá: 200.000 VND/ngày</p>
+            <button class="thue-btn" data-tenxe="Xe tay ga 2" data-gia="200000">Thuê ngay</button>
+        </div>
+        </section>
+
+    <section id="lienhe" class="lienhe-container">
+        <h2>Liên hệ</h2>
+        <p>Địa chỉ: 123 Đường ABC, Quận XYZ, Thành phố HCM</p>
+        <p>Điện thoại: 0123456789</p>
+        <p>Email: info@thuexemay.com</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Thuê Xe Máy</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+                        
                     </div>
                     </div>
                 </div>
