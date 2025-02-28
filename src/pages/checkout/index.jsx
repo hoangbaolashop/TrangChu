@@ -18,7 +18,7 @@ const Checkout = () => {
     const [loading, setLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [idDH, setIdDH] = useState(null)
-    const [soTienCanTT, setsoTienCanTT] = useState(null)
+    const [soTienCanTT, setsoTienCanTT] = useState(0)
     const [paymentMethod, setPaymentMethod] = useState('online'); // Trạng thái mặc định là thanh toán online
 
     const onFinishFailed = (errorInfo) => {
@@ -468,7 +468,7 @@ const Checkout = () => {
             <h4 style={{color: "red", textAlign: "center"}}>Nếu đóng đi đơn hàng sẽ ở trạng thái chưa được thanh toán</h4>
             <h4 style={{color: "red", textAlign: "center"}}>Vui lòng điền đầy đủ nội dung theo yêu cầu nếu bạn nhập bằng tay</h4>
             <div style={{backgroundColor: "lightgray", padding: "15px", borderRadius: "10px"}}>
-                <h4 style={{color: "navy", textAlign: "center", lineHeight: "1"}}>Số tiền cần thanh toán: {soTienCanTT.toLocaleString()}đ</h4>
+                <h4 style={{color: "navy", textAlign: "center", lineHeight: "1"}}>Số tiền cần thanh toán: {soTienCanTT ? soTienCanTT.toLocaleString() : 0}đ</h4>
                 <h4 style={{color: "navy", textAlign: "center", lineHeight: "1"}}>
                     Nội dung chuyển khoản: DH{idDH}
                     <Button
@@ -488,7 +488,7 @@ const Checkout = () => {
             <br/>
             <h3 style={{color: "red", textAlign: "center"}}>Quét mã bên dưới để tiến hành thanh toán nhanh</h3>
             <div style={{textAlign: "center"}}>
-                <img width={500} src={`https://img.vietqr.io/image/970432-7204011995-print.png?amount=${soTienCanTT}&addInfo=DH${idDH}&accountName=LE+HUYNH+DANG+HOANG+BAO`} alt="QR Code" />
+                <img width={500} src={`https://img.vietqr.io/image/970432-7204011995-print.png?amount=${soTienCanTT || 0}&addInfo=DH${idDH}&accountName=LE+HUYNH+DANG+HOANG+BAO`} alt="QR Code" />
             </div>
         </Modal>
 
