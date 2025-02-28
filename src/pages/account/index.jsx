@@ -11,7 +11,7 @@ import { handleLogout } from "../../services/loginKHAPI";
 import { doLogoutAction } from "../../redux/accKH/accountSlice";
 import { doLogoutActionCart } from "../../redux/order/orderSlice";
 import { doLoginActionWishlist } from "../../redux/wishlist/wishlistSlice";
-import { FaEye, FaSave } from "react-icons/fa";
+import { FaEye, FaLink, FaSave } from "react-icons/fa";
 import Password from "antd/es/input/Password";
 import bcrypt from 'bcryptjs-react';
 import { CheckCircleOutlined, DeleteOutlined, ExclamationCircleOutlined, EyeOutlined, HourglassOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
@@ -208,6 +208,10 @@ const Account = () => {
         setIsModalVisible(true); // Mở modal
     };
 
+    const linkTTGH = (item) => {
+        window.open(item, '_blank');
+    }
+
     const findAllOrder = async () => {
         setLoadingOrder(true)
         let query = `page=${current}&limit=${pageSize}&idKH=${customerId}`
@@ -316,6 +320,9 @@ const Account = () => {
           key: 'action',
           render: (_, record) => (
             <Space size="middle">
+                <Tooltip title="Xem tình trạng giao hàng" color={'green'} key={'green'}>
+                    <FaLink onClick={() => linkTTGH(record?.urlTTGH)} size={20} style={{color: "navy", fontWeight: "bold", cursor: "pointer", fontSize: "18px"}}  />
+                </Tooltip>
                 <Tooltip title="Xem đơn hàng này" color={'green'} key={'green'}>
 
                     <FaEye size={23} style={{color: "green", fontWeight: "bold", cursor: "pointer", fontSize: "18px"}} 
