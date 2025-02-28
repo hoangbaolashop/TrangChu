@@ -501,7 +501,7 @@ const DetailProduct = () => {
                                                 
                                                 <div className="variable-product-type mb--15">
                                                 <div className="single-select">
-                                                    <span className="label">Size</span>
+                                                    <span className="label">Phân loại</span>
                                                     <Select
                                                         disabled={soLuongTonKho === 0 ? true : false} 
                                                         placeholder="CHỌN SIZE"
@@ -586,7 +586,7 @@ const DetailProduct = () => {
                                                 </div>
                                                 <div className="product-uniques">
                                                 <span className="sku product-unipue mb--10"><span style={{fontWeight: 400, marginRight: '10px'}}>
-                                                    Thương hiệu: 
+                                                    Shop: 
                                                     </span> {dataDetailSP?.IdHangSX.TenHangSX} </span>
                                                 <span className="catagorys product-unipue mb--10">
                                                     <span style={{fontWeight: 400, marginRight: '10px'}}>
@@ -646,7 +646,7 @@ const DetailProduct = () => {
                                 <button className="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Thông tin bổ sung</button>
                             </li>
                             <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="profile-tabt" data-bs-toggle="tab" data-bs-target="#profile-tab-panes" type="button" role="tab" aria-controls="profile-tab-panes" aria-selected="false">Đánh giá của khách hàng ({totalCmt})</button>
+                                <button className="nav-link" id="profile-tabt" data-bs-toggle="tab" data-bs-target="#profile-tab-panes" type="button" role="tab" aria-controls="profile-tab-panes" aria-selected="false">Đánh giá của boardgamer ({totalCmt})</button>
                             </li>
                             </ul>
                             <div className="tab-content" id="myTabContent">
@@ -932,7 +932,7 @@ const DetailProduct = () => {
                                 <img src={svg01} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Voucher VIP cho Boardgamer VIP có tổng giá trị đã mua đặt 5 triệu</p>
+                                <p>Voucher VIP cho Boardgamer VIP có tổng giá trị đã mua đạt 10 triệu</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
