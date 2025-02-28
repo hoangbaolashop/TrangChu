@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { getThongBaoThanhToan, orderDH, orderDHVNPay } from "../../services/orderAPI";
 import { useEffect, useState } from "react";
 import { doResetCartAfterOrder, setOrderPlaced } from "../../redux/order/orderSlice";
+import logomomo from '/assets/images/logomomo.png'
+
 const Checkout = () => {
 
     const [form] = Form.useForm()
@@ -320,7 +322,7 @@ const Checkout = () => {
                         </div>
                         <div className="top-wrapper">
                             <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Phí vận chuyển</div>
-                            <div className="price" style={{fontSize: "17px", fontWeight: "500", color: "green"}}>Miễn phí giao hàng</div>                            
+                            <div className="price" style={{fontSize: "17px", fontWeight: "500", color: "green"}}>20.000-30.000đ</div>                            
                         </div>
                         <div className="top-wrapper">
                             <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Cần thanh toán</div>
@@ -352,6 +354,7 @@ const Checkout = () => {
                                         onChange={handlePaymentChange}
                                     />
                                     <span style={{padding: "10px"}}>Nhận hàng và Thanh toán</span>
+                                    <img width={300} src={logomomo} alt="logo-momo" className="logomomo" />
                                 </label>
                             </div>                           
                         </div>
