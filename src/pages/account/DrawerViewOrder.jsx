@@ -73,6 +73,7 @@ const DrawerViewOrder = (props) => {
                 })}
                 <p>Địa chỉ giao hàng: <span style={{color: "navy"}}>{dataViewDH?.address}</span></p>
                 <p>Số điện thoại đặt hàng: <span style={{color: "navy"}}>{dataViewDH?.phone}</span></p>
+                <li><a href="/cauhoithuonggap">Nhấn vào đây để theo dõi hành trình đơn hàng</a></li>
                 </div>
             </div>
 
