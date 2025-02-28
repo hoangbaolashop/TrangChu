@@ -234,7 +234,7 @@ const Header = () => {
 
                                     <div className="btn-border-only cart category-hover-header" style={{zIndex: "101"}}>
                                         <i className="fa-sharp fa-regular fa-cart-shopping" />
-                                        <span className="text">Giỏ hàng</span>
+                                        <span a onClick={() => navigate('/mycart')} className="text">Giỏ hàng</span>
                                         <span className="number">{order.totalQuantity}</span>
 
                                         <div className="category-sub-menu card-number-show">
