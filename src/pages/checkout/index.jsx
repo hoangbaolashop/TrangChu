@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { getThongBaoThanhToan, orderDH, orderDHVNPay } from "../../services/orderAPI";
 import { useEffect, useState } from "react";
 import { doResetCartAfterOrder, setOrderPlaced } from "../../redux/order/orderSlice";
-import logomomo from '/assets/images/logomomo.png'
 
 const Checkout = () => {
 
