@@ -247,7 +247,7 @@ const LuckyWheel = () => {
               </span>
           </p>
         ) : (
-          <p>Nếu trúng game bạn nhớ ghi mã quà tặng ở phần ghi chú để nhận quà nhé!</p>
+          <p>Nếu trúng quà tặng hiện vật bạn nhớ ghi mã quà tặng ở phần ghi chú để nhận quà nhé!</p>
         )}
       </Modal>
     </div>
