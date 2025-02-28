@@ -1007,7 +1007,7 @@ const DetailProduct = () => {
                                     </div>
                                     </> 
                                     : <></>}                                    
-                                    <img src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
+                                    <img style={{cursor: "pointer"}} onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
                                   </a>
                                   <div className="action-share-option">
                                     <div onClick={() => handleAddWishList()} className="single-action openuptip message-show-action" data-flow="up" title="Danh sách yêu thích">

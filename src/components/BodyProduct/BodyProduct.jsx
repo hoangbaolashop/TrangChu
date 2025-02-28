@@ -215,7 +215,7 @@ const BodyProduct = (props) => {
                                                 </div>
                                                 </> 
                                                 : <></>}
-                                                <img style={{height: "300px"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
+                                                <img  onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} style={{height: "300px", cursor: "pointer"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
                                                 </a>
                                                 <div className="action-share-option">
                                                 <div onClick={() => handleAddWishList(item, item.sizes[0].price, item.sizes[0].size)}  className="single-action openuptip message-show-action" data-flow="up" title="Thêm vào danh sách yêu thích">

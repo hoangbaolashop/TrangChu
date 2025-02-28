@@ -696,8 +696,8 @@ const Home = () => {
                                     </div>
                                     </> 
                                     : <></>}
-                                    <img style={{height: "240px"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
-                                  </a>
+                                    <img onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} style={{height: "240px", cursor:"pointer"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
+                                    </a>
                                   <div className="action-share-option">
                                     <div onClick={() => handleAddWishList(item, item.sizes[0].price, item.sizes[0].size)} className="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
                                       <i className="fa-light fa-heart" />
