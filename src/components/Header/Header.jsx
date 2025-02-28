@@ -571,9 +571,10 @@ const Header = () => {
                               <a 
                               onClick={() => {
                                 message.success(`Trang sản phẩm của ${item.TenLoaiSP}`)
-                                navigate(`/all-product-category?IdLoaiSP=${item._id}`)
+                                // navigate(`/all-product-category?IdLoaiSP=${item._id}`)
+                                window.location.href = `/all-product-category?IdLoaiSP=${item._id}`;
                               }} 
-                              className="menu-item" href={`/all-product-category?IdLoaiSP=${item._id}`}                               
+                              className="menu-item"                       
                               >
                                 <img width={50} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="icons" />
                                 <span>{item.TenLoaiSP}</span>
