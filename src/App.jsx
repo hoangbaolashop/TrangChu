@@ -15,7 +15,6 @@ import Account from "./pages/account";
 import Checkout from "./pages/checkout";
 import QuaySoTrungThuong from "./pages/quaySo";
 import CauHoiThuongGap from "./pages/cauHoiThuongGap";
-import thuegame from "./pages/thuegame";
 
 
 const Layout = () => {
