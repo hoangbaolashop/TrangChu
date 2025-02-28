@@ -11,6 +11,11 @@ export const orderDHVNPay = (lastName, firstName, email, address, phone, note, p
     const data = {lastName, firstName, email, address, phone, note, products, soTienGiamGia, giamGia, soTienCanThanhToan, thanhTien, tongSoLuong, idKhachHang}
     return axios.post(URL_BACKEND, data)
 }
+export const orderDHSePay = (lastName, firstName, email, address, phone, note, products, soTienGiamGia, giamGia, soTienCanThanhToan, thanhTien, tongSoLuong, idKhachHang) => {
+    const URL_BACKEND = `/api/order/dat-hang-thanh-toan-sepay`    
+    const data = {lastName, firstName, email, address, phone, note, products, soTienGiamGia, giamGia, soTienCanThanhToan, thanhTien, tongSoLuong, idKhachHang}
+    return axios.post(URL_BACKEND, data)
+}
 
 export const historyOrderByIdKH = (query) => {
     const URL_BACKEND = `/api/order/find-all-order?${query}`    
@@ -24,5 +29,10 @@ export const handleHuyOrder = (query) => {
 
 export const getThongBaoThanhToan = () => {
     const URL_BACKEND = `/api/order/vnpay_return`    
+    return axios.get(URL_BACKEND)
+}
+
+export const findOneOrderById = (query) => {
+    const URL_BACKEND = `/api/order/find-one-order?${query}`    
     return axios.get(URL_BACKEND)
 }

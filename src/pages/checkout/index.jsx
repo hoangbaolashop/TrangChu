@@ -1,10 +1,11 @@
-import { Button, Col, Form, Input, message, notification, Row } from "antd"
+import { Button, Col, Divider, Form, Input, message, Modal, notification, Row } from "antd"
 import './css.scss'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getThongBaoThanhToan, orderDH, orderDHVNPay } from "../../services/orderAPI";
+import { findOneOrderById, getThongBaoThanhToan, orderDH, orderDHSePay, orderDHVNPay } from "../../services/orderAPI";
 import { useEffect, useState } from "react";
 import { doResetCartAfterOrder, setOrderPlaced } from "../../redux/order/orderSlice";
+import { CopyOutlined } from "@ant-design/icons";
 
 const Checkout = () => {
 
@@ -15,10 +16,18 @@ const Checkout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
+    const [idDH, setIdDH] = useState(null)
+    const [soTienCanTT, setsoTienCanTT] = useState(null)
     const [paymentMethod, setPaymentMethod] = useState('online'); // Trạng thái mặc định là thanh toán online
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
+    };
+
+    const copyToClipboard = (text) => {
+        navigator.clipboard.writeText(text);
+        message.success("Đã sao chép nội dung!");
     };
 
     useEffect(() => {
@@ -54,23 +63,54 @@ const Checkout = () => {
         
         
         if(paymentMethod === 'online') {
+            // setLoading(true)
+            // notification.warning({
+            //     message: "Đang tiến hành đặt hàng",
+            //     description: "Bạn vui lòng chờ trong giây lát...",            
+            // });
+            // const res = await orderDHVNPay(...Object.values(orderData));
+            // console.log("res tt vnpay: ", res);
+            
+            // if(res && res.data && res.paymentUrl) {
+            //     // Hiển thị thông báo thành công
+            //     message.success(res.message)
+            //     dispatch(doResetCartAfterOrder())
+            //     localStorage.removeItem(`cart-${customerId}`);
+            //     dispatch(setOrderPlaced(true));  // Reset flag để không còn theo dõi giỏ hàng đã đặt
+            //     // dispatch(orderActions.setOrderPlaced(true));  // Set trạng thái đặt hàng thành công           
+            //     window.open(res.paymentUrl, '_blank');
+            //     navigate('/mycart')
+            //     window.scrollTo({ top: 0, behavior: "smooth" });
+            // } else {
+            //     notification.error({
+            //         message: 'Đặt hàng không thành công!',
+            //         description: res.message
+            //     })
+            // }      
+            // setLoading(false)
+
             setLoading(true)
             notification.warning({
                 message: "Đang tiến hành đặt hàng",
                 description: "Bạn vui lòng chờ trong giây lát...",            
             });
-            const res = await orderDHVNPay(...Object.values(orderData));
+            const res = await orderDH(...Object.values(orderData));
             console.log("res tt vnpay: ", res);
             
-            if(res && res.data && res.paymentUrl) {
+            if(res && res.data) {
                 // Hiển thị thông báo thành công
                 message.success(res.message)
                 dispatch(doResetCartAfterOrder())
                 localStorage.removeItem(`cart-${customerId}`);
                 dispatch(setOrderPlaced(true));  // Reset flag để không còn theo dõi giỏ hàng đã đặt
                 // dispatch(orderActions.setOrderPlaced(true));  // Set trạng thái đặt hàng thành công           
-                window.open(res.paymentUrl, '_blank');
-                navigate('/mycart')
+                // Thêm _idDH vào URL khi mở tab mới
+                // const paymentUrl = `?idDH=${res._idDH}`;
+                // window.open(paymentUrl, '_blank');  // Mở trang thanh toán với ID đơn hàng
+                // navigate('/mycart')
+                setIdDH(res._idDH)
+                setsoTienCanTT(res.soTienCanThanhToan)
+                setOpenModal(true)
                 window.scrollTo({ top: 0, behavior: "smooth" });
             } else {
                 notification.error({
@@ -79,6 +119,7 @@ const Checkout = () => {
                 })
             }      
             setLoading(false)
+            
         } else {
             setLoading(true)
             notification.warning({
@@ -105,6 +146,46 @@ const Checkout = () => {
         }            
     };
 
+    // 
+    const [paymentStatus, setPaymentStatus] = useState(false);
+
+    // Hàm kiểm tra trạng thái thanh toán
+    const checkPaymentStatus = async () => {
+        try {
+            const response = await findOneOrderById(`idDH=${idDH}`);
+            if (response.data && response.data.TinhTrangThanhToan === "Đã Thanh Toán") {
+                setPaymentStatus(true);
+            }
+        } catch (error) {
+            console.error("Error checking payment status:", error);
+        }
+    };
+
+    // Kiểm tra khi modal mở
+    useEffect(() => {
+        if (openModal) {
+            const interval = setInterval(() => {
+                checkPaymentStatus();
+            }, 2000); // Kiểm tra mỗi 3 giây
+
+            return () => clearInterval(interval); // Xóa interval khi đóng modal
+        }
+    }, [openModal]);
+
+    // Nếu thanh toán thành công => Tắt modal + hiển thị thông báo
+    useEffect(() => {
+        if (paymentStatus) {
+            setOpenModal(false);
+            notification.success({
+                message: "Thanh toán thành công",
+                description: `Đơn hàng #${idDH} đã được thanh toán!`,
+                duration: 3,
+            });
+            navigate('/mycart')
+        }
+    }, [paymentStatus]);
+    // 
+
     const thongBaoTT = async (req, res) => {
 
         let tb = await getThongBaoThanhToan()
@@ -118,7 +199,11 @@ const Checkout = () => {
         setPaymentMethod(event.target.value);
     };
 
-    console.log("paymentMethod: ", paymentMethod);
+    const cancelTT = () => {
+        setOpenModal(false)
+        navigate('/mycart')
+        message.warning("Đơn hàng chưa được thanh toán, vui lòng kiểm tra lại!")
+    }
     
 
     return (
@@ -321,7 +406,7 @@ const Checkout = () => {
                         </div>
                         <div className="top-wrapper">
                             <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Phí vận chuyển</div>
-                            <div className="price" style={{fontSize: "17px", fontWeight: "500", color: "green"}}>Miễn phí cho đơn từ 1 triệu</div>                            
+                            <div className="price" style={{fontSize: "17px", fontWeight: "500", color: "green"}}>Miễn phí giao hàng</div>                            
                         </div>
                         <div className="top-wrapper">
                             <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Cần thanh toán</div>
@@ -337,9 +422,9 @@ const Checkout = () => {
                                         name="paymentMethod"
                                         value="online"
                                         checked={paymentMethod === 'online'}
-                                        // onChange={handlePaymentChange}
+                                        onChange={handlePaymentChange}
                                     />
-                                    <span style={{padding: "10px"}}>Thanh toán trực tuyến (đang bảo trì)</span>
+                                    <span style={{padding: "10px"}}>Thanh toán trực tuyến</span>
                                 </label>
                             </div>
                             <br/>
@@ -353,7 +438,6 @@ const Checkout = () => {
                                         onChange={handlePaymentChange}
                                     />
                                     <span style={{padding: "10px"}}>Nhận hàng và Thanh toán</span>
-                                    
                                 </label>
                             </div>                           
                         </div>
@@ -372,6 +456,42 @@ const Checkout = () => {
             </div>
         </div>
 
+        <Modal
+            title={`Mã QR Code Thanh Toán Đơn Hàng: DH${idDH}`}
+            open={openModal}
+            onCancel={() => cancelTT()}
+            maskClosable={false}
+            footer={null}
+            width={900}
+        >
+            <Divider/>
+            <h4 style={{color: "red", textAlign: "center"}}>Nếu đóng đi đơn hàng sẽ ở trạng thái chưa được thanh toán</h4>
+            <h4 style={{color: "red", textAlign: "center"}}>Vui lòng điền đầy đủ nội dung theo yêu cầu nếu bạn nhập bằng tay</h4>
+            <div style={{backgroundColor: "lightgray", padding: "15px", borderRadius: "10px"}}>
+                <h4 style={{color: "navy", textAlign: "center", lineHeight: "1"}}>Số tiền cần thanh toán: {soTienCanTT.toLocaleString()}đ</h4>
+                <h4 style={{color: "navy", textAlign: "center", lineHeight: "1"}}>
+                    Nội dung chuyển khoản: DH{idDH}
+                    <Button
+                        title="Sao chép nội dung chuyển khoản"
+                        type="primary"
+                        shape="circle"
+                        icon={<CopyOutlined />}
+                        size="large"
+                        onClick={() => copyToClipboard(`DH${idDH}`)}
+                        style={{ marginLeft: 8 }}
+                    />
+                </h4>
+                <h4 style={{color: "navy", textAlign: "center", lineHeight: "1"}}>Ngân hàng: VPBANK</h4>
+                <h4 style={{color: "navy", textAlign: "center", lineHeight: "1"}}>Số tài khoản: 7204011995</h4>
+                <h4 style={{color: "navy", textAlign: "center", lineHeight: "1"}}>Chủ tài khoản: LE HUYNH DANG HOANG BAO</h4>                
+            </div>
+            <br/>
+            <h3 style={{color: "red", textAlign: "center"}}>Quét mã bên dưới để tiến hành thanh toán nhanh</h3>
+            <div style={{textAlign: "center"}}>
+                <img width={500} src={`https://img.vietqr.io/image/970432-7204011995-print.png?amount=${soTienCanTT}&addInfo=DH${idDH}&accountName=LE+HUYNH+DANG+HOANG+BAO`} alt="QR Code" />
+            </div>
+        </Modal>
+
 
         <div className="rts-shorts-service-area rts-section-gap bg_primary">
             <div className="container">
@@ -389,7 +509,7 @@ const Checkout = () => {
                     <div className="information">
                         <h4 className="title">Giá tốt nhất &amp; Ưu đãi</h4>
                         <p className="disc">
-                         Tigar cung cấp mức giá cạnh tranh nhất thị trường và nhiều ưu đãi hấp dẫn
+                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
                         </p>
                     </div>
                     </div>
@@ -406,9 +526,9 @@ const Checkout = () => {
                         </svg>
                     </div>
                     <div className="information">
-                        <h4 className="title">Chính sách đổi trả</h4>
+                        <h4 className="title">Chính sách hoàn trả 100%</h4>
                         <p className="disc">
-                        Tigar luôn hỗ trợ boardgamer đổi trả khi game gặp vấn đề
+                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
                         </p>
                     </div>
                     </div>
@@ -431,7 +551,7 @@ const Checkout = () => {
                     <div className="information">
                         <h4 className="title">Hỗ trợ 24/7</h4>
                         <p className="disc">
-                        Hỗ trợ/hướng dẫn game 24/7 qua Zalo 092 616 9374
+                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
                         </p>
                     </div>
                     </div>
@@ -450,9 +570,9 @@ const Checkout = () => {
                         </svg>
                     </div>
                     <div className="information">
-                        <h4 className="title">Hậu mãi</h4>
+                        <h4 className="title">Khuyến mãi lớn Khuyến mãi hàng ngày</h4>
                         <p className="disc">
-                        Luôn có nhiều chương trình ưu đãi hậu mãi cho khách hàng mới và khách VIP
+                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
                         </p>
                     </div>
                     </div>
