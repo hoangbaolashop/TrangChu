@@ -528,7 +528,7 @@ const Header = () => {
                                 style={{cursor: "pointer", 
                                 color: location.pathname === '/' ? "navy" : "gray"
                               }} 
-                              onClick={() => navigate('/')} >Trang chủ</a>                          
+                              onClick={() => navigate('/')} href='/' >Trang chủ</a>                          
                         </li>
                         <li><a href="#" className="main">Giới thiệu</a></li>                                                
                         <li >
@@ -536,21 +536,21 @@ const Header = () => {
                                 style={{cursor: "pointer", 
                                 color: location.pathname === '/all-product' || location.pathname === '/all-product-category' ? "navy" : "gray"
                               }} 
-                              onClick={() => navigate('/all-product')} >Sản phẩm</a>                          
+                              onClick={() => navigate('/all-product')} href='/all-product' >Sản phẩm</a>                          
                         </li>
                         <li >
                           <a  className='thea main' 
                                 style={{cursor: "pointer", 
                                 color: location.pathname === '/quayso' ? "navy" : "gray"
                               }} 
-                              onClick={() => navigate('/quayso')} >Quay số trúng thưởng</a>                          
+                              onClick={() => navigate('/quayso')} href='/quayso' >Quay số trúng thưởng</a>                          
                         </li>
                         <li><a
                           className='thea main' 
                             style={{cursor: "pointer", 
                             color: location.pathname === '/cauhoithuonggap' ? "navy" : "gray"
                           }}
-                          onClick={() => navigate('/cauhoithuonggap')} 
+                          onClick={() => navigate('/cauhoithuonggap')}  href='/cauhoithuonggap'
                         >Câu Hỏi Thường Gặp</a></li>
                         {!isAuthenticated ? 
                         <li><a href="/login-web" className="main">Đăng nhập</a></li> : 
@@ -573,7 +573,7 @@ const Header = () => {
                                 message.success(`Trang sản phẩm của ${item.TenLoaiSP}`)
                                 navigate(`/all-product-category?IdLoaiSP=${item._id}`)
                               }} 
-                              className="menu-item"                                
+                              className="menu-item" href={`/all-product-category?IdLoaiSP=${item._id}`}                               
                               >
                                 <img width={50} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="icons" />
                                 <span>{item.TenLoaiSP}</span>
