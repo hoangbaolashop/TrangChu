@@ -570,9 +570,9 @@ const Header = () => {
                               {/* href={`/all-product-category?IdLoaiSP=${item._id}`} */}
                               <a 
                               onClick={() => {
-                                message.success(`Trang sản phẩm của ${item.TenLoaiSP}`)
                                 // navigate(`/all-product-category?IdLoaiSP=${item._id}`)
                                 window.location.href = `/all-product-category?IdLoaiSP=${item._id}`;
+                                message.success(`Trang sản phẩm của ${item.TenLoaiSP}`)
                               }} 
                               className="menu-item"                       
                               >
