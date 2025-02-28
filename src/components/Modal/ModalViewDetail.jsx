@@ -42,7 +42,7 @@ const ModalViewDetail = (props) => {
 
         console.log("Số lượng đủ, tiếp tục thêm vào giỏ hàng");
 
-        dispatch(doAddAction({ dataDetailSP, currentQuantity, discountCode, customerId, selectedItemss, selectedSize }));
+        dispatch(doAddAction({ dataDetailSP, currentQuantity, discountCode, customerId, selectedItemss: selectedItems, selectedSize }));
     };
     const handleAddToCart1 = () => {
         dispatch(doAddAction({ dataDetailSP, currentQuantity, discountCode, customerId, selectedItemss: selectedItems, selectedSize }));
