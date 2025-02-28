@@ -571,7 +571,7 @@ const Header = () => {
                               <a 
                               onClick={() => {
                                 // navigate(`/all-product-category?IdLoaiSP=${item._id}`)
-                                message.success(`Trang sản phẩm của ${item.TenLoaiSP}`)
+                                message.success(`Đang vào Trang sản phẩm của thể loại ${item.TenLoaiSP}`)
                                 setTimeout(() => {
                                   window.location.href = `/all-product-category?IdLoaiSP=${item._id}`;
                                 }, 1000);
