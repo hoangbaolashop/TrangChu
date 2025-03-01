@@ -16,8 +16,7 @@ import Checkout from "./pages/checkout";
 import QuaySoTrungThuong from "./pages/quaySo";
 import CauHoiThuongGap from "./pages/cauHoiThuongGap";
 import LienHe from "./pages/lienHe";
-import ThueGame from "./pages/thueGame";
-
+import ThueGame from "./pages/thuegame";
 
 const Layout = () => {
   return (
