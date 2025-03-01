@@ -44,7 +44,7 @@ const Footer = () => {
                         <i className="fa-solid fa-phone-rotary" />
                       </div>
                       <div className="info">
-                        <span>Có thắc mắc? Gọi cho chúng tôi 24/7</span>
+                        <span>Số điện thoại Quản lý Tigar</span>
                         <a href="#" className="number">+(84) 564 942 086</a>
                       </div>
                     </div>
