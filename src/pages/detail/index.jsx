@@ -458,7 +458,7 @@ const DetailProduct = () => {
                                                 </div>    
                                             </Col>                                          
                                         ) : (      
-                                        <Col span={14}>      
+                                        <Col span={14} md={14} xs={24} sm={24}>      
                                             <div className="contents">
                                                 <div className="product-status">
                                                 {dataDetailSP?.sizes.reduce((total, size) => total + size.quantity, 0) !== 0 ? 
@@ -500,8 +500,10 @@ const DetailProduct = () => {
                                                 </> }
                                                 
                                                 <div className="variable-product-type mb--15">
-                                                <div className="single-select">
-                                                    <span className="label">Phân loại</span>
+                                                <div className="single-select">                                                  
+                                                <Row gutter={[10,10]}>
+                                                    <Col md={16} xs={24} sm={24}>
+                                                    <span className="label">Size</span> 
                                                     <Select
                                                         disabled={soLuongTonKho === 0 ? true : false} 
                                                         placeholder="CHỌN SIZE"
@@ -509,17 +511,23 @@ const DetailProduct = () => {
                                                         onChange={onChangeSizes}
                                                         style={{
                                                             width: '250px',
-                                                            height: "50px"
+                                                            height: "50px", 
+                                                            marginTop: "20px"
                                                         }}
                                                         options={dataDetailSP?.sizes.map((item) => ({
                                                             value: item._id,
                                                             label: item.size,
                                                         }))}
                                                     />
-                                                    &nbsp;
+                                                    &nbsp; 
+                                                    </Col>
+                                                    <Col md={8} xs={24} sm={24}>
+                                                                                                    
                                                     <span className="label" style={{width: "70px"}}>Số lượng: </span>
-                                                    <InputNumber disabled={soLuongTonKho === 0 ? true : false} style={{width: "100px"}} min={1} max={1000} value={currentQuantity} defaultValue={1} onChange={onChangeQuantity} />
-
+                                                    <InputNumber size='large' disabled={soLuongTonKho === 0 ? true : false} style={{width: "100px",marginTop: "20px"}} min={1} max={1000} value={currentQuantity} defaultValue={1} onChange={onChangeQuantity} />
+                                                    
+                                                    </Col>
+                                                </Row>
                                                 </div>                               
                                                 </div>
                                                 <div className="product-bottom-action">    
@@ -586,11 +594,11 @@ const DetailProduct = () => {
                                                 </div>
                                                 <div className="product-uniques">
                                                 <span className="sku product-unipue mb--10"><span style={{fontWeight: 400, marginRight: '10px'}}>
-                                                    Shop: 
+                                                    Thương hiệu: 
                                                     </span> {dataDetailSP?.IdHangSX.TenHangSX} </span>
                                                 <span className="catagorys product-unipue mb--10">
                                                     <span style={{fontWeight: 400, marginRight: '10px'}}>
-                                                    Loại game: </span> 
+                                                    Loại sản phẩm: </span> 
                                                     {dataDetailSP?.IdLoaiSP?.map((item, index) => {
                                                         return (
                                                             <span key={index}>  &nbsp;
@@ -646,7 +654,7 @@ const DetailProduct = () => {
                                 <button className="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Thông tin bổ sung</button>
                             </li>
                             <li className="nav-item" role="presentation">
-                                <button className="nav-link" id="profile-tabt" data-bs-toggle="tab" data-bs-target="#profile-tab-panes" type="button" role="tab" aria-controls="profile-tab-panes" aria-selected="false">Đánh giá của boardgamer ({totalCmt})</button>
+                                <button className="nav-link" id="profile-tabt" data-bs-toggle="tab" data-bs-target="#profile-tab-panes" type="button" role="tab" aria-controls="profile-tab-panes" aria-selected="false">Đánh giá của khách hàng ({totalCmt})</button>
                             </li>
                             </ul>
                             <div className="tab-content" id="myTabContent">
@@ -679,13 +687,11 @@ const DetailProduct = () => {
                                     </table>
                                 </div>
                                 <p className="cansellation mt--20">
-                                    <span> Hỗ trợ sau mua hàng:</span> 
-                                    <span>Tigarboardgame hỗ trợ đổi hàng trong các trường hợp có vấn đề về sản phẩm. </span> 
-                                    Có vấn đề về game/thái độ phục vụ xin vui lòng liên hệ Zalo 092 616 9374 hoặc 0564 942 086 để gặp quản lý shop
+                                    <span> Trả hàng/hủy hàng:</span> 
+                                    Không áp dụng đổi hàng đã giao cho khách hàng. Nếu phát hiện vấn đề về chất lượng hoặc số lượng sản phẩm, khách hàng có thể trả hàng/hủy đơn hàng khi có mặt người giao hàng.
                                 </p>
                                 <p className="note">
-                                    <span>Lưu ý:</span> Thời gian giao sản phẩm có thể thay đổi tùy theo tình trạng còn hàng trong kho. Riêng các game có sub thời gian ước tính gửi hàng sẽ vào khoảng 2-5 ngày, game order từ 10-15 ngày
-                                     (thời gian từ lúc gửi đến lúc giao hàng sẽ phụ thuộc vào khu vực khách hàng)
+                                    <span>Lưu ý:</span> Thời gian giao sản phẩm có thể thay đổi tùy theo tình trạng còn hàng trong kho.
                                 </p>
                                 <div                           
                                     className="youtube-video"
@@ -727,7 +733,7 @@ const DetailProduct = () => {
                                                     <Divider/>
                                                 </Col>
 
-                                                <Col md={12} sm={12} xs={12} style={{position: "relative", left: 10}}>                                                                                                
+                                                <Col md={12} sm={24} xs={24} style={{position: "relative", left: 10}}>                                                                                                
                                                     <Form
                                                         form={formComment}
                                                         className="submit-review-area"                                
@@ -759,18 +765,18 @@ const DetailProduct = () => {
                                                                     ]}
                                                                     hasFeedback
                                                                 >
-                                                                    <Input.TextArea placeholder="abc"  autoSize={{ minRows: 5, maxRows: 10000 }} />
+                                                                    <Input.TextArea style={{ width: "100%", maxWidth: 400 }}  placeholder="abc"  autoSize={{ minRows: 5, maxRows: 10000 }} />
                                                                 </Form.Item>
                                                             </Col>                                                                                
                                                         </Row>
                                                     </Form>   
-                                                    <Row style={{position: "relative", left: 70}}>
+                                                    <Row style={{position: "relative", alignItems:"center"}}>
                                                         {isAuthenticated ? <>
-                                                            <Col span={16} style={{margin: "auto"}}>
+                                                            <Col span={16} xs={24} sm={24} style={{margin: "auto"}}>
                                                                 <button style={{color: "white"}} onClick={() => formComment.submit()} className="rts-btn btn-primary">Bình Luận</button>
                                                             </Col>
                                                         </> : <>
-                                                            <Col span={16} style={{margin: "auto"}}>
+                                                            <Col span={16} xs={24} sm={24} style={{margin: "auto"}}>
                                                                 <button style={{color: "white"}} onClick={() => handleLoginNotification()} className="rts-btn btn-primary">Bình Luận</button>
                                                             </Col>
                                                         </>}
@@ -782,7 +788,20 @@ const DetailProduct = () => {
                                                         return (
                                                             <>
                                                                 <Avatar src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item?.idKH?.image}`} size={60} icon={<UserOutlined />} />
-                                                                <span style={{paddingLeft: "15px", fontWeight: "bold", fontSize: "20px"}}>{item?.idKH?.fullName} </span> &nbsp; ( {new Date(item.createdAt).toLocaleString()})
+                                                                <span style={{paddingLeft: "15px", fontWeight: "bold", fontSize: "20px"}}>{item?.idKH?.fullName} </span> &nbsp;<br/>
+                                                                <span
+                                                                style={{
+                                                                    position: "relative",
+                                                                    left: 70,
+                                                                    fontSize: "18px",
+                                                                    maxWidth: "500px", // Giới hạn chiều rộng tối đa
+                                                                    wordWrap: "break-word", // Tự động xuống dòng
+                                                                    whiteSpace: "normal", // Cho phép xuống dòng
+                                                                    display: "block", // Hiển thị như block để áp dụng maxWidth hiệu quả
+                                                                }}                                                               
+                                                                >
+                                                                ( {new Date(item.createdAt).toLocaleString()})
+                                                                </span>
                                                                 
                                                                 {customerId === item?.idKH?._id ? 
                                                                 <Tooltip title="xóa bình luận này" color={'green'} key={'green'}>
@@ -926,16 +945,13 @@ const DetailProduct = () => {
                     <div className="col-xl-3 col-lg-4 col-md-4 offset-xl-1  rts-sticky-column-item" style={{zIndex: 100}}>
                         <div className="theiaStickySidebar">
                             <div className="shop-sight-sticky-sidevbar  mb--20">
-                            <h4 className="title">Cách thức thuê boardgame tại Tigar</h4>
-
+                            <h6 className="title">Các ưu đãi có sẵn</h6>
                             <div className="single-offer-area">
                                 <div className="icon">
                                 <img src={svg01} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Khách chọn phân loại "Thuê game" và thanh toán đơn hàng</p>
-                                <p>Tiền cọc sẽ là tiền thanh toán game, sẽ hoàn lại khi khách trả game</p>
-                                
+                                <p>Nhận ngay chiết khấu %5 cho đơn hàng Flipkart đầu tiên khi sử dụng Điều khoản & Điều kiện của Ekomart UPI</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
@@ -943,8 +959,7 @@ const DetailProduct = () => {
                                 <img src={svg02} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Giá thuê game= 10% giá trị game/3 ngày, +1.5% cho mỗi ngày tiếp theo</p>
-                                <p>Thời gian thuê sẽ bắt đầu tính từ ngày kế tiếp ngày thuê và kết thúc vào ngày trả game</p>
+                                <p>Giảm giá cố định 500K cho các giao dịch thanh toán trả góp bằng thẻ tín dụng Citi khi đặt hàng từ 9M trở lên Điều khoản và điều kiện</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
@@ -952,12 +967,12 @@ const DetailProduct = () => {
                                 <img src={svg03} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Hỗ trợ giao hàng và nhận lại game tận nơi toàn khu vực TP.HCM, phí giao nhận sẽ tuỳ khu vực</p>
+                                <p>Miễn phí vận chuyển toàn thế giới cho tất cả các đơn hàng trên 1.000.000d</p>
                                 </div>
                             </div>
                             </div>
                             <div className="our-payment-method">
-                            <h5 className="title">Zalo hỗ trợ 24/7: 092 616 9374 </h5>
+                            <h5 className="title">Đảm bảo thanh toán an toàn </h5>
                             <img src={png03} alt="" />
                             </div>
                         </div>
@@ -1007,7 +1022,7 @@ const DetailProduct = () => {
                                     </div>
                                     </> 
                                     : <></>}                                    
-                                    <img style={{cursor: "pointer"}} onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
+                                    <img src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
                                   </a>
                                   <div className="action-share-option">
                                     <div onClick={() => handleAddWishList()} className="single-action openuptip message-show-action" data-flow="up" title="Danh sách yêu thích">
@@ -1131,7 +1146,7 @@ const DetailProduct = () => {
                     <div className="information">
                         <h4 className="title">Giá tốt nhất &amp; Ưu đãi</h4>
                         <p className="disc">
-                         Tigar cung cấp mức giá cạnh tranh nhất thị trường và nhiều ưu đãi hấp dẫn
+                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
                         </p>
                     </div>
                     </div>
@@ -1148,9 +1163,9 @@ const DetailProduct = () => {
                         </svg>
                     </div>
                     <div className="information">
-                        <h4 className="title">Chính sách đổi trả</h4>
+                        <h4 className="title">Chính sách hoàn trả 100%</h4>
                         <p className="disc">
-                        Tigar luôn hỗ trợ boardgamer đổi trả khi game gặp vấn đề
+                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
                         </p>
                     </div>
                     </div>
@@ -1173,7 +1188,7 @@ const DetailProduct = () => {
                     <div className="information">
                         <h4 className="title">Hỗ trợ 24/7</h4>
                         <p className="disc">
-                        Hỗ trợ/hướng dẫn game 24/7 qua Zalo 092 616 9374
+                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
                         </p>
                     </div>
                     </div>
@@ -1192,9 +1207,9 @@ const DetailProduct = () => {
                         </svg>
                     </div>
                     <div className="information">
-                        <h4 className="title">Hậu mãi</h4>
+                        <h4 className="title">Khuyến mãi lớn Khuyến mãi hàng ngày</h4>
                         <p className="disc">
-                        Luôn có nhiều chương trình ưu đãi hậu mãi cho khách hàng mới và khách VIP
+                        Chúng tôi đã chuẩn bị các mức giảm giá đặc biệt cho các sản phẩm trong cửa hàng.
                         </p>
                     </div>
                     </div>
