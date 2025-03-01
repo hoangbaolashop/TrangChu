@@ -162,7 +162,7 @@ const Header = () => {
                       {/* <p class="marquee-text">Chào mừng bạn {user.fullName} đến với&nbsp;WebShop Khắc Tú!</p> */}
                       {!isAuthenticated ? 
                       <>
-                        <p class="marquee-text">Hãy đăng ký tài khoản để nhận ngay 1 lượt quay số trúng thưởng 🧧</p>
+                        <p class="marquee-text">Hãy đăng ký tài khoản để nhận ngay 1 lượt quay trúng quà và nhiều ưu đãi cho thành viên Tigar</p>
                         <div className="follow-us-social" style={{cursor: "pointer"}} onClick={() => navigate('/login-web')}>
                           <BiLogIn size={25} style={{color: "white"}} /> &nbsp;&nbsp;
                           <span>Đăng nhập</span>                      
@@ -372,6 +372,14 @@ const Header = () => {
                                 <a href="/cauhoithuonggap" style={{cursor: "pointer", color: location.pathname === '/cauhoithuonggap' ? "navy" : "black"}}>Câu Hỏi Thường Gặp</a>
                               </li>
 
+                              <li className={`parent`}>
+                                <a href="/thuegame" style={{cursor: "pointer", color: location.pathname === '/thuegame' ? "navy" : "black"}}>Thuê Game</a>
+                              </li>
+
+                              <li className={`parent`}>
+                                <a href="/lienhe" style={{cursor: "pointer", color: location.pathname === '/lienhe' ? "navy" : "black"}}>Liên Hệ</a>
+                              </li>
+
                             </ul>
                           </nav>
                         </div>
@@ -552,6 +560,20 @@ const Header = () => {
                           }}
                           onClick={() => navigate('/cauhoithuonggap')}  href='/cauhoithuonggap'
                         >Câu Hỏi Thường Gặp</a></li>
+                         <li >
+                          <a  className='thea main' 
+                                style={{cursor: "pointer", 
+                                color: location.pathname === '/thuegame' ? "navy" : "gray"
+                              }} 
+                              onClick={() => navigate('/thuegame')} >Thuê game</a>                          
+                        </li>
+                        <li >
+                          <a  className='thea main' 
+                                style={{cursor: "pointer", 
+                                color: location.pathname === '/lienhe' ? "navy" : "gray"
+                              }} 
+                              onClick={() => navigate('/lienhe')} >Liên hệ</a>                          
+                        </li> 
                         {!isAuthenticated ? 
                         <li><a href="/login-web" className="main">Đăng nhập</a></li> : 
                         <li><a onClick={() => logoutClick()} className="main">Đăng xuất</a></li>

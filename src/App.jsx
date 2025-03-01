@@ -15,6 +15,8 @@ import Account from "./pages/account";
 import Checkout from "./pages/checkout";
 import QuaySoTrungThuong from "./pages/quaySo";
 import CauHoiThuongGap from "./pages/cauHoiThuongGap";
+import LienHe from "./pages/lienHe";
+import ThueGame from "./pages/thueGame";
 
 
 const Layout = () => {
@@ -100,6 +102,18 @@ export default function App() {
             <CauHoiThuongGap />,
           errorElement: <NotFound />,
         }, 
+        {
+          path: "thuegame",
+          element: 
+            <ThueGame />,
+          errorElement: <NotFound />,
+        },
+        {
+          path: "lienhe",
+          element: 
+            <LienHe />,
+          errorElement: <NotFound />,
+        },
         {
           path: "login-web",
           element: <Login />,

@@ -1,17 +1,20 @@
+import { Divider } from "antd"
 import { useEffect, useState } from "react"
-import { getOneThueGame } from "../../services/thueGameLienHeAPI"
+import { getOneLienHe } from "../../services/thueGameLienHeAPI"
 
-const ThueGame = () => {
+const LienHe = () => {
+   
+    const [dataLienHe, setDataLienHe] = useState(null)    
 
-    const [dataThueGame, setDataThueGame] = useState(null)
-    const fetchOneThueGames = async () => {
-        const res = await getOneThueGame()
+    const fetchOneLienHes = async () => {
+        const res = await getOneLienHe()
         if(res && res.data) {
-            setDataThueGame(res.data)
+            setDataLienHe(res.data)
         }
     }
+
     useEffect(() => {
-        fetchOneThueGames()
+        fetchOneLienHes()
     }, [])
   return (
     <div>
@@ -20,21 +23,19 @@ const ThueGame = () => {
                 <div className="row">
                 <div className="col-lg-12">
                     <div className="navigator-breadcrumb-wrapper">
-                    <a href='/'>Home</a>
-                    <i className="fa-regular fa-chevron-right" />
-                    <a className="#">Thuê game</a>
-                    
+                        <a href='/'>Home</a>
+                        <i className="fa-regular fa-chevron-right" />
+                        <a className="#">Liên hệ</a>                    
                     </div>
                 </div>
                 </div>
             </div>
-        </div>
-
+        </div>      
         <div className="rts-faq-area-start ">
             <div className="container">
                 <div className="row g-6">
                     <div className="bg_gradient-tranding-items p-5">
-                    <div  dangerouslySetInnerHTML={{ __html: dataThueGame?.text }} />
+                    <div  dangerouslySetInnerHTML={{ __html: dataLienHe?.text }} />
                     </div>
                 </div>
             </div>
@@ -42,4 +43,4 @@ const ThueGame = () => {
     </div>
   )
 }
-export default ThueGame
+export default LienHe
