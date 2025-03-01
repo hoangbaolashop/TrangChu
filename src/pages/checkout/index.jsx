@@ -294,7 +294,7 @@ const Checkout = () => {
                                         ]}
                                         hasFeedback
                                     >
-                                        <Input placeholder="Nhập địa chỉ giao hàng chính xác để không bị lạc đơn hàng" />
+                                        <Input placeholder="Nhập theo định dạng Số nhà - Tên Đường - Phường/Xã - Quận/Huyện - Tỉnh/Thành" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12} md={12} sm={24} xs={24}>
@@ -308,12 +308,12 @@ const Checkout = () => {
                                             },  
                                             {
                                                 type: "email",
-                                                message: 'Vui lòng nhập đúng định dạng địa chỉ email',
+                                                message: 'Nhập email để nhận thông báo về đơn hàng',
                                             },                                       
                                         ]}
                                         hasFeedback
                                     >
-                                        <Input placeholder="vd: dokhactu@gmail.com" />
+                                        <Input placeholder="vd: tigarbg@gmail.com" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={12} md={12} sm={24} xs={24}>
@@ -337,7 +337,7 @@ const Checkout = () => {
                                 </Col>
                                 <Col span={24} md={24} sm={24} xs={24}>
                                     <Form.Item
-                                        label="Lưu ý (nếu cần )"                                        
+                                        label="Lưu ý - Để đặt giao hoả tốc nhận trong ngày (TPHCM), xin vui lòng thanh toán và nhắn đến Zalo 092.616.9374"                                        
                                         name="note"                                                
                                         rules={[
                                             {
@@ -348,7 +348,7 @@ const Checkout = () => {
                                         ]}
                                         hasFeedback
                                     >
-                                        <Input.TextArea placeholder="abc"  autoSize={{ minRows: 10, maxRows: 10000 }} />
+                                        <Input.TextArea placeholder="Nhập mã quà tặng nếu bạn quay trúng quà"  autoSize={{ minRows: 10, maxRows: 10000 }} />
                                     </Form.Item>
                                 </Col>
 
