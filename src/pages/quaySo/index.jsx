@@ -48,8 +48,11 @@ const QuaySoTrungThuong = () => {
             <div className="col-lg-8 pl--60 pl_md--10 pt_md--30 pl_sm--10 pt_sm--30">
                 <div className="about-content-area-1">
                 <h2 className="title">
-                    VÒNG QUAY MAY MẮN
+                    ---- VÒNG QUAY MAY MẮN TIGARBOARDGAME
                 </h2>
+               <p> <h4 className="title">
+                    Boardgamer vui lòng nhập nội dung mã quà tặng ở phần ghi chú khi khi đặt hàng. 
+                </h4></p>
                 {/* <p className="disc">
                     Venenatis augue consequat class magnis sed purus, euismod ligula nibh congue quis vestibulum nostra, cubilia varius velit vitae rhoncus. Turpis malesuada fringilla urna dui est torquent aliquet, mi nec fermentum placerat nisi venenatis sapien, mattis nunc nullam rutrum feugiat porta. Pharetra mi nisl consequat semper quam litora aenean eros conubia molestie erat, et cursus integer rutrum sollicitudin auctor curae inceptos senectus sagittis est,
                 </p> */}
@@ -69,9 +72,7 @@ const QuaySoTrungThuong = () => {
             <div className="row">
             <div className="col-lg-12">
                 <div className="title-center-area-main">
-                <h2 className="title">
-                    Boardgamer vui lòng ghi nhớ mã quà tặng để nhập mã khi đặt hàng. 
-                </h2>
+                
                
                 </div>
             </div>
