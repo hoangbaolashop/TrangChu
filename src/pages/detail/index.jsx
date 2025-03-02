@@ -951,7 +951,7 @@ const DetailProduct = () => {
                                 <img src={svg01} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Nhận ngay chiết khấu %5 cho đơn hàng Flipkart đầu tiên khi sử dụng Điều khoản & Điều kiện của Ekomart UPI</p>
+                                <p>Hỗ trợ cho thuê game ngắn hạn.</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
@@ -959,7 +959,7 @@ const DetailProduct = () => {
                                 <img src={svg02} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Giảm giá cố định 500K cho các giao dịch thanh toán trả góp bằng thẻ tín dụng Citi khi đặt hàng từ 9M trở lên Điều khoản và điều kiện</p>
+                                <p>Ưu đãi hơn cho khách đăng ký thành viên Tigar</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
@@ -967,12 +967,12 @@ const DetailProduct = () => {
                                 <img src={svg03} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Miễn phí vận chuyển toàn thế giới cho tất cả các đơn hàng trên 1.000.000d</p>
+                                <p>Miễn phí vận chuyển toàn quốc áp dụng cho các đơn mua hàng trên 300k</p>
                                 </div>
                             </div>
                             </div>
                             <div className="our-payment-method">
-                            <h5 className="title">Đảm bảo thanh toán an toàn </h5>
+                            <h5 className="title">Zalo CSKH: 092.616.9374 </h5>
                             <img src={png03} alt="" />
                             </div>
                         </div>

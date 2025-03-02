@@ -636,12 +636,12 @@ const Account = () => {
                                             </Col>
 
                                             <Col span={12} md={12} sm={24} xs={24}>
-                                                <Text strong style={{fontSize: '20px'}}><MdOutlineProductionQuantityLimits /> &nbsp;Tổng đơn hàng:</Text>
+                                                <Text strong style={{fontSize: '20px'}}><MdOutlineProductionQuantityLimits /> &nbsp;Tổng đơn hàng hoàn tất:</Text>
                                                 <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ soLuongDonThanhCong || 0} đơn hàng</Text>
                                             </Col>
 
                                             <Col span={12} md={12} sm={24} xs={24}>
-                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng tiền đã mua:</Text>
+                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng tiền đã thanh toán:</Text>
                                                 <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ tongDoanhThuThanhCong.toLocaleString("vi-VN") || 0}đ</Text>
                                             </Col>
                                         </Row>                                        
