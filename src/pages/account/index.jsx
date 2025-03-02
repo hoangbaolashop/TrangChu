@@ -467,7 +467,7 @@ const Account = () => {
                             <button className="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"><RiDiscountPercentFill size={20} />Mã giảm giá</button>
                             <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa-regular fa-bag-shopping" />Lịch sử đơn hàng</button>
                             <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingsa" type="button" role="tab" aria-controls="v-pills-settingsa" aria-selected="false"><i className="fa-light fa-user" />Thông tin tài khoản</button>
-                            <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingdoimatkhau" type="button" role="tab" aria-controls="v-pills-settingdoimatkhau" aria-selected="false"><TbPasswordUser size={20} /> Đổi mật khẩu</button>
+                            <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingdoimatkhau" type="button" role="tab" aria-controls="v-pills-settingdoimatkhau" aria-selected="false"><TbPasswordUser size={20} /> Thay đổi thông tin tài khoản</button>
                             <button className="nav-link" id="v-pills-settings-tab" onClick={() => message.success(`Bạn đang có ${dataAcc?.quayMayManCount} lượt quay vòng quay may mắn`)} role="tab" aria-controls="v-pills-settings" aria-selected="false"><IoGift size={20} />Số lượt quay thưởng &nbsp; ({dataAcc?.quayMayManCount})</button>
                             <button className="nav-link" id="v-pills-settingsb-tab" type="button" role="tab"><a onClick={() => logoutClick()}><i className="fa-light fa-right-from-bracket" />Đăng xuất</a></button>
                         </div>
@@ -641,7 +641,7 @@ const Account = () => {
                                             </Col>
 
                                             <Col span={12} md={12} sm={24} xs={24}>
-                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng doanh thu:</Text>
+                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng tiền đã mua:</Text>
                                                 <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ tongDoanhThuThanhCong.toLocaleString("vi-VN") || 0}đ</Text>
                                             </Col>
                                         </Row>                                        
