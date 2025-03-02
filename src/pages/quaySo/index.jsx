@@ -50,9 +50,9 @@ const QuaySoTrungThuong = () => {
                 <h2 className="title">
                     ---- VÒNG QUAY MAY MẮN TIGARBOARDGAME
                 </h2>
-               <p> <h4 className="title">
-                    Voucher giảm gi, minigame, xúc xắc, bọc bài 
-                </h4></p>
+               <p> 
+                     <a href="#" className="number">Quà tặng gồm Voucher giảm giá, minigame, xúc xắc, bọc bài...</a>
+                </p>
                 {/* <p className="disc">
                     Venenatis augue consequat class magnis sed purus, euismod ligula nibh congue quis vestibulum nostra, cubilia varius velit vitae rhoncus. Turpis malesuada fringilla urna dui est torquent aliquet, mi nec fermentum placerat nisi venenatis sapien, mattis nunc nullam rutrum feugiat porta. Pharetra mi nisl consequat semper quam litora aenean eros conubia molestie erat, et cursus integer rutrum sollicitudin auctor curae inceptos senectus sagittis est,
                 </p> */}
