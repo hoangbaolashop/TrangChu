@@ -464,11 +464,11 @@ const Account = () => {
                 <div className="row">
                     <div className="col-lg-3">
                         <div className="nav accout-dashborard-nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa-regular fa-bag-shopping" />Lịch sử đơn hàng</button>
+                        <button className="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa-regular fa-bag-shopping" />Lịch sử đơn hàng</button>
                             <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingsa" type="button" role="tab" aria-controls="v-pills-settingsa" aria-selected="false"><i className="fa-light fa-user" />Thông tin tài khoản</button>
                             <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingdoimatkhau" type="button" role="tab" aria-controls="v-pills-settingdoimatkhau" aria-selected="false"><TbPasswordUser size={20} /> Thay đổi thông tin tài khoản</button>
                             <button className="nav-link" id="v-pills-settings-tab" onClick={() => message.success(`Bạn đang có ${dataAcc?.quayMayManCount} lượt quay vòng quay may mắn`)} role="tab" aria-controls="v-pills-settings" aria-selected="false"><IoGift size={20} />Số lượt quay thưởng &nbsp; ({dataAcc?.quayMayManCount})</button>
-                            <button className="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"><RiDiscountPercentFill size={20} />Mã giảm giá</button>
+                            <button className="nav-link " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"><RiDiscountPercentFill size={20} />Mã giảm giá</button>
                             <button className="nav-link" id="v-pills-settingsb-tab" type="button" role="tab"><a onClick={() => logoutClick()}><i className="fa-light fa-right-from-bracket" />Đăng xuất</a></button>
                         </div>
                     </div>
@@ -476,7 +476,7 @@ const Account = () => {
                     <div className="col-lg-9 pl--50 pl_md--10 pl_sm--10 pt_md--30 pt_sm--30">
                         <div className="tab-content" id="v-pills-tabContent">
                             {/* Vouchers */}
-                            <div className="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabIndex={0}>
+                            <div className="tab-pane fade  " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabIndex={0}>
                                 <div className="dashboard-account-area">
                                     <Row gutter={[30,30]}>
                                     {dataAccKH?.[0]?.IdVoucher?.length > 0 ? (
@@ -537,7 +537,7 @@ const Account = () => {
                                 </div>                                
                             </div>
 
-                            <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabIndex={0}>
+                            <div className="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabIndex={0}>
                                 <div className="order-table-account">
                                 <div className="h3 title">Đơn Hàng Của &nbsp;&nbsp;&nbsp;<span style={{color: "green"}}>{user?.fullName}</span></div>
                                 <div className="table-responsive">
