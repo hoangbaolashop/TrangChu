@@ -43,7 +43,6 @@ const QuaySoTrungThuong = () => {
             <div className="col-lg-4">
                 <div className="thumbnail-left">
                 {/* <img src={imgVoucher} alt="" /> */}
-                <img style={{borderRadius: "10%"}} src="https://cdn.hoanghamobile.com/Uploads/2024/12/17/vong-xoay-can-giua.gif;trim.threshold=0;trim.percentpadding=0;width=480;" alt="" />
                 </div>
             </div>
             <div className="col-lg-8 pl--60 pl_md--10 pt_md--30 pl_sm--10 pt_sm--30">
@@ -73,9 +72,7 @@ const QuaySoTrungThuong = () => {
                 <h2 className="title">
                     Boardgamer vui lòng ghi nhớ mã quà tặng để nhập mã khi đặt hàng. 
                 </h2>
-                <p className="disc">
-                    {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium mollis ex, vel interdum augue faucibus sit amet. Proin tempor purus ac suscipit... */}
-                </p>
+               
                 </div>
             </div>
             </div>
