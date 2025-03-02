@@ -51,7 +51,7 @@ const QuaySoTrungThuong = () => {
                     ---- VÒNG QUAY MAY MẮN TIGARBOARDGAME
                 </h2>
                <p> <h4 className="title">
-                    Voucher giảm giá, minigame, xúc xắc, bọc bài 
+                    Voucher giảm gi, minigame, xúc xắc, bọc bài 
                 </h4></p>
                 {/* <p className="disc">
                     Venenatis augue consequat class magnis sed purus, euismod ligula nibh congue quis vestibulum nostra, cubilia varius velit vitae rhoncus. Turpis malesuada fringilla urna dui est torquent aliquet, mi nec fermentum placerat nisi venenatis sapien, mattis nunc nullam rutrum feugiat porta. Pharetra mi nisl consequat semper quam litora aenean eros conubia molestie erat, et cursus integer rutrum sollicitudin auctor curae inceptos senectus sagittis est,
@@ -67,28 +67,7 @@ const QuaySoTrungThuong = () => {
         {/* about area end */}
 
         {/* meet our expart team */}
-        <div className="meet-our-expart-team rts-section-gap2">
-        <div className="container-3">
-            <div className="row">
-            <div className="col-lg-12">
-                <div className="title-center-area-main">
-                
-               
-                </div>
-            </div>
-            </div>
-            <div className="row g-5 mt--40">
-                {dataVoucher?.map((voucher, index) => { 
-                    return (            
-                    <div className="col-lg-3 col-md-6 col-sm-12 col-12" style={{boxShadow: '0 0 5px 0 rgba(70, 70, 70, 0.5)', borderRadius: "10px", marginLeft: "80px", padding: "20px", marginBottom: "20px"}} >
-                        {/* single team area start */}
-                    
-                        {/* single team area end */}
-                    </div>
-                )})}           
-            </div>
-        </div>
-        </div>
+        
         {/* meet our expart end */}
 
 
