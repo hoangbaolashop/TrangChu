@@ -71,7 +71,7 @@ const QuaySoTrungThuong = () => {
             <div className="col-lg-12">
                 <div className="title-center-area-main">
                 <h2 className="title">
-                    Quà tặng của chúng tôi
+                    Boardgamer vui lòng ghi nhớ mã quà tặng để nhập mã khi đặt hàng. 
                 </h2>
                 <p className="disc">
                     {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium mollis ex, vel interdum augue faucibus sit amet. Proin tempor purus ac suscipit... */}
@@ -84,25 +84,7 @@ const QuaySoTrungThuong = () => {
                     return (            
                     <div className="col-lg-3 col-md-6 col-sm-12 col-12" style={{boxShadow: '0 0 5px 0 rgba(70, 70, 70, 0.5)', borderRadius: "10px", marginLeft: "80px", padding: "20px", marginBottom: "20px"}} >
                         {/* single team area start */}
-                        <div className="single-team-style-one">
-                        <a className="thumbnail">
-                            <img src={imgVoucher} alt="team_single" />
-                        </a>
-                        <div className="bottom-content-area">
-                            <div className="top">
-                            <h3 className="title">
-                            {voucher.code}
-                            </h3>
-                            <span className="designation" style={{fontSize: "16px", color: "blueviolet"}}>Điều kiện: Giá trị đơn hàng trên {parseInt(voucher.dieuKien).toLocaleString()}đ</span>
-                            </div>
-                            <div className="bottom" style={{color: "red"}}>
-                                <a href="#" className="number" style={{color: "red"}}>
-                                    <BiSolidDiscount />
-                                    Được giảm:  {voucher.giamGia}%
-                                </a>                                
-                            </div>
-                        </div>
-                        </div>
+                    
                         {/* single team area end */}
                     </div>
                 )})}           
