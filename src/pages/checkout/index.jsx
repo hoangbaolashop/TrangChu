@@ -332,12 +332,12 @@ const Checkout = () => {
                                         ]}
                                         hasFeedback
                                     >
-                                        <Input placeholder="vd: 0987456321" />
+                                        <Input placeholder="vd: 0926169374" />
                                     </Form.Item>
                                 </Col>
                                 <Col span={24} md={24} sm={24} xs={24}>
                                     <Form.Item
-                                        label="Lưu ý - Để đặt giao hoả tốc nhận trong ngày (TPHCM), xin vui lòng thanh toán và nhắn đến Zalo 092.616.9374"                                        
+                                        label="Nhập Mã quà tặng (nếu có) - Cần giao gấp trong ngày (TPHCM), xin vui lòng thanh toán và nhắn đến Zalo 092.616.9374"                                        
                                         name="note"                                                
                                         rules={[
                                             {
