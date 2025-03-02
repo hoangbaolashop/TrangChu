@@ -418,7 +418,7 @@ const Home = () => {
                   <div className="col-lg-12">
                     <div className="title-area-between">
                       <h2 className="title-left mb--0">
-                        Danh mục thể loại
+                        Danh mục các thể loại boardgame
                       </h2>
                       <div className="next-prev-swiper-wrapper">
                         <div className="swiper-button-prev"><i className="fa-regular fa-chevron-left" /></div>
@@ -522,7 +522,7 @@ const Home = () => {
             <div className="col-lg-12">
               <div className="title-area-between mb--15" style={{justifyContent: "center"}}>
                 <h2 className="title-left" style={{color: "navy"}}>
-                Sản phẩm trong cửa hàng
+                Boardgame trong cửa hàng
                 </h2>               
               </div>
             </div>
