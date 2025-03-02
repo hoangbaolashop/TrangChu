@@ -409,7 +409,7 @@ const Account = () => {
                 return (
                     <>
                         <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#9EC0D6' }}>Tigarboardgamer Bạc</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#C0C0C0' }}>Tigarboardgamer Bạc</span>
                     </>
                 );
             case "Vàng":
