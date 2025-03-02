@@ -66,7 +66,7 @@ const DrawerViewOrder = (props) => {
                                     </p> 
                                 </div>
                                 <p style={{marginTop: "8px"}}>
-                                    Cấu hình: <span style={{color: "navy"}}>{item?.size}</span>
+                                    Phân loại: <span style={{color: "navy"}}>{item?.size}</span>
                                 </p>                                
                             </div>
                         </div>

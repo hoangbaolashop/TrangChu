@@ -380,7 +380,7 @@ const Checkout = () => {
                                     <a className="title" style={{maxWidth: "80%"}}>
                                         {item.detail.TenSP}
                                         <p style={{marginTop: "5px"}}>
-                                            Cấu hình: {item.sizeDaChon} <br/>
+                                            Phân loại: {item.sizeDaChon} <br/>
                                             Giá: <span style={{color: "navy"}}>{Math.ceil(item.priceDaChon - (item.priceDaChon * (item.detail.GiamGiaSP / 100))).toLocaleString()}đ</span> <br/>
                                             Số lượng đặt: <span style={{color: "navy"}}>{item.quantity}</span>
                                         </p>

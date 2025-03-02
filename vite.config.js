@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/', // Cấu hình base URL. Đổi nếu deploy vào subdirectory (ví dụ '/my-app/')
+  base: '/', // Phân loại base URL. Đổi nếu deploy vào subdirectory (ví dụ '/my-app/')
   plugins: [react()],
   server: {
     port: 3009, 

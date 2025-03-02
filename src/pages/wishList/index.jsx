@@ -135,7 +135,7 @@ const WishList = () => {
                                             </div>
                                             <div className="information">
                                                 <h6 style={{cursor: "pointer"}} onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item.detail)} className="title">{item.detail.TenSP}</h6>
-                                                <span style={{marginTop: "10px"}}>Cấu hình: {item.sizeDaChon}</span>
+                                                <span style={{marginTop: "10px"}}>Phân loại: {item.sizeDaChon}</span>
                                             </div>
                                         </div>
                                         

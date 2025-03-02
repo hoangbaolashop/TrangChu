@@ -37,8 +37,6 @@ const LienHe = () => {
                 <div className="row g-6">
                     <div className="bg_gradient-tranding-items p-5">
                     <div  dangerouslySetInnerHTML={{ __html: dataLienHe?.text }} />
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.127386242459!2d106.6293976760942!3d10.8779...!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
                     </div>
                 </div>
             </div>

@@ -78,7 +78,9 @@ const Footer = () => {
                     <div className="footer-nav">
                       <ul>
                         <li><a href="/all-product">Sản Phẩm</a></li>
-                        <li><a href="/quayso">Quay số trúng thưởng</a></li>                       
+                        <li><a href="/quayso">Quay số trúng thưởng</a></li>     
+                        <li><a href="/thuegame">Thuê game</a></li>
+                        <li><a href="/quayso">Liên hệ</a></li>                                  
                       </ul>
                     </div>
                   </div>

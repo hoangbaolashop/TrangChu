@@ -256,7 +256,7 @@ const Header = () => {
                                                         <div className="number" style={{fontSize: "15px"}}>
                                                           Số lượng đặt: <span style={{color: "blue"}}>{item.quantity}</span>  <br/>                                                      
                                                         </div>
-                                                        <span style={{marginTop: "10px"}}>Cấu hình: {item.sizeDaChon}</span>
+                                                        <span style={{marginTop: "10px"}}>Phân loại: {item.sizeDaChon}</span>
 
                                                         {item.detail.GiamGiaSP !== 0 ? (
                                                           <p style={{color: "red", fontWeight: "500", marginTop: "10px"}}>
@@ -451,7 +451,7 @@ const Header = () => {
                                             <div className="number" style={{fontSize: "15px"}}>
                                               Số lượng đặt: <span style={{color: "blue"}}>{item.quantity}</span>  <br/>                                                      
                                             </div>
-                                            <span style={{marginTop: "10px"}}>Cấu hình: {item.sizeDaChon}</span>
+                                            <span style={{marginTop: "10px"}}>Phân loại: {item.sizeDaChon}</span>
 
                                             {item.detail.GiamGiaSP !== 0 ? (
                                               <p style={{color: "red", fontWeight: "500", marginTop: "10px"}}>
