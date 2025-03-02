@@ -409,35 +409,35 @@ const Account = () => {
                 return (
                     <>
                         <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Bạc</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Tigarboardgamer Bạc</span>
                     </>
                 );
             case "Vàng":
                 return (
                     <>
                         <FaCrown size={30} style={{ color: "gold", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Vàng</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Tigarboardgamer Vàng</span>
                     </>
                 );
             case "Bạch Kim":
                 return (
                     <>
                         <FaStar size={30} style={{ color: "#E5E4E2", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Bạch Kim</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Tigarboardgamer Bạch Kim</span>
                     </>
                 );
             case "Kim Cương":
                 return (
                     <>
                         <IoDiamondSharp size={30} style={{ color: "#00BFFF", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Kim Cương</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Tigarboardgamer Kim Cương</span>
                     </>
                 );
             default:
                 return (
                     <>
                         <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Bạc</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Tigarboardgamer: Bạc</span>
                     </>
                 );
         }

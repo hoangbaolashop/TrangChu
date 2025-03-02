@@ -945,7 +945,7 @@ const DetailProduct = () => {
                     <div className="col-xl-3 col-lg-4 col-md-4 offset-xl-1  rts-sticky-column-item" style={{zIndex: 100}}>
                         <div className="theiaStickySidebar">
                             <div className="shop-sight-sticky-sidevbar  mb--20">
-                            <h6 className="title">Các ưu đãi có sẵn</h6>
+                            <h6 className="title">Thông tin từ Tigar</h6>
                             <div className="single-offer-area">
                                 <div className="icon">
                                 <img src={svg01} alt="icon" />
@@ -959,7 +959,7 @@ const DetailProduct = () => {
                                 <img src={svg02} alt="icon" />
                                 </div>
                                 <div className="details">
-                                <p>Ưu đãi hơn cho khách đăng ký thành viên Tigar</p>
+                                <p>Nhiều chính sách ưu đãi hơn cho boardgamer đăng ký trở thành Tigarboardgamer</p>
                                 </div>
                             </div>
                             <div className="single-offer-area">
