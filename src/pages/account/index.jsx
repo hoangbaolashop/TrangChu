@@ -1,7 +1,7 @@
 import { RiDeleteBin6Line, RiDiscountPercentFill } from "react-icons/ri"
-import { Avatar, Button, Card, Col, Divider, Flex, Form, Input, message, Modal, notification, Popconfirm, Row, Space, Switch, Table, Tag, Tooltip, Upload } from 'antd';
-import { IoCopy, IoGift } from "react-icons/io5";
-import { MdOutlineCancel, MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { Avatar, Button, Card, Col, Divider, Flex, Form, Input, message, Modal, notification, Popconfirm, Row, Space, Switch, Table, Tag, Tooltip, Upload, Typography  } from 'antd';
+import { IoCopy, IoDiamondSharp, IoGift } from "react-icons/io5";
+import { MdEmail, MdOutlineCancel, MdOutlineProductionQuantityLimits, MdOutlineShoppingCartCheckout } from "react-icons/md";
 import imgVoucher from '../../assets/images/869649.png'
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,16 +11,19 @@ import { handleLogout } from "../../services/loginKHAPI";
 import { doLogoutAction } from "../../redux/accKH/accountSlice";
 import { doLogoutActionCart } from "../../redux/order/orderSlice";
 import { doLoginActionWishlist } from "../../redux/wishlist/wishlistSlice";
-import { FaEye, FaLink, FaSave } from "react-icons/fa";
+import { FaAddressCard, FaCartPlus, FaCrown, FaEye, FaLink, FaPhone, FaRegAddressCard, FaSave, FaStar, FaTrophy } from "react-icons/fa";
 import Password from "antd/es/input/Password";
 import bcrypt from 'bcryptjs-react';
-import { CheckCircleOutlined, DeleteOutlined, ExclamationCircleOutlined, EyeOutlined, HourglassOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CrownOutlined, DeleteOutlined, ExclamationCircleOutlined, EyeOutlined, HourglassOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { v4 as uuidv4 } from 'uuid';
 import { uploadImg } from "../../services/uploadAPI";
 import { handleHuyOrder, historyOrderByIdKH } from "../../services/orderAPI";
 // import moment from "moment/moment";
 import moment from 'moment-timezone';
 import DrawerViewOrder from "./DrawerViewOrder";
+import { TbPasswordUser } from "react-icons/tb";
+const { Text } = Typography;
+import { FaUser } from "react-icons/fa";
 
 const Account = () => {
 
@@ -46,6 +49,9 @@ const Account = () => {
 
     const [openViewDH, setOpenViewDH] = useState(false)
     const [dataViewDH, setDataViewDH] = useState(null)
+
+    const [soLuongDonThanhCong, setSoLuongDonThanhCong] = useState(0)
+    const [tongDoanhThuThanhCong, setTongDoanhThuThanhCong] = useState(0)
 
     const [formAcc] = Form.useForm()
 
@@ -103,7 +109,9 @@ const Account = () => {
         
         if (res && res.data) {
             setDataAccKH(res.data)            
-            setDataAcc(res.data?.[0])            
+            setDataAcc(res.data?.[0])     
+            setSoLuongDonThanhCong(res.soLuongDonThanhCong)       
+            setTongDoanhThuThanhCong(res.tongDoanhThuThanhCong)       
         }
     }
 
@@ -395,6 +403,46 @@ const Account = () => {
         window.scrollTo({ top: 80, behavior: "smooth" });
       }
 
+    const renderMemberRank = (hangTV) => {
+        switch (hangTV) {
+            case "Bạc":
+                return (
+                    <>
+                        <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Bạc</span>
+                    </>
+                );
+            case "Vàng":
+                return (
+                    <>
+                        <FaCrown size={30} style={{ color: "gold", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Vàng</span>
+                    </>
+                );
+            case "Bạch Kim":
+                return (
+                    <>
+                        <FaStar size={30} style={{ color: "#E5E4E2", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Bạch Kim</span>
+                    </>
+                );
+            case "Kim Cương":
+                return (
+                    <>
+                        <IoDiamondSharp size={30} style={{ color: "#00BFFF", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Kim Cương</span>
+                    </>
+                );
+            default:
+                return (
+                    <>
+                        <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Hạng thành viên: Bạc</span>
+                    </>
+                );
+        }
+    };
+
     return (
         <>
         <div className="rts-navigation-area-breadcrumb">
@@ -419,6 +467,7 @@ const Account = () => {
                             <button className="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"><RiDiscountPercentFill size={20} />Mã giảm giá</button>
                             <button className="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa-regular fa-bag-shopping" />Lịch sử đơn hàng</button>
                             <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingsa" type="button" role="tab" aria-controls="v-pills-settingsa" aria-selected="false"><i className="fa-light fa-user" />Thông tin tài khoản</button>
+                            <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingdoimatkhau" type="button" role="tab" aria-controls="v-pills-settingdoimatkhau" aria-selected="false"><TbPasswordUser size={20} /> Đổi mật khẩu</button>
                             <button className="nav-link" id="v-pills-settings-tab" onClick={() => message.success(`Bạn đang có ${dataAcc?.quayMayManCount} lượt quay vòng quay may mắn`)} role="tab" aria-controls="v-pills-settings" aria-selected="false"><IoGift size={20} />Số lượt quay thưởng &nbsp; ({dataAcc?.quayMayManCount})</button>
                             <button className="nav-link" id="v-pills-settingsb-tab" type="button" role="tab"><a onClick={() => logoutClick()}><i className="fa-light fa-right-from-bracket" />Đăng xuất</a></button>
                         </div>
@@ -553,6 +602,61 @@ const Account = () => {
                                     form={formAcc}
                                     className="registration-form"                                
                                     layout="vertical"                                    
+                                >
+                                    <Divider/>
+                                    <Row gutter={[20,2]}>                                        
+                                        <Form.Item name="_idAcc" hidden><Input hidden /></Form.Item>
+                                        <Col span={24} md={24} sm={24} xs={24}>
+                                            <Form.Item name="_idAcc" style={{textAlign: "center"}}>
+                                                <Avatar size={150} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${imageUrl}`} /> 
+                                                <p className="mt-4" style={{ color: '#ff6600', marginRight: '8px', fontSize: "30px"}}>                                                    
+                                                    {renderMemberRank(dataAcc?.hangTV)}
+                                                </p>
+                                            </Form.Item>
+                                        </Col>
+                                        <Row gutter={[16, 16]} style={{ background: '#f9f9f9', padding: '20px', borderRadius: '15px', textAlign:'center', width: '100%',  }}>
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><FaUser /> &nbsp;Họ và tên:</Text>
+                                                <Text style={{ display: 'block', color: 'navy', fontSize: '20px' }}>{ dataAcc?.fullName || "Chưa cập nhật"}</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><MdEmail /> &nbsp;Email:</Text>
+                                                <Text style={{ display: 'block', color: 'navy', fontSize: '20px' }}>{ dataAcc?.email || "Chưa cập nhật"}</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><FaPhone /> &nbsp;Số điện thoại:</Text>
+                                                <Text style={{ display: 'block', color: 'navy', fontSize: '20px' }}>{ dataAcc?.phone || "Chưa cập nhật"}</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><FaAddressCard /> &nbsp;Địa chỉ:</Text>
+                                                <Text style={{ display: 'block', color: 'navy', fontSize: '20px' }}>{ dataAcc?.address || "Chưa cập nhật"}</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><MdOutlineProductionQuantityLimits /> &nbsp;Tổng đơn hàng:</Text>
+                                                <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ soLuongDonThanhCong || 0} đơn hàng</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng doanh thu:</Text>
+                                                <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ tongDoanhThuThanhCong.toLocaleString("vi-VN") || 0}đ</Text>
+                                            </Col>
+                                        </Row>                                        
+
+                                    </Row>                                    
+                                </Form>                                
+                            </div>
+
+                            {/* đổi mật khẩu */}
+                            <div className="tab-pane fade" id="v-pills-settingdoimatkhau" role="tabpanel" aria-labelledby="v-pills-settingsa-tab" tabIndex={0}>
+                                <h2 className="title">Đổi Thông Tin Chi Tiết</h2>                                
+                                <Form
+                                    form={formAcc}
+                                    className="registration-form"                                
+                                    layout="vertical"                                    
                                     onFinish={handleDoiTT} 
                                 >
                                     <Divider/>
@@ -567,6 +671,12 @@ const Account = () => {
                                                 label="Upload Ảnh đại diện"
                                                 name="image"                                                
                                                 hasFeedback
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Vui lòng nhập Upload Ảnh đại diện',
+                                                    },                                                   
+                                                ]}
                                             >
                                                 <Upload
                                                     name="file"

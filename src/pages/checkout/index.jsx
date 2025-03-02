@@ -134,7 +134,7 @@ const Checkout = () => {
                 localStorage.removeItem(`cart-${customerId}`);
                 dispatch(setOrderPlaced(true));  // Reset flag để không còn theo dõi giỏ hàng đã đặt
                 // dispatch(orderActions.setOrderPlaced(true));  // Set trạng thái đặt hàng thành công           
-                navigate('/mycart')
+                navigate('/myaccount')
                 window.scrollTo({ top: 0, behavior: "smooth" });
             } else {
                 notification.error({
@@ -181,7 +181,7 @@ const Checkout = () => {
                 description: `Đơn hàng #${idDH} đã được thanh toán!`,
                 duration: 3,
             });
-            navigate('/mycart')
+            navigate('/myaccount')
         }
     }, [paymentStatus]);
     // 
