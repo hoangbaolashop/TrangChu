@@ -411,6 +411,12 @@ const Account = () => {
                         <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Hiện tại: Tigar Bạc</span>
                         <p><span style={{ color: 'navy', fontSize: '18px', color: '#000000' }}>Tích luỹ thăng hạng: 5.000.000đ</span></p>
+                        let soChoSan = 100;
+let tinhHieuTu10 = tinhHieu(soChoSan); // Tạo hàm tính hiệu với số cho sẵn là 10
+
+console.log(tinhHieuTu10(5)); // Kết quả: 5 (10 - 5)
+console.log(tinhHieuTu10(15)); // Kết quả: -5 (10 - 15)
+console.log(tinhHieuTu10("abc"));// kết quả: "Số nhập vào không hợp lệ. Vui lòng nhập một số."
                     </>
                 );
             case "Vàng":
