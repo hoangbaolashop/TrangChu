@@ -410,7 +410,15 @@ const Account = () => {
                     <>
                         <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Hiện tại: Tigar Bạc</span>
-                        <p><span style={{ color: 'navy', fontSize: '18px', color: '#000000' }}>Tích luỹ thăng hạng: 5.000.000đ</span></p>
+                        <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>
+  {tongDoanhThuThanhCong.toLocaleString('vi-VN') || 0}đ
+</Text>
+
+{/* Hiển thị hiệu tuyệt đối giữa tongDoanhThuThanhCong và 5.000.000 */}
+<Text style={{ fontSize: '16px', marginTop: '8px' }}>
+  Giá trị còn lại để thăng hạng:{' '}
+  {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
+</Text>
                         
                     </>
                 );
@@ -643,18 +651,8 @@ const Account = () => {
                                             </Col>
 
                                             <Col span={12} md={12} sm={24} xs={24}>
-                                            <Text strong style={{ fontSize: '20px' }}>
-  <FaCartPlus /> &nbsp;Tổng tiền đã thanh toán:
-</Text>
-<Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>
-  {tongDoanhThuThanhCong.toLocaleString('vi-VN') || 0}đ
-</Text>
-
-{/* Hiển thị hiệu tuyệt đối giữa tongDoanhThuThanhCong và 5.000.000 */}
-<Text style={{ fontSize: '16px', marginTop: '8px' }}>
-  Chênh lệch so với 5.000.000đ:{' '}
-  {Math.abs(5000000 - tongDoanhThuThanhCong).toLocaleString('vi-VN')}đ
-</Text>
+                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng tiền đã thanh toán:</Text>
+                                                <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ tongDoanhThuThanhCong.toLocaleString("vi-VN") || 0}đ</Text>
                                             </Col>
                                         </Row>                                        
 
