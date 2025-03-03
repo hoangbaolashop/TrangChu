@@ -408,7 +408,7 @@ const Account = () => {
             case "Bạc":
                 return (
                     <>
-                        <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
+                        <FaTrophy size={25} style={{ color: "#CD7F32", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Hiện tại: Tigar Bạc</span>
                         <p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
   (Ưu đãi hiện tại: <Text style={{ color: '#696969' }}>Miễn phí giao hàng)</Text>{' '}
@@ -432,7 +432,7 @@ const Account = () => {
             case "Vàng":
                 return (
                     <>
-                        <FaCrown size={30} style={{ color: "gold", marginRight: 8 }} />
+                        <FaCrown size={25} style={{ color: "gold", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#FFD700' }}>Tigar Vàng</span>
                         <Text style={{ fontSize: '16px', marginTop: '8px' }}>
   Tích luỹ thêm <Text style={{ color: 'red' }}>
