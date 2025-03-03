@@ -419,7 +419,7 @@ const Account = () => {
 <Text style={{ fontSize: '16px', marginTop: '8px' }}>
   Tích luỹ thêm <Text style={{ color: 'red' }}>
     {Math.abs(tongDoanhThuThanhCong - 1000000).toLocaleString('vi-VN')}đ
-  </Text> để thăng hạng <Text style={{ color: '#696969' }}>Tigar Vàng</Text>{' '}
+  </Text> để thăng hạng <FaCrown size={15} style={{ color: "gold", marginRight: 8 }} /><Text style={{ color: '#FFD700' }}>Tigar Vàng</Text>{' '}
   
 </Text>
 <p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
