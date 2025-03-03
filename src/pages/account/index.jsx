@@ -410,14 +410,14 @@ const Account = () => {
                     <>
                         <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Hiện tại: Tigar Bạc</span>
-                        <p><span style={{ color: 'navy', fontSize: '20px', color: '#F2D21E' }}>Hạng kế tiếp: Tigar Vàng</span></p>
+                        <p><span style={{ color: 'navy', fontSize: '18px', color: '#000000' }}>Tích luỹ thăng hạng: 5.000.000đ</span></p>
                     </>
                 );
             case "Vàng":
                 return (
                     <>
                         <FaCrown size={30} style={{ color: "gold", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#F2D21E' }}>Tigar Vàng</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#FFD700' }}>Tigar Vàng</span>
                     </>
                 );
             case "Bạch Kim":
