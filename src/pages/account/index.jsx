@@ -421,10 +421,10 @@ const Account = () => {
   </Text> để thăng hạng Tigar Vàng{' '}
   
 </Text>
-<Text style={{ fontSize: '14px', marginTop: '8px' }}>
-  (Ưu đãi Tigar Vàng: Giảm 5% tổng đơn){' '}
+<p><Text style={{ fontSize: '14px', marginTop: '8px' }}>
+  (Ưu đãi Tigar Vàng: <Text style={{ color: 'red' }}>Giảm 5% tổng đơn)</Text>{' '}
   
-</Text>
+</Text></p>
                         
                     </>
                 );
