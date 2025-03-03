@@ -414,7 +414,6 @@ const Account = () => {
   (Ưu đãi hiện tại: <Text style={{ color: '#696969' }}>Miễn phí giao hàng)</Text>{' '}
   
 </Text>
-</p>
 {/* Hiển thị hiệu tuyệt đối giữa tongDoanhThuThanhCong và 1.000.000 */}
 <Text style={{ fontSize: '16px', marginTop: '4px' }}>
   Tích luỹ thêm <Text style={{ color: 'red' }}>
@@ -422,7 +421,7 @@ const Account = () => {
   </Text> để thăng hạng <FaCrown size={15} style={{ color: "gold", marginRight: 8 }} /><Text style={{ color: '#FFD700' }}>Tigar Vàng</Text>{' '}
   
 </Text>
-<p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
+<Text style={{ fontSize: '12px', marginTop: '8px' }}>
   (Ưu đãi Tigar Vàng: <Text style={{ color: 'red' }}>Giảm 5% tổng đơn)</Text>{' '}
   
 </Text></p>
