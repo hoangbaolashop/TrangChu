@@ -409,7 +409,7 @@ const Account = () => {
                 return (
                     <>
                         <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#C0C0C0' }}>Tigarboardgamer Bạc</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Tigarboardgamer Bạc</span>
                     </>
                 );
             case "Vàng":
@@ -430,7 +430,7 @@ const Account = () => {
                 return (
                     <>
                         <IoDiamondSharp size={30} style={{ color: "#00BFFF", marginRight: 8 }} />
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#D3E0FE' }}>Tigarboardgamer Kim Cương</span>
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#00bfff' }}>Tigarboardgamer Kim Cương</span>
                     </>
                 );
             default:
