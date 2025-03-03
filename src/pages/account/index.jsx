@@ -416,10 +416,12 @@ const Account = () => {
 
 {/* Hiển thị hiệu tuyệt đối giữa tongDoanhThuThanhCong và 5.000.000 */}
 <Text style={{ fontSize: '16px', marginTop: '8px' }}>
-  Tích luỹ còn lại thăng hạng Tigar Vàng:{' '}
-  {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
+  Tích luỹ thêm <Text style={{ color: 'red' }}>
+    {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
+  </Text> để thăng hạng Tigar Vàng:{' '}
+  
 </Text>
-<span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Ưu đãi Tigar Vàng: Giảm 5% tổng hoá đơn</span>
+
                         
                     </>
                 );
