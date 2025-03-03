@@ -414,14 +414,17 @@ const Account = () => {
   
 </Text>
 
-{/* Hiển thị hiệu tuyệt đối giữa tongDoanhThuThanhCong và 5.000.000 */}
+{/* Hiển thị hiệu tuyệt đối giữa tongDoanhThuThanhCong và 1.000.000 */}
 <Text style={{ fontSize: '16px', marginTop: '8px' }}>
   Tích luỹ thêm <Text style={{ color: 'red' }}>
-    {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
-  </Text> để thăng hạng Tigar Vàng:{' '}
+    {Math.abs(tongDoanhThuThanhCong - 1000000).toLocaleString('vi-VN')}đ
+  </Text> để thăng hạng Tigar Vàng{' '}
   
 </Text>
-
+<Text style={{ fontSize: '14px', marginTop: '8px' }}>
+  (Ưu đãi Tigar Vàng: Giảm 5% tổng đơn){' '}
+  
+</Text>
                         
                     </>
                 );
@@ -430,6 +433,12 @@ const Account = () => {
                     <>
                         <FaCrown size={30} style={{ color: "gold", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#FFD700' }}>Tigar Vàng</span>
+                        <Text style={{ fontSize: '16px', marginTop: '8px' }}>
+  Tích luỹ thêm <Text style={{ color: 'red' }}>
+    {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
+  </Text> để thăng hạng Tigar Bạch Kim{' '}
+  
+</Text>
                     </>
                 );
             case "Bạch Kim":
@@ -437,6 +446,13 @@ const Account = () => {
                     <>
                         <FaStar size={30} style={{ color: "#E5E4E2", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#999B9B' }}>Tigar Bạch Kim</span>
+                        <Text style={{ fontSize: '16px', marginTop: '8px' }}>
+  Tích luỹ thêm <Text style={{ color: 'red' }}>
+    {Math.abs(tongDoanhThuThanhCong - 20000000).toLocaleString('vi-VN')}đ
+  </Text> để thăng hạng Tigar Kim Cương{' '}
+  
+</Text>
+
                     </>
                 );
             case "Kim Cương":
@@ -654,7 +670,7 @@ const Account = () => {
                                             </Col>
 
                                             <Col span={12} md={12} sm={24} xs={24}>
-                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng tiền đã thanh toán:</Text>
+                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng tiền tích luỹ:</Text>
                                                 <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ tongDoanhThuThanhCong.toLocaleString("vi-VN") || 0}đ</Text>
                                             </Col>
                                         </Row>                                        
