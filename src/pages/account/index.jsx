@@ -410,7 +410,7 @@ const Account = () => {
                     <>
                         <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Hiện tại: Tigar Bạc</span>
-                        <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Hạng kế tiếp: Tigar Vàng</span>
+                        <p><span style={{ color: 'navy', fontSize: '20px', color: '#F2D21E' }}>Hạng kế tiếp: Tigar Vàng</span></p>
                     </>
                 );
             case "Vàng":
