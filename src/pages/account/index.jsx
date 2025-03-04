@@ -410,11 +410,11 @@ const Account = () => {
                     <>
                         <FaTrophy size={25} style={{ color: "#CD7F32", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Hiện tại: Tigar Bạc</span>
-                        <p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
+                        <br><Text style={{ fontSize: '12px', marginTop: '8px' }}>
   (Ưu đãi hiện tại: <Text style={{ color: '#696969' }}>Miễn phí giao hàng)</Text>{' '}
   
 </Text>
-</p>
+</br>
 {/* Hiển thị hiệu tuyệt đối giữa tongDoanhThuThanhCong và 1.000.000 */}
 <Text style={{ fontSize: '16px', marginTop: '8px' }}>
   Tích luỹ thêm <Text style={{ color: 'red' }}>
@@ -424,8 +424,8 @@ const Account = () => {
 </Text>
 <p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
   (Ưu đãi Tigar Vàng: <Text style={{ color: 'red' }}>Giảm 5% tổng đơn)</Text>{' '}
-  
-</Text></p>
+  </Text>
+</p>
                         
                     </>
                 );
