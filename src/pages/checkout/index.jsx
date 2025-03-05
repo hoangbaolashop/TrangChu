@@ -188,13 +188,7 @@ const Checkout = () => {
                 duration: 3,
             });
             navigate('/myaccount')
-        } else {
-            notification.error({
-                message: "Thanh toán đơn hàng?",
-                description: `Không khớp số tiền?`,
-                duration: 3,
-            });
-        }
+        } 
     }, [paymentStatus]);
     // 
 
