@@ -162,7 +162,7 @@ const Header = () => {
                       {/* <p class="marquee-text">Chào mừng bạn {user.fullName} đến với&nbsp;WebShop Khắc Tú!</p> */}
                       {!isAuthenticated ? 
                       <>
-                        <p class="marquee-text">Hãy đăng ký tài khoản để nhận ngay 1 lượt quay trúng quà và nhiều ưu đãi cho thành viên Tigar</p>
+                        <p class="marquee-text">Đăng ký tài khoản để nhận 3 lượt quay thưởng và tích điểm thăng hạng thành viên Tigar</p>
                         <div className="follow-us-social" style={{cursor: "pointer"}} onClick={() => navigate('/login-web')}>
                           <BiLogIn size={25} style={{color: "white"}} /> &nbsp;&nbsp;
                           <span>Đăng nhập</span>                      
