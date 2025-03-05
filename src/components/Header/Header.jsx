@@ -315,7 +315,7 @@ const Header = () => {
                       <div className="nav-area-bottom-left-header-four">
                         <div className="category-btn category-hover-header five-style">
                           <img className="parent" src={iconBaGach} alt="icons" />
-                          <span className="ml--10">Danh Mục</span>
+                          <span className="ml--10">Thể loại Boardgame</span>
                           <ul className="category-sub-menu" id="category-active-four">
                             {/* <li>
                               <a href="#" className="menu-item">
@@ -522,7 +522,7 @@ const Header = () => {
               <nav>
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                   <button className="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Menu</button>
-                  <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Danh Mục</button>
+                  <button className="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Thể loại Boardgame</button>
                 </div>
               </nav>
               <div className="tab-content" id="nav-tabContent">
