@@ -155,12 +155,6 @@ const Checkout = () => {
             const response = await findOneOrderById(`idDH=${idDH}`);
             if (response.data && response.data.TinhTrangThanhToan === "Đã Thanh Toán") {
                 setPaymentStatus(true);
-            } else {
-                notification.error({
-                    message: "Không khớp số tiền?",
-                    description: response.message,
-                    duration: 3,
-                });
             }
         } catch (error) {
             console.error("Error checking payment status:", error);
