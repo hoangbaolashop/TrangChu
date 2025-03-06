@@ -688,7 +688,7 @@ const DetailProduct = () => {
                                 </div>
                                 <p className="cansellation mt--20">
                                 <h3><span> Chính sách hỗ trợ:</span></h3>
-                                <Text style={{ color: '#FFD700', fontSize: '20px' }}>Tigar hỗ trợ Boardgamer đổi trả trong các trường hợp có hư hại về sản phẩm. Hỗ trợ gửi bù các phụ kiện thiếu.</Text>
+                               <h2> Tigar hỗ trợ Boardgamer đổi trả trong các trường hợp có hư hại về sản phẩm. Hỗ trợ gửi bù các phụ kiện thiếu.</h2>
                                        <div>Tigar hỗ trợ đổi game giá trị tương đương hoặc cao hơn game đã mua (chưa unbox) trong 3 ngày tính từ ngày nhận hàng</div>
                                 </p>
                                 <p className="note">
