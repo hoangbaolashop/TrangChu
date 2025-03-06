@@ -688,8 +688,8 @@ const DetailProduct = () => {
                                 </div>
                                 <p className="cansellation mt--20">
                                 <h2><span> Chính sách hỗ trợ:</span></h2>
-                               <h3> Tigar hỗ trợ Boardgamer đổi trả trong các trường hợp có hư hại về sản phẩm. Hỗ trợ gửi bù các phụ kiện thiếu.</h3>
-                                       <div><h3>Tigar hỗ trợ đổi game giá trị tương đương hoặc cao hơn game đã mua (chưa unbox) trong 3 ngày tính từ ngày nhận hàng</h3></div>
+                               <h4> Tigar hỗ trợ Boardgamer đổi trả trong các trường hợp có hư hại về sản phẩm. Hỗ trợ gửi bù các phụ kiện thiếu.</h4>
+                                       <div><h4>Tigar hỗ trợ đổi game giá trị tương đương hoặc cao hơn game đã mua (chưa unbox) trong 3 ngày tính từ ngày nhận hàng</h4></div>
                                 </p>
                                 <p className="note">
                                     <span><h4>Thông tin thêm:</h4></span> <h4>Thời gian giao game có thể thay đổi tùy theo tình trạng còn hàng trong kho.</h4>
