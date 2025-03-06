@@ -687,11 +687,14 @@ const DetailProduct = () => {
                                     </table>
                                 </div>
                                 <p className="cansellation mt--20">
-                                    <span> Trả hàng/hủy hàng:</span> 
-                                    Không áp dụng đổi hàng đã giao cho khách hàng. Nếu phát hiện vấn đề về chất lượng hoặc số lượng sản phẩm, khách hàng có thể trả hàng/hủy đơn hàng khi có mặt người giao hàng.
+                                    <span> Chính sách hỗ trợ:</span> 
+                                    Tigar hỗ trợ Boardgamer đổi trả trong các trường hợp có hư hại về sản phẩm. Hỗ trợ gửi bù các phụ kiện thiếu.
+                                       <br>Tigar hỗ trợ đổi game giá trị tương đương hoặc cao hơn game đã mua (chưa unbox) trong 3 ngày tính từ ngày nhận hàng</br> 
                                 </p>
                                 <p className="note">
-                                    <span>Lưu ý:</span> Thời gian giao sản phẩm có thể thay đổi tùy theo tình trạng còn hàng trong kho.
+                                    <span>Thông tin thêm:</span> Thời gian giao game có thể thay đổi tùy theo tình trạng còn hàng trong kho.
+                                    <br>Từ 1-2 ngày đối với khu vực TP.HCM và nội miền, liên miền từ 3-5 ngày</br>
+                                    <br>Riêng các đơn hoả tốc liên hệ Zalo 092.616.9374 để được hỗ trợ nhanh nhất</br>
                                 </p>
                                 <div                           
                                     className="youtube-video"
@@ -1003,7 +1006,7 @@ const DetailProduct = () => {
                         <div className="col-12">
                           <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
                           <IoWarningOutline size={100} />
-                            Chưa có sản phẩm nào cả! </p>
+                            Loading! </p>
                         </div>
                       ) : (
                         dataProductToCategory.map((item, index) => {

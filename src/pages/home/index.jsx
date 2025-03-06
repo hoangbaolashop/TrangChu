@@ -536,7 +536,7 @@ const Home = () => {
                         <div className="col-12">
                           <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
                           <IoWarningOutline size={100} />
-                            Chưa có sản phẩm nào cả! </p>
+                            Đang tải! </p>
                         </div>
                       ) : (
                         dataSP?.map((item, index) => {
