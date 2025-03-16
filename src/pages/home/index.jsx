@@ -677,7 +677,7 @@ const Home = () => {
                         <div className="col-12">
                           <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
                           <IoWarningOutline size={100} />
-                            Chưa có sản phẩm nào cả! </p>
+                            Đang tải sản phẩm </p>
                         </div>
                       ) : (
                         dataProductToCategory?.map((item, index) => {
@@ -829,7 +829,7 @@ const Home = () => {
                 <>
                 <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
                   <IoWarningOutline size={100} />
-                  Chưa có sản phẩm nào cả! 
+                  Đang tải sản phẩm 
                 </p>
                 </>}
                 
@@ -892,7 +892,7 @@ const Home = () => {
                 <>
                 <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
                   <IoWarningOutline size={100} />
-                  Chưa có sản phẩm nào cả! 
+                  Đang tải sản phẩm 
                 </p>
                 </>}               
               </div>                    
@@ -955,7 +955,7 @@ const Home = () => {
                 <>
                 <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
                   <IoWarningOutline size={100} />
-                  Chưa có sản phẩm nào cả! 
+                  Đang tải sản phẩm 
                 </p>
                 </>}                
               </div>                    
@@ -1019,7 +1019,7 @@ const Home = () => {
                 <>
                 <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
                   <IoWarningOutline size={100} />
-                  Chưa có sản phẩm nào cả! 
+                  Đang tải sản phẩm 
                 </p>
                 </>}
                 
