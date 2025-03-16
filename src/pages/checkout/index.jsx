@@ -337,7 +337,7 @@ const Checkout = () => {
                                 </Col>
                                 <Col span={24} md={24} sm={24} xs={24}>
                                     <Form.Item
-                                        label="Nhập Mã quà tặng (nếu có) - Cần giao gấp trong ngày (TPHCM), xin vui lòng thanh toán và nhắn đến Zalo 092.616.9374"                                        
+                                        label="Nhập Mã quà tặng (nếu có) - Cần giao gấp trong ngày (TPHCM), xin vui lòng thanh toán và nhắn đến Zalo 056.4942.086"                                        
                                         name="note"                                                
                                         rules={[
                                             {

@@ -205,7 +205,7 @@ const Header = () => {
                                   </div>
                                   <div className="information">
                                     <span>Zalo</span>
-                                    <a href="#"><p>092.616.9374</p></a>
+                                    <a href="#"><p>056.4942.086</p></a>
                                   </div>
                                 </div>
                                 {/* search */}

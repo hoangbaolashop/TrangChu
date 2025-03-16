@@ -694,7 +694,7 @@ const DetailProduct = () => {
                                 <p className="note">
                                     <span><h4>Thông tin thêm:</h4></span> <h4>Thời gian giao game có thể thay đổi tùy theo tình trạng còn hàng trong kho.</h4>
                                     <div><h4>Từ 1-2 ngày đối với khu vực TP.HCM và nội miền, liên miền từ 3-5 ngày</h4></div>
-                                    <h4>Riêng các đơn hoả tốc liên hệ Zalo 092.616.9374 để được hỗ trợ nhanh nhất</h4>
+                                    <h4>Riêng các đơn hoả tốc liên hệ Zalo 056.4942.086 để được hỗ trợ nhanh nhất</h4>
                                 </p>
                                 <div                           
                                     className="youtube-video"
@@ -975,7 +975,7 @@ const DetailProduct = () => {
                             </div>
                             </div>
                             <div className="our-payment-method">
-                            <h5 className="title">Zalo CSKH: 092.616.9374 </h5>
+                            <h5 className="title">Zalo CSKH: 056.4942.086 </h5>
                             <img src={png03} alt="" />
                             </div>
                         </div>
