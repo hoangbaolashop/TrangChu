@@ -442,7 +442,7 @@ const Account = () => {
                         <Text style={{ fontSize: '16px', marginTop: '8px' }}>
   Tích luỹ thêm <Text style={{ color: 'red' }}>
     {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
-  </Text> để thăng hạng <FaStar size={15} style={{ color: "gold", marginRight: 8 }} /><Text style={{ color: '#FFD700' }}>Tigar Bạch Kim</Text>{' '}
+  </Text> để thăng hạng <FaStar size={20} style={{ color: "gold", marginRight: 8 }} /><Text style={{ color: '#999B9B' }}>Tigar Bạch Kim</Text>{' '}
   
 </Text>
 <p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
