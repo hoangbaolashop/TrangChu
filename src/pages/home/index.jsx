@@ -1,1270 +1,867 @@
-import { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { fetchListHangSX } from "../../redux/HangSX/hangSXSlice"
-import { fetchListCategory } from "../../redux/TheLoai/theLoaiSlice"
-import { useLocation, useNavigate } from "react-router-dom"
-import { fetchAllProduct, fetchAllProductToCategoryNoiBat, fetchSPDetail } from "../../services/productAPI"
-import { IoWarningOutline } from "react-icons/io5";
-import ModalViewDetail from "../../components/Modal/ModalViewDetail"
-import './css.scss'
-import { Button, Carousel, Col, Divider, Row } from "antd"
-import { FaAnglesRight } from "react-icons/fa6";
-import { checkProductAvailability, doAddAction } from "../../redux/order/orderSlice"
-import { doAddActionWishlist } from "../../redux/wishlist/wishlistSlice"
+import { RiDeleteBin6Line, RiDiscountPercentFill } from "react-icons/ri"
+import { Avatar, Button, Card, Col, Divider, Flex, Form, Input, message, Modal, notification, Popconfirm, Row, Space, Switch, Table, Tag, Tooltip, Upload, Typography  } from 'antd';
+import { IoCopy, IoDiamondSharp, IoGift } from "react-icons/io5";
+import { MdEmail, MdOutlineCancel, MdOutlineProductionQuantityLimits, MdOutlineShoppingCartCheckout } from "react-icons/md";
+import imgVoucher from '../../assets/images/869649.png'
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { doiThongTinKH, fetchOneAccKH } from "../../services/accKhAPI";
+import { useEffect, useState } from "react";
+import { handleLogout } from "../../services/loginKHAPI";
+import { doLogoutAction } from "../../redux/accKH/accountSlice";
+import { doLogoutActionCart } from "../../redux/order/orderSlice";
+import { doLoginActionWishlist } from "../../redux/wishlist/wishlistSlice";
+import { FaAddressCard, FaCartPlus, FaCrown, FaEye, FaLink, FaPhone, FaRegAddressCard, FaSave, FaStar, FaTrophy } from "react-icons/fa";
+import Password from "antd/es/input/Password";
+import bcrypt from 'bcryptjs-react';
+import { CheckCircleOutlined, CrownOutlined, DeleteOutlined, ExclamationCircleOutlined, EyeOutlined, HourglassOutlined, LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { v4 as uuidv4 } from 'uuid';
+import { uploadImg } from "../../services/uploadAPI";
+import { handleHuyOrder, historyOrderByIdKH } from "../../services/orderAPI";
+// import moment from "moment/moment";
+import moment from 'moment-timezone';
+import DrawerViewOrder from "./DrawerViewOrder";
+import { TbPasswordUser } from "react-icons/tb";
+const { Text } = Typography;
+import { FaUser } from "react-icons/fa";
 
-	
-const Home = () => {
+const Account = () => {
 
-    const dispatch = useDispatch()
-    const dataTheLoai = useSelector(state => state.category.listCategorys.data)
-    const dataHangSX = useSelector(state => state.hangSX.listHangSXs.data)
     const navigate = useNavigate()
-    const [idLoaiSP, setIdLoaiSP] = useState('673730c0512ef5430a91a416')
-    const [idDetail, setIdDetail] = useState('673730c0512ef5430a91a416')
-    const [dataProductToCategory, setDataProductToCategory] = useState([])
-    const [activeTabIndex, setActiveTabIndex] = useState(0); // Chỉ định tab mặc định là tab đầu tiên
-    const [openDetail, setOpenDetail] = useState(false)
-    const isAuthenticated = useSelector((state) => state.accountKH.isAuthenticated);
-
-
-    const [dataSP, setDataSP] = useState([])
-    const [dataDetailSP, setDataDetailSP] = useState(null)
-    const [dataSPNew, setDataSPNew] = useState([])
-    const [dataSPDanhGiaCaoNhat, setDataSPDanhGiaCaoNhat] = useState([])
-    const [dataSPSoLuotBanCao, setDataSPSoLuotBanCao] = useState([])
-    const [dataSPGiamGiaCao, setDataSPGiamGiaCao] = useState([])
-    const [sortQuery, setSortQuery] = useState("sort=updatedAt");
-    const [soLuotDanhGia, setSoLuotDanhGia] = useState(10);
-    const [soLuotBan, setSoLuotBan] = useState(10);
-    const [giamGiaCao, setGiamGiaCao] = useState(20);
-    const [sortQueryNew, setSortQueryNew] = useState("sort=updatedAt");
-    const [orderQuery, setOrderQuery] = useState("order=asc"); // Thêm biến order cho sắp xếp desc-giamdan/ asc-tangdan
-    const [orderQueryNew, setOrderQueryNew] = useState("order=desc"); // Thêm biến order cho sắp xếp desc-giamdan/ asc-tangdan
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
-    const [tenSP, setTenSP] = useState(queryParams.get('TenSP') || '');
-
-    const [currentQuantity, setCurrentQuantity] = useState(1);
-    const [discountCode, setDiscountCode] = useState("MAVOUCHER");  // Mã giảm giá
     const customerId = useSelector(state => state.accountKH.user._id)
+    const user = useSelector(state => state.accountKH.user)
 
-    const handleAddToCart = (product, giaChon, sizeChon) => {  // Thêm async ở đây để có thể sử dụng await bên trong
-      console.log("product, giaChon, sizeChon, currentQuantity:", product, giaChon, sizeChon, currentQuantity);
-  
-        // Hàm kiểm tra số lượng sản phẩm, trả về một Promise
-      const handleAddToCartt = () => {
-          // Truyền thông tin sản phẩm vào checkProductAvailability
-          return dispatch(checkProductAvailability({ dataDetailSP: product, selectedSize: sizeChon, currentQuantity }))
-              .then(availability => {
-                  console.log("availability: ", availability);
-
-                  // Kiểm tra nếu không có đủ số lượng sản phẩm
-                  if (!availability.payload) {
-                      console.log("Sản phẩm không đủ số lượng");
-                      return false;  // Nếu không đủ số lượng, trả về false
-                  }
-
-                  console.log("Số lượng đủ, tiếp tục thêm vào giỏ hàng");
-                  return true;  // Nếu đủ số lượng, trả về true
-              })
-              .catch(error => {
-                  console.error("Error checking availability:", error);
-                  return false;  // Nếu có lỗi xảy ra, trả về false
-              });
-      };
-
-      // Sử dụng .then() để xử lý kết quả từ handleAddToCartt
-      handleAddToCartt()
-      .then(isAvailable => {
-          if (!isAvailable) {
-              console.log("Không thể thêm sản phẩm vào giỏ hàng do số lượng không đủ");
-              return;
-          }
-
-          // Nếu số lượng đủ, tiếp tục dispatch hành động thêm vào giỏ hàng
-          dispatch(doAddAction({ dataDetailSP: product, currentQuantity, discountCode, customerId, selectedItemss: giaChon, selectedSize: sizeChon }));
-      })
-      .catch(error => {
-          console.error("Có lỗi khi thêm sản phẩm vào giỏ hàng:", error);
-      });
-  
-      // dispatch(doAddAction({ dataDetailSP: product, currentQuantity, discountCode, customerId, selectedItemss: giaChon, selectedSize: sizeChon }));
-    };
-
-    const handleAddToCart1 = (product, giaChon, sizeChon) => {
-      console.log("product, giaChon, sizeChon, currentQuantity:",product, giaChon, sizeChon, currentQuantity );
-          
-      dispatch(doAddAction({ dataDetailSP: product, currentQuantity, discountCode, customerId, selectedItemss: giaChon, selectedSize: sizeChon }));
-    };
-
-    const handleAddWishList = (product, giaChon, sizeChon) => {
-      console.log("product, giaChon, sizeChon, currentQuantity:",product, giaChon, sizeChon, currentQuantity );
-          
-      dispatch(doAddActionWishlist({ dataDetailSP: product, customerId, selectedItemss: giaChon, selectedSize: sizeChon }));
-    };
-
-    // Cập nhật lại TenSP nếu queryParams thay đổi
-    useEffect(() => {
-      setTenSP(queryParams.get('TenSP') || '');
-    }, [location]);
-
-    const handleFindProductToCategory = async () => {
-      let query = ''
-      // Kiểm tra nếu idLoaiSP là mảng hoặc một giá trị đơn
-      const idLoaiSPArray = Array.isArray(idLoaiSP) ? idLoaiSP : [idLoaiSP];  // Nếu không phải mảng, chuyển thành mảng
-
-      if (idLoaiSPArray.length > 0) {
-        query += `IdLoaiSP=${idLoaiSPArray.join(',')}`;  // Chuyển mảng thành chuỗi cách nhau bằng dấu phẩy
-      }
-      const res = await fetchAllProductToCategoryNoiBat(query)
-      console.log("res sp: ", res);      
-      if (res && res.data && res.data.length > 0) {
-        // Nếu có sản phẩm thì cập nhật lại state
-        setDataProductToCategory(res.data);
-      } else {
-        // Nếu không có sản phẩm, sẽ không cần làm gì nữa
-        setDataProductToCategory([]);
-      }
-    }
-
-    const fetchListSP = async () => {
-      let query = `page=1&limit=48`     
-
-      if (tenSP) {
-        query += `&TenSP=${encodeURIComponent(tenSP)}`;
-      }  
-      if (sortQuery) {
-          query += `&${sortQuery}`;
-      } 
-      // Thêm tham số order nếu có
-      if (orderQuery) {
-          query += `&${orderQuery}`;
-      }
-  
-      const res = await fetchAllProduct(query)
-      console.log("res TL: ", res);
-      if (res && res.data) {
-          setDataSP(res.data)
-      }
-    }
-
-    const fetchListSPMoiNhat = async () => {
-      let query = `page=1&limit=50`
-      
-      if (sortQueryNew) {
-          query += `&${sortQueryNew}`;
-      } 
-      // Thêm tham số order nếu có
-      if (orderQueryNew) {
-        query += `&${orderQueryNew}`;
-      }
-  
-      const res = await fetchAllProduct(query)
-      console.log("res TL: ", res);
-      if (res && res.data) {
-          setDataSPNew(res.data)
-      }
-    }
-
-    const fetchListSPDanhGiaCaoNhat = async () => {
-      let query = `SoLuotDanhGia=${soLuotDanhGia}`      
-  
-      const res = await fetchAllProduct(query)
-      console.log("res TL: ", res);
-      if (res && res.data) {
-          setDataSPDanhGiaCaoNhat(res.data)
-      }
-    }
-
-    const fetchListSPBanChayNhat = async () => {
-      let query = `SoLuotBan=${soLuotBan}`      
-  
-      const res = await fetchAllProduct(query)
-      console.log("res TL: ", res);
-      if (res && res.data) {
-          setDataSPSoLuotBanCao(res.data)
-      }
-    }
-
-    const fetchListSPGiamGiaCao = async () => {
-      let query = `GiamGiaSP=${giamGiaCao}`      
-  
-      const res = await fetchAllProduct(query)
-      console.log("res TL: ", res);
-      if (res && res.data) {
-        setDataSPGiamGiaCao(res.data)
-      }
-    }
-
-    const fetchProductDetail= async () => {  
-      if (!dataDetailSP) { // Chỉ fetch khi dataDetailSP chưa có dữ liệu
-        const res = await fetchSPDetail(idDetail);
-        console.log("res TL: ", res);
-        if (res && res.data) {
-          setDataDetailSP(res.data);
-        }
-      }
-    }    
-
-    useEffect(() => {
-      fetchProductDetail()
-    }, [idDetail])
-
-    useEffect(() => {
-      fetchListSPGiamGiaCao()
-    }, [giamGiaCao])
-
-    useEffect(() => {
-      fetchListSPBanChayNhat()
-    }, [soLuotBan])
-
-    useEffect(() => {
-      fetchListSPDanhGiaCaoNhat()
-    }, [soLuotDanhGia])
-
-    useEffect(() => {
-      fetchListSPMoiNhat()
-    }, [sortQueryNew, orderQueryNew])
-
-    useEffect(() => {
-      fetchListSP()
-    }, [tenSP, sortQuery, orderQuery])
-
-    useEffect(() => {
-        handleFindProductToCategory()
-    }, [idLoaiSP])
-
-    useEffect(() => {
-      dispatch(fetchListHangSX())
-      dispatch(fetchListCategory())
-    }, [])
-
-
+    const dispatch = useDispatch();
+    const [sortQuery, setSortQuery] = useState("sort=createdAt");
+    const [dataAccKH, setDataAccKH] = useState(null)
+    const [dataAcc, setDataAcc] = useState(null)
+    const [dataOrderHistory, setDataOrderHistory] = useState(null)
+    const [loading, setLoading] = useState(false);
+    const [loadingOrder, setLoadingOrder] = useState(false);
+    const [fileList, setFileList] = useState([]);
+    const [imageUrl, setImageUrl] = useState('');    
+    const [isModalVisible, setIsModalVisible] = useState(false);
     
-    const handleRedirectSpTheoLoai = (item) => {
-      console.log("id: ", item);
-      setIdLoaiSP(item)
-    }
-    const handleRedirectLayIdDeXemDetail = (item) => {
-      console.log("id: ", item);
-      setIdDetail(item)
-    }
+    const [dataOrder, setDataOrder] = useState([])
+    const [current, setCurrent] = useState(1)
+    const [pageSize, setPageSize] = useState(5)
+    const [total, setTotal] = useState(0)
 
-    const handleRedirectLayIdDeXemDetailPageUrl = (item) => {
-      console.log("id: ", item);
-      // Lấy các _id từ mảng idLoaiSP và chuyển thành chuỗi
-      const idLoaiSPString = item.IdLoaiSP.map(loai => loai._id).join(',');
-      // navigate(`/detail-product?id=${item._id}&idLoaiSP=${idLoaiSPString}`)
-      window.location.href = `/detail-product?id=${item._id}&idLoaiSP=${idLoaiSPString}`
-    }
+    const [openViewDH, setOpenViewDH] = useState(false)
+    const [dataViewDH, setDataViewDH] = useState(null)
 
+    const [soLuongDonThanhCong, setSoLuongDonThanhCong] = useState(0)
+    const [tongDoanhThuThanhCong, setTongDoanhThuThanhCong] = useState(0)
 
-    // useEffect(() => {
-    //   // Giới hạn chiều cao của phần cuộn
-    //   const containerHeight = 350; // Bạn có thể thay đổi chiều cao này theo nhu cầu của mình.
-    //   const productHeight = 100; // Chiều cao mỗi sản phẩm
-    //   const totalHeight = dataSPNew.length * productHeight; // Tổng chiều cao của tất cả các sản phẩm
+    const [formAcc] = Form.useForm()
 
-    //   const interval = setInterval(() => {
-    //     // Tính toán vị trí cuộn tiếp theo
-    //     if (offset < totalHeight - containerHeight) {
-    //       setOffset(offset + productHeight); // Cuộn lên một sản phẩm
-    //     } else {
-    //       setOffset(0); // Nếu hết thì quay lại từ đầu
-    //     }
-    //   }, 3000); // Mỗi 3 giây cuộn một lần
+    const handleDoiTT = async (values) => {
 
-    //   return () => clearInterval(interval); // Dọn dẹp khi component bị unmount
-    // }, [offset, dataSPNew]);
-    const [offsetColumn1, setOffsetColumn1] = useState(0); // offset cho cột 1
-    const [offsetColumn2, setOffsetColumn2] = useState(0); // offset cho cột 2
-    const [offsetColumn3, setOffsetColumn3] = useState(0); // offset cho cột 2
-    const [offsetColumn4, setOffsetColumn4] = useState(0); // offset cho cột 2
+        const {
+            _idAcc, fullName, email, phone, address, password, passwordMoi
+        } = values
+        console.log("password: ", password);
+        console.log("fullName, email, phone, address, passwordMoi: ", fullName, email, phone, address, passwordMoi);
 
-    useEffect(() => {
-      // Các tham số liên quan đến cuộn cho mỗi cột
-      const interval1 = setInterval(() => {
-        if (offsetColumn1 < dataSPNew.length * 100 - 500) {
-          setOffsetColumn1(offsetColumn1 + 100); // Cuộn lên 1 sản phẩm cho cột 1
-        } else {
-          setOffsetColumn1(0); // Quay lại đầu khi hết sản phẩm
-        }
-      }, 2000); // Mỗi 3 giây cuộn 1 lần cho cột 1
+        const matKhauCu = dataAcc?.password
+        console.log("mk cu: ", matKhauCu);
+        
+        const isMatch = await bcrypt.compare(password, matKhauCu); // So sánh password nhập vào với mật khẩu đã mã hóa
 
-      const interval2 = setInterval(() => {
-        if (offsetColumn2 < dataSPDanhGiaCaoNhat.length * 100 - 500) {
-          setOffsetColumn2(offsetColumn2 + 100); // Cuộn lên 1 sản phẩm cho cột 2
-        } else {
-          setOffsetColumn2(0); // Quay lại đầu khi hết sản phẩm
-        }
-      }, 2000); // Mỗi 3 giây cuộn 1 lần cho cột 2
-
-      const interval3 = setInterval(() => {
-        if (offsetColumn3 < dataSPSoLuotBanCao.length * 100 - 500) {
-          setOffsetColumn3(offsetColumn3 + 100); // Cuộn lên 1 sản phẩm cho cột 3
-        } else {
-          setOffsetColumn3(0); // Quay lại đầu khi hết sản phẩm
-        }
-      }, 2000); // Mỗi 3 giây cuộn 1 lần cho cột 3
-
-      const interval4 = setInterval(() => {
-        if (offsetColumn4 < dataSPSoLuotBanCao.length * 100 - 500) {
-          setOffsetColumn4(offsetColumn4 + 100); // Cuộn lên 1 sản phẩm cho cột 4
-        } else {
-          setOffsetColumn4(0); // Quay lại đầu khi hết sản phẩm
-        }
-      }, 2000); // Mỗi 3 giây cuộn 1 lần cho cột 3
-
-      return () => {
-        clearInterval(interval1);
-        clearInterval(interval2);
-        clearInterval(interval3);
-        clearInterval(interval4);
-      };
-    }, [offsetColumn1, offsetColumn2, offsetColumn3, offsetColumn4, dataSPNew, dataSPDanhGiaCaoNhat]);
-
-    return (
-        <>        
-          {/* rts banner areaas tart */}
-          <div className="background-light-gray-color rts-section-gap bg_light-1 pt_sm--20">
-            {/* rts banner area start */}
-            <div className="rts-banner-area-one mb--30">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="category-area-main-wrapper-one">
-                      <div className="swiper mySwiper-category-1 swiper-data" data-swiper="{
-                                    &quot;spaceBetween&quot;:1,
-                                    &quot;slidesPerView&quot;:1,
-                                    &quot;loop&quot;: true,
-                                    &quot;speed&quot;: 2000,
-                                    &quot;autoplay&quot;:{
-                                        &quot;delay&quot;:&quot;4000&quot;
-                                    },
-                                    &quot;navigation&quot;:{
-                                        &quot;nextEl&quot;:&quot;.swiper-button-next&quot;,
-                                        &quot;prevEl&quot;:&quot;.swiper-button-prev&quot;
-                                    },
-                                    &quot;breakpoints&quot;:{
-                                    &quot;0&quot;:{
-                                        &quot;slidesPerView&quot;:1,
-                                        &quot;spaceBetween&quot;: 0},
-                                    &quot;320&quot;:{
-                                        &quot;slidesPerView&quot;:1,
-                                        &quot;spaceBetween&quot;:0},
-                                    &quot;480&quot;:{
-                                        &quot;slidesPerView&quot;:1,
-                                        &quot;spaceBetween&quot;:0},
-                                    &quot;640&quot;:{
-                                        &quot;slidesPerView&quot;:1,
-                                        &quot;spaceBetween&quot;:0},
-                                    &quot;840&quot;:{
-                                        &quot;slidesPerView&quot;:1,
-                                        &quot;spaceBetween&quot;:0},
-                                    &quot;1140&quot;:{
-                                        &quot;slidesPerView&quot;:1,
-                                        &quot;spaceBetween&quot;:0}
-                                    }
-                                }">
-                        <div className="swiper-wrapper">
-                          {/* single swiper start */}
-                          <div className="swiper-slide">
-                            <div className="banner-bg-image bg_image bg_one-banner  ptb--120 ptb_md--80 ptb_sm--60">
-                              <div className="banner-one-inner-content">
-                                <h1 className="title"><br/><br/></h1>  
-                              </div>
-                            </div>
-                          </div>
-                          {/* single swiper start */}
-                          {/* single swiper start */}
-                          <div className="swiper-slide">
-                            <div className="banner-bg-image bg_image bg_one-banner two  ptb--120 ptb_md--80 ptb_sm--60">
-                              <div className="banner-one-inner-content">
-                                <h1 className="title"><br/><br/></h1>                     
-                              </div>
-                            </div>
-                          </div>
-                          <div className="swiper-slide">
-                            <div className="banner-bg-image bg_image bg_one-banner three  ptb--120 ptb_md--80 ptb_sm--60">
-                              <div className="banner-one-inner-content">
-                                <h1 className="title"><br/><br/></h1>                     
-                              </div>
-                            </div>
-                          </div>
-                          {/* single swiper start */}
-                        </div>
-                        <button className="swiper-button-next"><i className="fa-regular fa-arrow-right" /></button>
-                        <button className="swiper-button-prev"><i className="fa-regular fa-arrow-left" /></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* rts banner area end */}
-
-          </div>
-          {/* rts banner areaas end */}
-
-     
-
-       {/* rts categorya area start */}
-       <div className="rts-category-area rts-section-gap">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="cover-card-main-over-white">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="title-area-between">
-                      <h2 className="title-left mb--0">
-                        Danh mục các thể loại boardgame
-                      </h2>
-                      <div className="next-prev-swiper-wrapper">
-                        <div className="swiper-button-prev"><i className="fa-regular fa-chevron-left" /></div>
-                        <div className="swiper-button-next"><i className="fa-regular fa-chevron-right" /></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    {/* rts category area satart */}
-                    <div className="rts-caregory-area-one ">
-                      <div className="row">
-                        <div className="col-lg-12">
-                          <div className="category-area-main-wrapper-one">
-                            <div className="swiper mySwiper-category-1 swiper-data" data-swiper="{
-                                                    &quot;spaceBetween&quot;:15,
-                                                    &quot;slidesPerView&quot;:8,
-                                                    &quot;loop&quot;: true,
-                                                    &quot;speed&quot;: 1000,
-                                                    &quot;navigation&quot;:{
-                                                        &quot;nextEl&quot;:&quot;.swiper-button-next&quot;,
-                                                        &quot;prevEl&quot;:&quot;.swiper-button-prev&quot;
-                                                        },
-                                                    &quot;breakpoints&quot;:{
-                                                    &quot;0&quot;:{
-                                                        &quot;slidesPerView&quot;:1,
-                                                        &quot;spaceBetween&quot;: 15},
-                                                    &quot;380&quot;:{
-                                                        &quot;slidesPerView&quot;:2,
-                                                        &quot;spaceBetween&quot;:15},
-                                                    &quot;480&quot;:{
-                                                        &quot;slidesPerView&quot;:3,
-                                                        &quot;spaceBetween&quot;:15},
-                                                    &quot;640&quot;:{
-                                                        &quot;slidesPerView&quot;:4,
-                                                        &quot;spaceBetween&quot;:15},
-                                                    &quot;840&quot;:{
-                                                        &quot;slidesPerView&quot;:6,
-                                                        &quot;spaceBetween&quot;:15},
-                                                    &quot;1140&quot;:{
-                                                        &quot;slidesPerView&quot;:8,
-                                                        &quot;spaceBetween&quot;:15}
-                                                    }
-                                                }">
-                              <div className="swiper-wrapper">
-
-                                {/* single swiper start */}
-                                {dataTheLoai?.map((item, index) => {
-                                  return (
-                                    <div className="swiper-slide" key={index} onClick={() => {
-                                      // Cuộn về đầu trang
-                                      // window.location.href = `/all-product-category?IdLoaiSP=${item._id}`
-                                      navigate(`/all-product-category?IdLoaiSP=${item._id}`);
-                                      window.scrollTo({ top: 600, behavior: 'smooth' });
-                                      }}>
-                                      <div className="single-category-one height-230">
-                                        <a 
-                                        onClick={() => {
-                                          // Cuộn về đầu trang
-                                          // window.location.href = `/all-product-category?IdLoaiSP=${item._id}`
-                                          navigate(`/all-product-category?IdLoaiSP=${item._id}`);
-                                          window.scrollTo({ top: 600, behavior: 'smooth' });
-                                          }}
-                                        // href={`/all-product-category?IdLoaiSP=${item._id}`} 
-                                        className="thumbnail">
-                                          <img src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="category" />
-                                        </a>
-                                        <div className="inner-content-category">
-                                          <p>{item.TenLoaiSP}</p>
-                                          <span>{item.totalProducts} sản phẩm</span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                                {/* single swiper start */}
-                                
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* rts category area end */}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* rts categorya area end */}
-
-    
-
-      {/* popular -product wrapper 7 */}
-      <div className="popular-product-col-7-area rts-section-gapBottom ">
-        <div className="container cover-card-main-over-white mt--60 ">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="title-area-between mb--15" style={{justifyContent: "center"}}>
-                <h2 className="title-left" style={{color: "navy"}}>
-                Boardgame trong cửa hàng
-                </h2>               
-              </div>
-            </div>
-          </div>
-          <div className="row plr--30 plr_sm--5">
-            <div className="col-lg-12">
-              <div className="tab-content" id="myTabContent">
-                    <div className="tab-pane fade show active" id={`home`} role="tabpanel" aria-labelledby={`home-tab`}>
-                      <div className="row g-4 mt--0">
-                      {dataSP.length === 0 ? (
-                        <div className="col-12">
-                          <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
-                          <IoWarningOutline size={100} />
-                            Đang tải! </p>
-                        </div>
-                      ) : (
-                        dataSP?.map((item, index) => {
-                          return (
-                            <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={index}>
-                              <div className="single-shopping-card-one deals-of-day"  style={{height: "520px"}}>
-                                <div className="image-and-action-area-wrapper">
-                                  <a className="thumbnail-preview">
-                                    {item.GiamGiaSP !== 0 ? 
-                                    <>
-                                    <div className="badge" style={{color: "red"}}>
-                                        <span style={{color: "white"}}>-{item.GiamGiaSP}% <br/> 
-                                            Sale
-                                        </span>
-                                        <i style={{color: "red"}} className="fa-solid fa-bookmark"></i>
-                                    </div>
-                                    </> 
-                                    : <></>}                                    
-                                    <img style={{height: "220px"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
-                                  </a>
-                                  <div className="action-share-option">
-                                    <div onClick={() => handleAddWishList(item, item.sizes[0].price, item.sizes[0].size)} className="single-action openuptip message-show-action" data-flow="up" title="Danh sách yêu thích">
-                                      <i className="fa-light fa-heart" />
-                                    </div>
-                                    {/* <div className="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                      <i className="fa-solid fa-arrows-retweet" />
-                                    </div> */}
-                                     &nbsp;
-                                     &nbsp;
-                                    <div 
-                                      className="single-action openuptip cta-quickview product-details-popup-btn" 
-                                      onClick={() => {
-                                        setOpenDetail(true)
-                                        handleRedirectLayIdDeXemDetail(item._id)
-                                      }} 
-                                      data-flow="up" 
-                                      data-bs-target="#exampleModal1" 
-                                      title="Xem chi tiết">
-                                      <i className="fa-regular fa-eye" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="body-content">
-                                  <div className="start-area-rating">
-                                    <i className="fa-solid fa-star" />
-                                    <i className="fa-solid fa-star" />
-                                    <i className="fa-solid fa-star" />
-                                    <i className="fa-solid fa-star" />
-                                    <i className="fa-solid fa-star" />
-                                  </div>
-                                  <span className="availability">{item.IdHangSX?.TenHangSX}</span> <br/><br/>
-                                  <a>
-                                    <h4 className="title" onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)}>{item.TenSP}</h4>
-                                  </a>
-                                  {/* <span className="availability">500g Pack</span> */}
-                                  <div className="price-area">
-                                    <span className="current">
-                                      {/* {(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ */}
-                                      {Math.ceil(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ
-                                    </span>                                    {item.GiamGiaSP !== 0 ? 
-                                    <>
-                                    <div className="previous">{item.sizes[0].price.toLocaleString()}đ</div>
-                                    </> : 
-                                    <>
-                                    <div className="previous"></div>
-                                    </>}
-                                  </div>
-                                  <div className="cart-counter-action css-btn">
-                                    <a onClick={() => handleAddToCart(item, item.sizes[0].price, item.sizes[0].size)} className="rts-btn btn-primary radious-sm with-icon">
-                                      <div className="btn-text">
-                                      Thêm vào giỏ hàng
-                                      </div>
-                                      <div className="arrow-icon">
-                                        <i className="fa-regular fa-cart-shopping" />
-                                      </div>
-                                      <div className="arrow-icon">
-                                        <i className="fa-regular fa-cart-shopping" />
-                                      </div>
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })
-                      )}
-
-                      <Row>
-                        <Col span={24} style={{textAlign: "center"}}>
-                          <Button style={{
-                            width: "200px",
-                          }} size="large" type="primary" icon={<FaAnglesRight />} onClick={() => window.location.href = '/all-product'}>Xem Thêm</Button>
-                        </Col>
-                      </Row>
-                      </div>
-                    </div>                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="popular-product-col-7-area rts-section-gapBottom">
-        <div className="container cover-card-main-over-white mt--60 ">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="title-area-between mb--15">
-                <h2 className="title-left">
-                Sản phẩm nổi bật
-                </h2>
-                <ul className="nav nav-tabs best-selling-grocery" id="myTab" role="tablist">
-                  {dataTheLoai?.map((item, index) => {
-                    return (
-                      <li className="nav-item" role="presentation" key={index}>
-                        <button 
-                          onClick={() => {
-                            setActiveTabIndex(index); // Cập nhật tab active
-                            handleRedirectSpTheoLoai(item._id); // Gọi hàm xử lý khi click
-                          }}
-                          className={`nav-link ${activeTabIndex === index ? 'active' : ''}`}
-                          id={`home-tab${index}`} data-bs-toggle="tab" 
-                          data-bs-target={`#home${index}`} type="button" role="tab" aria-controls={`home${index}`} 
-                          aria-selected={activeTabIndex === index ? 'true' : 'false'}
-                        >{item.TenLoaiSP}</button>
-                      </li>
-                    )
-                  })}                  
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="row plr--30 plr_sm--5">
-            <div className="col-lg-12">
-              <div className="tab-content" id="myTabContent">
-                    <div className="tab-pane fade show active" id={`home`} role="tabpanel" aria-labelledby={`home-tab`}>
-                      <div className="row g-4 mt--0">
-                      {dataProductToCategory.length === 0 ? (
-                        <div className="col-12">
-                          <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
-                          <IoWarningOutline size={100} />
-                            Đang tải sản phẩm </p>
-                        </div>
-                      ) : (
-                        dataProductToCategory?.map((item, index) => {
-                          return (
-                            <div className="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12" key={index}>
-                              <div className="single-shopping-card-one deals-of-day" style={{height: "520px"}}>
-                                <div className="image-and-action-area-wrapper">
-                                  <a className="thumbnail-preview">
-                                    {item.GiamGiaSP !== 0 ? 
-                                    <>
-                                    <div className="badge" style={{color: "red"}}>
-                                        <span style={{color: "white"}}>-{item.GiamGiaSP}% <br/> 
-                                            Sale
-                                        </span>
-                                        <i style={{color: "red"}} className="fa-solid fa-bookmark"></i>
-                                    </div>
-                                    </> 
-                                    : <></>}
-                                    <img onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} style={{height: "240px", cursor:"pointer"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
-                                    </a>
-                                  <div className="action-share-option">
-                                    <div onClick={() => handleAddWishList(item, item.sizes[0].price, item.sizes[0].size)} className="single-action openuptip message-show-action" data-flow="up" title="Add To Wishlist">
-                                      <i className="fa-light fa-heart" />
-                                    </div>
-                                    <div className="single-action openuptip" data-flow="up" title="Compare" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                      <i className="fa-solid fa-arrows-retweet" />
-                                    </div>
-                                    <div className="single-action openuptip cta-quickview product-details-popup-btn" 
-                                    onClick={() => {
-                                      handleRedirectLayIdDeXemDetail(item._id)
-                                      setOpenDetail(true)}} data-flow="up" data-bs-target="#exampleModal1" title="Quick View">
-                                      <i className="fa-regular fa-eye" />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="body-content">
-                                  <div className="start-area-rating">
-                                    <i className="fa-solid fa-star" />
-                                    <i className="fa-solid fa-star" />
-                                    <i className="fa-solid fa-star" />
-                                    <i className="fa-solid fa-star" />
-                                    <i className="fa-solid fa-star" />
-                                  </div>
-                                  <span className="availability">{item.IdHangSX?.TenHangSX}</span> <br/><br/>
-                                  <a>
-                                    <h4 className="title" onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)}>{item.TenSP}</h4>
-                                  </a>
-                                  {/* <span className="availability">500g Pack</span> */}
-                                  <div className="price-area">
-                                    <span className="current">
-                                      {/* {(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ */}
-                                      {Math.ceil(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ
-                                    </span>
-                                    {item.GiamGiaSP !== 0 ? 
-                                    <>
-                                    <div className="previous">{item.sizes[0].price.toLocaleString()}đ</div>
-                                    </> : 
-                                    <>
-                                    <div className="previous"></div>
-                                    </>}
-                                    
-                                  </div>
-                                  <div className="cart-counter-action css-btn">
-                                    <a onClick={() => handleAddToCart(item, item.sizes[0].price, item.sizes[0].size)} className="rts-btn btn-primary radious-sm with-icon">
-                                      <div className="btn-text">
-                                      Thêm vào giỏ hàng
-                                      </div>
-                                      <div className="arrow-icon">
-                                        <i className="fa-regular fa-cart-shopping" />
-                                      </div>
-                                      <div className="arrow-icon">
-                                        <i className="fa-regular fa-cart-shopping" />
-                                      </div>
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })
-                      )}
-
-                      </div>
-                    </div>                
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>      
-      {/* popular -product wrapper 7 end */}
-
-       {/* four feature areas start */}
-       <div className="four-feature-in-one rts-section-gapBottom bg_gradient-tranding-items">
-        <div className="container">
-          <div className="row g-4">
-            <div className="col-lg-3">
-              {/* single four feature */}
-              <div className="feature-product-list-wrapper">
-                <div className="title-area">
-                  <h2 className="title titlee">
-                  Mới thêm gần đây
-                  </h2>
-                </div>
-                {dataSPNew.length !== 0 ? 
-                <>
-                <div
-                  className="product-container"
-                  style={{ transform: `translateY(-${offsetColumn1}px)` }} // Điều khiển cuộn
-                >
-                {dataSPNew?.map((item, index) => {
-                  return (
-                  <div className="single-product-list">
-                    <a onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} className="thumbnail">                      
-                       <img style={{width: "80px"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
-                    </a>
-                    <div className="body-content">
-                      <div className="top">
-                        <div className="stars-area">
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                        </div>
-                        <a href="#">
-                          <h4 className="title" onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)}>{item.TenSP}</h4>
-                        </a>
-                        <div className="price-area">
-                            <span className="current">
-                              {/* {(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ */}
-                              {Math.ceil(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ
-                            </span>
-                            {item.GiamGiaSP !== 0 ? 
-                            <>
-                            <div className="previous">{item.sizes[0].price.toLocaleString()}đ</div>
-                            </> : 
-                            <>
-                            <div className="previous"></div>
-                            </>}                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  )
-                })}
-               </div>
-                </> 
-                : 
-                <>
-                <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
-                  <IoWarningOutline size={100} />
-                  Đang tải sản phẩm 
-                </p>
-                </>}
-                
-              </div>                    
-              {/* single four feature end */}
-            </div>
-            <div className="col-lg-3">
-              {/* single four feature */}
-              <div className="feature-product-list-wrapper">
-                <div className="title-area">
-                  <h2 className="title titlee">
-                  Đánh giá cao nhất
-                  </h2>
-                </div>
-                {dataSPDanhGiaCaoNhat.length !== 0 ? 
-                <>
-                 <div
-                  className="product-container"
-                  style={{ transform: `translateY(-${offsetColumn2}px)` }} // Điều khiển cuộn
-                >
-                {dataSPDanhGiaCaoNhat?.map((item, index) => {
-                  return (
-                  <div className="single-product-list">
-                    <a onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} className="thumbnail">                      
-                       <img style={{width: "80px"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
-                    </a>
-                    <div className="body-content">
-                      <div className="top">
-                        <div className="stars-area">
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                        </div>
-                        <a onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)}>
-                          <h4 className="title">{item.TenSP}</h4>
-                        </a>
-                        <div className="price-area">
-                            <span className="current">
-                              {/* {(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ */}
-                              {Math.ceil(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ
-                            </span>
-                            {item.GiamGiaSP !== 0 ? 
-                            <>
-                            <div className="previous">{item.sizes[0].price.toLocaleString()}đ</div>
-                            </> : 
-                            <>
-                            <div className="previous"></div>
-                            </>}                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  )
-                })}
-                </div>
-                </> 
-                : 
-                <>
-                <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
-                  <IoWarningOutline size={100} />
-                  Đang tải sản phẩm 
-                </p>
-                </>}               
-              </div>                    
-              {/* single four feature end */}
-            </div>
-            <div className="col-lg-3">
-              {/* single four feature */}
-              <div className="feature-product-list-wrapper">
-                <div className="title-area">
-                  <h2 className="title titlee">
-                    Bán chạy nhất
-                  </h2>
-                </div>
-                {dataSPSoLuotBanCao.length !== 0 ? 
-                <>
-                  <div
-                  className="product-container"
-                  style={{ transform: `translateY(-${offsetColumn3}px)` }} // Điều khiển cuộn
-                >
-
-                {dataSPSoLuotBanCao?.map((item, index) => {
-                  return (
-                  <div className="single-product-list">
-                    <a onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} className="thumbnail">                      
-                       <img style={{width: "80px"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
-                    </a>
-                    <div className="body-content">
-                      <div className="top">
-                        <div className="stars-area">
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                          <i className="fa-solid fa-star" />
-                        </div>
-                        <a onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)}>
-                          <h4 className="title">{item.TenSP}</h4>
-                        </a>
-                        <div className="price-area">
-                            <span className="current">
-                              {/* {(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ */}
-                              {Math.ceil(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ
-                            </span>
-                            {item.GiamGiaSP !== 0 ? 
-                            <>
-                            <div className="previous">{item.sizes[0].price.toLocaleString()}đ</div>
-                            </> : 
-                            <>
-                            <div className="previous"></div>
-                            </>}                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  )
-                })}
-                  </div>
-                </> 
-                : 
-                <>
-                <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
-                  <IoWarningOutline size={100} />
-                  Đang tải sản phẩm 
-                </p>
-                </>}                
-              </div>                    
-              {/* single four feature end */}
-            </div>
-            <div className="col-lg-3">
-              {/* single four feature */}
-              <div className="feature-product-list-wrapper">
-                <div className="title-area">
-                  <h2 className="title titlee">
-                    Ưu đãi Cực Sốc
-                  </h2>
-                </div>
-                
-                {dataSPGiamGiaCao.length !== 0 ? 
-                <>
-                  <div
-                    className="product-container"
-                    style={{ transform: `translateY(-${offsetColumn4}px)` }} // Điều khiển cuộn
-                  >
-
-                  {dataSPGiamGiaCao?.map((item, index) => {
-                    return (
-                    <div className="single-product-list">
-                      <a onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)} className="thumbnail">                      
-                        <img style={{width: "80px"}} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${item.Image}`} alt="grocery" />
-                      </a>
-                      <div className="body-content">
-                        <div className="top">
-                          <div className="stars-area">
-                            <i className="fa-solid fa-star" />
-                            <i className="fa-solid fa-star" />
-                            <i className="fa-solid fa-star" />
-                            <i className="fa-solid fa-star" />
-                            <i className="fa-solid fa-star" />
-                          </div>
-                          <a onClick={() => handleRedirectLayIdDeXemDetailPageUrl(item)}>
-                            <h4 className="title">{item.TenSP}</h4>
-                          </a>
-                          <div className="price-area">
-                              <span className="current">
-                                {/* {(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ */}
-                                {Math.ceil(item.sizes[0].price - (item.sizes[0].price * (item.GiamGiaSP / 100))).toLocaleString()}đ
-                              </span>
-                              {item.GiamGiaSP !== 0 ? 
-                              <>
-                              <div className="previous">{item.sizes[0].price.toLocaleString()}đ</div>
-                              </> : 
-                              <>
-                              <div className="previous"></div>
-                              </>}                          
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    )
-                  })}
-                  </div>
-                </> 
-                : 
-                <>
-                <p style={{color: "red", fontSize: "25px", textAlign: "center"}}>
-                  <IoWarningOutline size={100} />
-                  Đang tải sản phẩm 
-                </p>
-                </>}
-                
-
-              </div>                    
-              {/* single four feature end */}
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* four feature areas end */}
-
-       {/* rts feature product 2 area start */}
-    <div className="rts-feature-large-product-area rts-section-gapBottom">
-        <div className="container">
-          <div className="row g-5">
-            <div className="col-lg-6">
-              <div className="feature-product-area-large-21 bg_image img-2">
-                <div className="inner-feature-product-content">
-                 
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-6">
-              <div className="feature-product-area-large-21 bg_2 bg_image img-3">
-                <div className="inner-feature-product-content">
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    </div>
-    {/* rts feature product 2 area end */}
-
-   
-
+        const hinhAnh = imageUrl.split('/').pop();
+        console.log("hinhAnh: ",hinhAnh);
         
 
-       <ModalViewDetail
-       openDetail={openDetail}
-       setOpenDetail={setOpenDetail}
-       setDataDetailSP={setDataDetailSP}
-       setIdDetail={setIdDetail}
-       dataDetailSP={dataDetailSP}
-       />
+        if (isMatch) {
+            console.log("Mật khẩu cũ chính xác. Cập nhật mật khẩu mới...");
 
-        {/* <div className="modal modal-compare-area-start fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Products Compare</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
-            </div>
-            <div className="modal-body">
-              <div className="compare-main-wrapper-body">
-                <div className="single-compare-elements name">Preview</div>
-                <div className="single-compare-elements">
-                  <div className="thumbnail-preview">
-                    <img src="assets/images/grocery/01.jpg" alt="grocery" />
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <div className="thumbnail-preview">
-                    <img src="assets/images/grocery/02.jpg" alt="grocery" />
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <div className="thumbnail-preview">
-                    <img src="assets/images/grocery/03.jpg" alt="grocery" />
-                  </div>
-                </div>
-              </div>
-              <div className="compare-main-wrapper-body productname spacifiq">
-                <div className="single-compare-elements name">Name</div>
-                <div className="single-compare-elements">
-                  <p>J.Crew Mercantile Women's Short</p>
-                </div>
-                <div className="single-compare-elements">
-                  <p>Amazon Essentials Women's Tanks</p>
-                </div>
-                <div className="single-compare-elements">
-                  <p>Amazon Brand - Daily Ritual Wom</p>
-                </div>
-              </div>
-              <div className="compare-main-wrapper-body productname">
-                <div className="single-compare-elements name">Price</div>
-                <div className="single-compare-elements price">
-                  <p>$25.00</p>
-                </div>
-                <div className="single-compare-elements price">
-                  <p>$39.25</p>
-                </div>
-                <div className="single-compare-elements price">
-                  <p>$12.00</p>
-                </div>
-              </div>
-              <div className="compare-main-wrapper-body productname">
-                <div className="single-compare-elements name">Description</div>
-                <div className="single-compare-elements discription">
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
-                </div>
-                <div className="single-compare-elements discription">
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
-                </div>
-                <div className="single-compare-elements discription">
-                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard</p>
-                </div>
-              </div>
-              <div className="compare-main-wrapper-body productname">
-                <div className="single-compare-elements name">Rating</div>
-                <div className="single-compare-elements">
-                  <div className="rating">
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <span>(25)</span>
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <div className="rating">
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <span>(19)</span>
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <div className="rating">
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <i className="fa-solid fa-star" />
-                    <span>(120)</span>
-                  </div>
-                </div>
-              </div>
-              <div className="compare-main-wrapper-body productname">
-                <div className="single-compare-elements name">Weight</div>
-                <div className="single-compare-elements">
-                  <div className="rating">
-                    <p>320 gram</p>
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <p>370 gram</p>
-                </div>
-                <div className="single-compare-elements">
-                  <p>380 gram</p>
-                </div>
-              </div>
-              <div className="compare-main-wrapper-body productname">
-                <div className="single-compare-elements name">Stock status</div>
-                <div className="single-compare-elements">
-                  <div className="instocks">
-                    <span>In Stock</span>
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <div className="outstocks">
-                    <span className="out-stock">Out Of Stock</span>
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <div className="instocks">
-                    <span>In Stock</span>
-                  </div>
-                </div>
-              </div>
-              <div className="compare-main-wrapper-body productname">
-                <div className="single-compare-elements name">Buy Now</div>
-                <div className="single-compare-elements">
-                  <div className="cart-counter-action">
-                    <a href="#" className="rts-btn btn-primary radious-sm with-icon">
-                      <div className="btn-text">
-                        Add To Cart
-                      </div>
-                      <div className="arrow-icon">
-                        <i className="fa-regular fa-cart-shopping" />
-                      </div>
-                      <div className="arrow-icon">
-                        <i className="fa-regular fa-cart-shopping" />
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <div className="cart-counter-action">
-                    <a href="#" className="rts-btn btn-primary radious-sm with-icon">
-                      <div className="btn-text">
-                        Add To Cart
-                      </div>
-                      <div className="arrow-icon">
-                        <i className="fa-regular fa-cart-shopping" />
-                      </div>
-                      <div className="arrow-icon">
-                        <i className="fa-regular fa-cart-shopping" />
-                      </div>
-                    </a>
-                  </div>
-                </div>
-                <div className="single-compare-elements">
-                  <div className="cart-counter-action">
-                    <a href="#" className="rts-btn btn-primary radious-sm with-icon">
-                      <div className="btn-text">
-                        Add To Cart
-                      </div>
-                      <div className="arrow-icon">
-                        <i className="fa-regular fa-cart-shopping" />
-                      </div>
-                      <div className="arrow-icon">
-                        <i className="fa-regular fa-cart-shopping" />
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div> */}
+            const res = await doiThongTinKH(_idAcc, fullName, email, phone, address, passwordMoi, hinhAnh)
+            if(res && res.data) {
+                message.success(res.message)
+                message.success('Yêu cầu đăng nhập lại!')
+                setImageUrl('')
+                dispatch(doLogoutAction())
+                dispatch(doLogoutActionCart())
+                dispatch(doLoginActionWishlist())
+            } else {
+                notification.error({ 
+                    message: "Đổi thông tin thất bại!",
+                    description: res.message && Array.isArray(res.message) ? res.message[0] : res.message,
+                    duration: 5,
+                });
+            }
 
-        <div>
-        {/* successfully add in wishlist */}
-        <div className="successfully-addedin-wishlist">
-          <div className="d-flex" style={{alignItems: 'center', gap: '15px'}}>
-            <i className="fa-regular fa-check" />
-            <p>Your item has already added in wishlist successfully</p>
-          </div>
+        } else {
+            notification.error({
+                message: "Mật khẩu cũ không chính xác",
+                description: "Vui lòng nhập lại mật khẩu cũ đúng."
+            });
+        }
+
+    }
+    console.log("dataAcc: ", dataAcc);
+    console.log("dataAccKH: ", dataAccKH);
+
+    const fetchOneAcc = async () => {
+        let id = `id=${customerId}`
+        const res = await fetchOneAccKH(id)
+        console.log("res voucher tk: ", res.data);
+        
+        if (res && res.data) {
+            setDataAccKH(res.data)            
+            setDataAcc(res.data?.[0])     
+            setSoLuongDonThanhCong(res.soLuongDonThanhCong)       
+            setTongDoanhThuThanhCong(res.tongDoanhThuThanhCong)       
+        }
+    }
+
+    useEffect(() => {
+        if (dataAcc) {     
+            if (dataAcc.image) {    
+                setFileList([
+                    {
+                        uid: uuidv4(),
+                        name: dataAcc.image, // Tên file
+                        status: 'done', // Trạng thái
+                        url: `${import.meta.env.VITE_BACKEND_URL}/uploads/${dataAcc.image}`, // Đường dẫn đến hình ảnh
+                    },
+                ]);
+            }              
+            const init = {
+                _idAcc: dataAcc?._id,                
+                fullName: dataAcc?.fullName,                
+                email: dataAcc?.email,                
+                phone: dataAcc?.phone,                
+                address: dataAcc?.address,                                
+                image: dataAcc?.image,                                
+            }
+            console.log("init: ", init);
+            setImageUrl(dataAcc?.image)    
+            formAcc.setFieldsValue(init);            
+        }
+        return () => {
+            formAcc.resetFields();
+        }
+    },[dataAcc])
+
+    useEffect(() => {
+        fetchOneAcc()
+    },[customerId])   
+    
+    const logoutClick = async () => {
+        const res = await handleLogout()
+        if(res) {
+          dispatch(doLogoutAction())
+          dispatch(doLogoutActionCart())
+          dispatch(doLoginActionWishlist())
+          message.success(res.message)
+          navigate('/')
+        }
+    }
+
+    // upload ảnh    
+    const handleUploadFileImage = async ({ file, onSuccess, onError }) => {
+
+        setLoading(true);
+        try {
+            const res = await uploadImg(file);
+            console.log("res upload: ", res);            
+            if (res) {
+                setImageUrl(res.url); // URL của hình ảnh từ server
+                onSuccess(file);
+                setFileList([ // Đặt lại fileList chỉ chứa file mới
+                    {
+                        uid: file.uid,
+                        name: file.name,
+                        status: 'done',
+                        url: res.url, // URL của hình ảnh từ server
+                    },
+                ]);
+                // setDataImage()
+                message.success('Upload thành công');
+            } else {
+                onError('Đã có lỗi khi upload file');
+            }            
+        } catch (error) {
+            console.error(error);
+            message.error('Upload thất bại');
+            onError(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    const beforeUpload = (file) => {
+        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+        if (!isJpgOrPng) {
+            message.error('Bạn chỉ có thể tải lên hình ảnh JPG/PNG!');
+        }
+        return isJpgOrPng;
+    };
+
+    const handleChange = (info) => {
+        if (info.file.status === 'done') {
+            message.success(`upload file ${info.file.name} thành công`);
+        } else if (info.file.status === 'error') {
+            message.error(`${info.file.name} upload file thất bại!`);
+        }
+    };
+    const handleRemoveFile = (file) => {
+        setFileList([]); // Reset fileList khi xóa file
+        setImageUrl(''); // Reset URL khi xóa file
+        message.success(`${file.name} đã được xóa`);
+    };
+    // mở đóng modal hình ảnh
+    const handlePreview = async (file) => {
+        setImageUrl(fileList[0].url); // Lấy URL của hình ảnh
+        setIsModalVisible(true); // Mở modal
+    };
+
+    const linkTTGH = (item) => {
+        window.open(item, '_blank');
+    }
+
+    const findAllOrder = async () => {
+        setLoadingOrder(true)
+        let query = `page=${current}&limit=${pageSize}&idKH=${customerId}`
+        if (sortQuery) {
+            query += `&${sortQuery}`;
+        } 
+        let res = await historyOrderByIdKH(query)
+        console.log("res his order: ", res);
+        if(res && res.data) {
+            setDataOrder(res.data?.findOrder)
+            setTotal(res.data?.totalOrder)
+        }
+        setLoadingOrder(false)
+    }
+
+    useEffect(() => {
+        findAllOrder()
+    },[customerId, current, pageSize, sortQuery])
+
+    const columns = [
+        {
+            title: 'Mã đơn',
+            dataIndex: '_id',
+            key: '_id',
+            render: (text) => <span style={{fontWeight: "bold"}}>#{text.slice(-6)}</span>, // Lấy 6 ký tự cuối cùng
+            width: 50
+        },
+        {
+            title: 'ngày đặt đơn',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
+            render: (text, record) => {
+                return (
+                    // <>{moment(record.createdAt).format('DD-MM-YYYY  (hh:mm:ss)')}</>
+                    <>{moment(record.createdAt).tz('Asia/Ho_Chi_Minh').format('DD-MM-YYYY (HH:mm:ss)')}</>
+                )
+            },
+            sorter: true
+        },        
+        {
+          title: <span style={{justifyContent: "center", display: "flex"}}>trạng thái</span>,
+          key: 'status',
+          dataIndex: 'status',
+          render: (text, record) => {            
+            // Hàm lấy màu và icon cho TinhTrangDonHang
+            const getStatusTagForTinhTrangDonHang = (status) => {
+                if (status === "Chưa giao hàng") {
+                    return { color: 'red', icon: <ExclamationCircleOutlined /> };
+                }
+                if (status === "Đang giao hàng") {
+                    return { color: 'orange', icon: <HourglassOutlined /> };
+                }
+                return { color: 'blue', icon: <CheckCircleOutlined /> }; // "Đã giao hàng"
+            };
+        
+            // Hàm lấy màu và icon cho TinhTrangThanhToan
+            const getStatusTagForTinhTrangThanhToan = (status) => {
+                return status === "Chưa Thanh Toán"
+                ? { color: 'red', icon: <ExclamationCircleOutlined /> }
+                : { color: 'green', icon: <CheckCircleOutlined /> }; // "Đã Thanh Toán"
+            };
+        
+            const donHangTag = getStatusTagForTinhTrangDonHang(record.TinhTrangDonHang);
+            const thanhToanTag = getStatusTagForTinhTrangThanhToan(record.TinhTrangThanhToan);
+            return (
+                <div style={{justifyContent: "center", display: "flex"}}>      
+                    {record?.TrangThaiHuyDon === 'Không Hủy' ? (
+                        record?.TinhTrangDonHang === 'Đã giao hàng' && record?.TinhTrangThanhToan === 'Đã Thanh Toán' ? 
+                            <Tag color='green' icon={<CheckCircleOutlined />}>Đơn hàng giao thành công</Tag> : 
+                        <>
+                            <Tag color={donHangTag.color} icon={donHangTag.icon}>
+                                {record.TinhTrangDonHang}
+                            </Tag>
+                            <Tag color={thanhToanTag.color} icon={thanhToanTag.icon}>
+                                {record.TinhTrangThanhToan}
+                            </Tag>
+                        </>                        
+                    ) : (
+                        record?.TinhTrangThanhToan === 'Chờ hoàn tiền' ? 
+                        <>
+                            <Tag color='default' icon={<CheckCircleOutlined />}>{record?.TrangThaiHuyDon}</Tag>
+                            <Tag color={'warning'} icon={<ExclamationCircleOutlined />}>
+                                {record.TinhTrangThanhToan}
+                            </Tag>                           
+                        </>  :  <Tag color='default' icon={<CheckCircleOutlined />}>{record?.TrangThaiHuyDon}</Tag>
+                    ) }                    
+                </div>
+            );
+          },
+        },
+        {
+            title: 'TỔNG',
+            dataIndex: 'total',
+            key: 'total',
+            render: (text, record) => {                
+                return (
+                    <>
+                        <span>Đã đặt {record.tongSoLuong} sản phẩm</span> <br/>
+                        <span>Tổng <span style={{color: "red"}}>{Math.ceil(record.soTienCanThanhToan).toLocaleString()} VNĐ</span> </span> 
+                    </>
+                );
+            },
+        },
+        {
+          title: 'chức năng',
+          key: 'action',
+          render: (_, record) => (
+            <Space size="middle">
+                <Tooltip title="Xem tình trạng giao hàng" color={'green'} key={'green'}>
+                    <FaLink onClick={() => linkTTGH(record?.urlTTGH)} size={20} style={{color: "navy", fontWeight: "bold", cursor: "pointer", fontSize: "18px"}}  />
+                </Tooltip>
+                <Tooltip title="Xem đơn hàng này" color={'green'} key={'green'}>
+
+                    <FaEye size={23} style={{color: "green", fontWeight: "bold", cursor: "pointer", fontSize: "18px"}} 
+                        onClick={() => {
+                            console.log("record: ", record);    
+                            setOpenViewDH(true)    
+                            setDataViewDH(record)                             
+                        }} 
+                    />
+                </Tooltip>
+
+                {record.TinhTrangDonHang === 'Chưa giao hàng' && record.TinhTrangThanhToan === 'Đã Thanh Toán' && record?.TrangThaiHuyDon === 'Không Hủy' ? 
+                <Tooltip title="Hủy đơn hàng này" color={'green'} key={'green'}>
+                    <MdOutlineCancel onClick={() => huyDonHang(record?._id)} style={{color: "red"}} size={23} />                                           
+                </Tooltip>  : ''
+                }
+
+                {record.TinhTrangDonHang === 'Chưa giao hàng' && record.TinhTrangThanhToan === 'Chưa Thanh Toán' && record?.TrangThaiHuyDon === 'Không Hủy' ? 
+                <Tooltip title="Hủy đơn hàng này" color={'green'} key={'green'}>
+                    <MdOutlineCancel onClick={() => huyDonHang(record?._id)} style={{color: "red"}} size={23} />                                           
+                </Tooltip>  : ''
+                }                               
+
+                {/* <Tooltip title="Hủy đơn hàng này" color={'green'} key={'green'}>
+                    <MdOutlineCancel onClick={() => alert('xoa')} style={{color: "red"}} size={23} />                                           
+                </Tooltip>                 */}
+            </Space>
+          ),
+        },
+    ];   
+
+    const huyDonHang = async (id) => {
+        let res = await handleHuyOrder(id)
+        if(res && res.data) {
+            message.success(res.message)
+            await findAllOrder()
+        } else {
+            notification.error({
+                message: 'Hủy đơn hàng không thành công!',
+                description: res.message
+            })
+        } 
+    }
+    
+    const onChange = (pagination, filters, sorter, extra) => {
+        console.log(">> check: pagination", pagination);
+    
+        // nếu thay dổi trang: current
+        if(pagination && pagination.current){
+          if( +pagination.current !== +current){
+            setCurrent( +pagination.current) // ví dụ "5" -> 5
+          }
+        }
+    
+        // nếu thay đổi tổng số phần tử
+        if(pagination && pagination.current){
+          if( +pagination.pageSize !== +pageSize){
+            setPageSize( +pagination.pageSize) // ví dụ "5" -> 5
+          }
+        }
+
+        if (sorter && sorter.field) {
+            const sortOrder = sorter.order === 'ascend' ? 'asc' : 'desc'; // Determine sort order
+            const newSortQuery = `sort=${sorter.field}&order=${sortOrder}`;
+            if (newSortQuery !== sortQuery) {
+                setSortQuery(newSortQuery); // Only update if sort query changes
+            }
+        }
+    
+        window.scrollTo({ top: 80, behavior: "smooth" });
+      }
+
+    const renderMemberRank = (hangTV) => {
+        switch (hangTV) {
+            case "Bạc":
+                return (
+                    <>
+                        <FaTrophy size={25} style={{ color: "#CD7F32", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#696969' }}>Hiện tại: Tigar Bạc</span>
+                        <p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
+  (Ưu đãi hiện tại: <Text style={{ color: '#696969' }}>Miễn phí giao hàng)</Text>{' '}
+  
+</Text>
+</p>
+{/* Hiển thị hiệu tuyệt đối giữa tongDoanhThuThanhCong và 1.000.000 */}
+<Text style={{ fontSize: '16px', marginTop: '8px' }}>
+  Đang tải sản phẩm <Text style={{ color: 'red' }}>
+    {Math.abs(tongDoanhThuThanhCong - 1000000).toLocaleString('vi-VN')}đ
+  </Text> để thăng hạng <FaCrown size={15} style={{ color: "gold", marginRight: 8 }} /><Text style={{ color: '#FFD700' }}>Tigar Vàng</Text>{' '}
+  
+</Text>
+<p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
+  (Ưu đãi Tigar Vàng: <Text style={{ color: 'red' }}>Giảm 5% tổng đơn)</Text>{' '}
+  
+</Text></p>
+                        
+                    </>
+                );
+            case "Vàng":
+                return (
+                    <>
+                        <FaCrown size={25} style={{ color: "gold", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#FFD700' }}>Tigar Vàng</span>
+                        <Text style={{ fontSize: '16px', marginTop: '8px' }}>
+  Đang tải sản phẩm <Text style={{ color: 'red' }}>
+    {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
+  </Text> để thăng hạng <FaStar size={15} style={{ color: "gold", marginRight: 8 }} /><Text style={{ color: '#FFD700' }}>Tigar Bạch Kim</Text>{' '}
+  
+</Text>
+<p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
+  (Ưu đãi Tigar Bạch Kim: <Text style={{ color: 'red' }}>Giảm 12% tổng đơn)</Text>{' '}
+  
+</Text></p>
+                    </>
+                );
+            case "Bạch Kim":
+                return (
+                    <>
+                        <FaStar size={30} style={{ color: "#E5E4E2", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#999B9B' }}>Tigar Bạch Kim</span>
+                        <Text style={{ fontSize: '16px', marginTop: '8px' }}>
+  Đang tải sản phẩm <Text style={{ color: 'red' }}>
+    {Math.abs(tongDoanhThuThanhCong - 20000000).toLocaleString('vi-VN')}đ
+  </Text> để thăng hạng Tigar Kim Cương{' '}
+  
+</Text>
+
+                    </>
+                );
+            case "Kim Cương":
+                return (
+                    <>
+                        <IoDiamondSharp size={30} style={{ color: "#00BFFF", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#00bfff' }}>Tigar Kim Cương</span>
+                    </>
+                );
+            default:
+                return (
+                    <>
+                        <FaTrophy size={30} style={{ color: "#CD7F32", marginRight: 8 }} />
+                        <span style={{ color: 'navy', fontSize: '20px', color: '#ff6600' }}>Tigar Bạc</span>
+                    </>
+                );
+        }
+    };
+
+    return (
+        <>
+        <div className="rts-navigation-area-breadcrumb">
+            <div className="container-2">
+                <div className="row">
+                <div className="col-lg-12">
+                    <div className="navigator-breadcrumb-wrapper">
+                    <a>Home</a>
+                    <i className="fa-regular fa-chevron-right" />
+                    <a className="current">Tài khoản của tôi</a>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
-        {/* successfully add in wishlist end */}
-        {/* progress area start */}
-        <div className="progress-wrap">
-          <svg className="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style={{transition: 'stroke-dashoffset 10ms linear 0s', strokeDasharray: '307.919, 307.919', strokeDashoffset: '307.919'}} />
-          </svg>
+
+        <div className="account-tab-area-start rts-section-gap">
+            <div className="container-2">
+                <div className="row">
+                    <div className="col-lg-3">
+                        <div className="nav accout-dashborard-nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button className="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i className="fa-regular fa-bag-shopping" />Lịch sử đơn hàng</button>
+                            <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingsa" type="button" role="tab" aria-controls="v-pills-settingsa" aria-selected="false"><i className="fa-light fa-user" />Thông tin tài khoản</button>
+                            <button className="nav-link" id="v-pills-settingsa-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settingdoimatkhau" type="button" role="tab" aria-controls="v-pills-settingdoimatkhau" aria-selected="false"><TbPasswordUser size={20} /> Thay đổi thông tin tài khoản</button>
+                            <button className="nav-link" id="v-pills-settings-tab" onClick={() => message.success(`Bạn đang có ${dataAcc?.quayMayManCount} lượt quay vòng quay may mắn`)} role="tab" aria-controls="v-pills-settings" aria-selected="false"><IoGift size={20} />Số lượt quay thưởng &nbsp; ({dataAcc?.quayMayManCount})</button>
+                            <button className="nav-link " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"><RiDiscountPercentFill size={20} />Mã giảm giá</button>
+                            <button className="nav-link" id="v-pills-settingsb-tab" type="button" role="tab"><a onClick={() => logoutClick()}><i className="fa-light fa-right-from-bracket" />Đăng xuất</a></button>
+                        </div>
+                    </div>
+
+                    <div className="col-lg-9 pl--50 pl_md--10 pl_sm--10 pt_md--30 pt_sm--30">
+                        <div className="tab-content" id="v-pills-tabContent">
+                            {/* Vouchers */}
+                            <div className="tab-pane fade  " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabIndex={0}>
+                                <div className="dashboard-account-area">
+                                    <Row gutter={[30,30]}>
+                                    {dataAccKH?.[0]?.IdVoucher?.length > 0 ? (
+                                            dataAccKH[0].IdVoucher.map((item, index) => {
+                                                return (
+                                                    <Col span={8} key={index}>
+                                                        <Card
+                                                            actions={[
+                                                                <Tooltip title="Sao chép voucher" color={'green'} key={'green'}>
+                                                                    <IoCopy
+                                                                        size={25}
+                                                                        onClick={() => {
+                                                                        // Sao chép mã voucher vào clipboard
+                                                                        navigator.clipboard.writeText(item.code)
+                                                                            .then(() => {
+                                                                            message.success(`Voucher ${item.code} đã được sao chép!`);
+                                                                            })
+                                                                            .catch(() => {
+                                                                            message.error("Lỗi khi sao chép voucher!");
+                                                                            });
+                                                                        }}
+                                                                    />
+                                                                </Tooltip>,
+                                                                <Tooltip title="Đi tới giỏ hàng" color={'green'} key={'green'}>
+                                                                    <MdOutlineShoppingCartCheckout onClick={() => navigate('/mycart')} size={25} key="checkout" />
+                                                                </Tooltip>,
+                                                            ]}
+                                                            style={{
+                                                                minWidth: 300,
+                                                            }}
+                                                            hoverable
+                                                        >
+                                                            <Avatar size={70} src={imgVoucher} />
+                                                            <span style={{ paddingLeft: "20px", fontSize: "20px", fontWeight: "500", color: "blue" }}>
+                                                                {item.code} {/* Assuming voucher code is in `item.code` */}
+                                                            </span> 
+                                                            <br />
+                                                            <span style={{ fontSize: "16px" }}>
+                                                                Điều kiện: Giá trị đơn hàng trên <span style={{ color: "red" }}> {parseInt(item.dieuKien).toLocaleString()}đ</span>
+                                                            </span> 
+                                                            <br />
+                                                            <span style={{ fontSize: "16px" }}>
+                                                                Được giảm: <span style={{ color: "red" }}>{item.giamGia}%</span>
+                                                            </span>
+                                                            <br />
+                                                            <span style={{ fontSize: "16px" }}>
+                                                                Ngày hết hạn: <span style={{ color: "red" }}>{item.thoiGianHetHan}</span>
+                                                            </span>
+                                                        </Card>
+                                                    </Col>
+                                                );
+                                            })
+                                        ) : (
+                                            <div>Chưa có mã giảm giá</div>
+                                        )
+                                    }                                                                               
+                                    </Row>
+                                </div>                                
+                            </div>
+
+                            <div className="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabIndex={0}>
+                                <div className="order-table-account">
+                                <div className="h3 title">Đơn Hàng Của &nbsp;&nbsp;&nbsp;<span style={{color: "green"}}>{user?.fullName}</span></div>
+                                <div className="table-responsive">
+                                    <Table 
+                                    onChange={onChange}
+                                    pagination={{
+                                        current: current,
+                                        pageSize: pageSize,
+                                        showSizeChanger: true,
+                                        total: total,
+                                        showTotal: (total, range) => { return (<div> {range[0]}-{range[1]} trên {total} đơn hàng</div>) }
+                                    }}
+                                    //  pagination={false}  // Tắt phân trang mặc định của Table
+                                    loading={loadingOrder} 
+                                    columns={columns} 
+                                    dataSource={dataOrder} />                                    
+                                </div>
+                                </div>
+
+                                <DrawerViewOrder
+                                openViewDH={openViewDH}
+                                dataViewDH={dataViewDH}
+                                setOpenViewDH={setOpenViewDH}
+                                setDataViewDH={setDataViewDH}
+                                />
+                            </div>
+
+                            <div className="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabIndex={0}>
+                                <div className="tracing-order-account">
+                                <h2 className="title">Orders tracking</h2>
+                                <p>
+                                    To keep up with the status of your order, kindly input your OrderID in the designated box below and click the "Track" button. This unique identifier can be found on your receipt as well as in the confirmation email that was sent to you.
+                                </p>
+                                <form action="#" className="order-tracking">
+                                    <div className="single-input">
+                                    <label htmlFor="order-id">Order Id</label>
+                                    <input type="text" placeholder="Found in your order confirmation email" required />
+                                    </div>
+                                    <div className="single-input">
+                                    <label htmlFor="order-id">Billing email</label>
+                                    <input type="text" placeholder="Email You use during checkout" />
+                                    </div>
+                                    <button className="rts-btn btn-primary">Track</button>
+                                </form>
+                                </div>
+                            </div>
+
+                            <div className="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab" tabIndex={0}>
+                                <div className="shipping-address-billing-address-account">
+                                    <div className="half">
+                                        <h2 className="title">Địa chỉ của tôi</h2>
+                                        
+                                    </div>
+                               
+                                </div>
+                            </div>
+
+                            {/* tài khoản của tôi */}
+                            <div className="tab-pane fade" id="v-pills-settingsa" role="tabpanel" aria-labelledby="v-pills-settingsa-tab" tabIndex={0}>
+                                <h2 className="title">Thông tin chi tiết</h2>                                
+                                <Form
+                                    form={formAcc}
+                                    className="registration-form"                                
+                                    layout="vertical"                                    
+                                >
+                                    <Divider/>
+                                    <Row gutter={[20,2]}>                                        
+                                        <Form.Item name="_idAcc" hidden><Input hidden /></Form.Item>
+                                        <Col span={24} md={24} sm={24} xs={24}>
+                                            <Form.Item name="_idAcc" style={{textAlign: "center"}}>
+                                                <Avatar size={150} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${imageUrl}`} /> 
+                                                <p className="mt-4" style={{ color: '#ff6600', marginRight: '8px', fontSize: "30px"}}>                                                    
+                                                    {renderMemberRank(dataAcc?.hangTV)}
+                                                </p>
+                                            </Form.Item>
+                                        </Col>
+                                        <Row gutter={[16, 16]} style={{ background: '#f9f9f9', padding: '20px', borderRadius: '15px', textAlign:'center', width: '100%',  }}>
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><FaUser /> &nbsp;Họ và tên:</Text>
+                                                <Text style={{ display: 'block', color: 'navy', fontSize: '20px' }}>{ dataAcc?.fullName || "Chưa cập nhật"}</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><MdEmail /> &nbsp;Email:</Text>
+                                                <Text style={{ display: 'block', color: 'navy', fontSize: '20px' }}>{ dataAcc?.email || "Chưa cập nhật"}</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><FaPhone /> &nbsp;Số điện thoại:</Text>
+                                                <Text style={{ display: 'block', color: 'navy', fontSize: '20px' }}>{ dataAcc?.phone || "Chưa cập nhật"}</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><FaAddressCard /> &nbsp;Địa chỉ:</Text>
+                                                <Text style={{ display: 'block', color: 'navy', fontSize: '20px' }}>{ dataAcc?.address || "Chưa cập nhật"}</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><MdOutlineProductionQuantityLimits /> &nbsp;Tổng đơn hàng hoàn tất:</Text>
+                                                <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ soLuongDonThanhCong || 0} đơn hàng</Text>
+                                            </Col>
+
+                                            <Col span={12} md={12} sm={24} xs={24}>
+                                                <Text strong style={{fontSize: '20px'}}><FaCartPlus /> &nbsp;Tổng tiền tích luỹ:</Text>
+                                                <Text style={{ display: 'block', color: 'red', fontSize: '20px' }}>{ tongDoanhThuThanhCong.toLocaleString("vi-VN") || 0}đ</Text>
+                                            </Col>
+                                        </Row>                                        
+
+                                    </Row>                                    
+                                </Form>                                
+                            </div>
+
+                            {/* đổi mật khẩu */}
+                            <div className="tab-pane fade" id="v-pills-settingdoimatkhau" role="tabpanel" aria-labelledby="v-pills-settingsa-tab" tabIndex={0}>
+                                <h2 className="title">Đổi Thông Tin Chi Tiết</h2>                                
+                                <Form
+                                    form={formAcc}
+                                    className="registration-form"                                
+                                    layout="vertical"                                    
+                                    onFinish={handleDoiTT} 
+                                >
+                                    <Divider/>
+                                    <Row gutter={[20,2]}>
+                                        {/* <Col span={4} md={4} sm={24} xs={24}>
+                                            <span style={{fontSize: "20px"}}>Ảnh đại diện: </span>
+                                            <Avatar style={{marginTop: "5px", marginBottom: "10px"}} size={100} src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${dataAcc?.image}`} />
+                                        </Col> */}
+                                        <Form.Item name="_idAcc" hidden><Input hidden /></Form.Item>
+                                            <Col span={24} md={24} sm={24} xs={24}>
+                                            <Form.Item
+                                                label="Upload Ảnh đại diện"
+                                                name="image"                                                
+                                                hasFeedback
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Vui lòng nhập Upload Ảnh đại diện',
+                                                    },                                                   
+                                                ]}
+                                            >
+                                                <Upload
+                                                    name="file"
+                                                    listType="picture-card"
+                                                    className="avatar-uploader"
+                                                    maxCount={1}
+                                                    multiple={false}
+                                                    customRequest={handleUploadFileImage}
+                                                    beforeUpload={beforeUpload}
+                                                    onChange={handleChange}
+                                                    onRemove={handleRemoveFile}
+                                                    fileList={fileList} // Gán danh sách file
+                                                    onPreview={handlePreview}
+                                                >
+                                                    <div>
+                                                        {loading ? <LoadingOutlined /> : <PlusOutlined />}
+                                                        <div style={{ marginTop: 8 }}>Upload</div>
+                                                    </div>
+                                                </Upload>
+
+                                                <Modal
+                                                    visible={isModalVisible}
+                                                    footer={null}
+                                                    title="Xem Hình Ảnh"
+                                                    onCancel={() => setIsModalVisible(false)}
+                                                >
+                                                    <img alt="Uploaded" style={{ width: '100%' }} src={imageUrl} />
+                                                </Modal>
+                                            </Form.Item> 
+                                        </Col>
+                                        <Col span={12} md={12} sm={24} xs={24}>
+                                            <Form.Item
+                                                labelCol={{span: 24}}
+                                                label="Họ và tên"
+                                                name="fullName"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Vui lòng nhập đầy đủ thông tin!',
+                                                    },
+                                                    {
+                                                        required: false,
+                                                        pattern: new RegExp(/^[A-Za-zÀ-ỹ\s]+$/),
+                                                        message: 'Không được nhập số!',
+                                                    },
+                                                ]}
+                                                hasFeedback
+                                            >
+                                                <Input placeholder="Nhập họ và tên của bạn" />
+                                            </Form.Item> 
+                                        </Col>
+                                        <Col span={12} md={12} sm={24} xs={24}>
+                                            <Form.Item
+                                                label="Email"                                        
+                                                name="email"                                                
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Vui lòng nhập đầy đủ thông tin!',
+                                                    },
+                                                    {
+                                                        type: "email",
+                                                        message: 'Vui lòng nhập đúng định dạng địa chỉ email',
+                                                    },
+
+                                                ]}
+                                                hasFeedback
+                                            ><Input disabled placeholder="Nhập email của bạn" />
+                                            </Form.Item>
+                                        </Col>
+                                        <Col span={12} md={12} sm={24} xs={24}>
+                                            <Form.Item
+                                                label="Số Điện Thoại"
+                                                name="phone"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Vui lòng nhập đầy đủ thông tin!',
+                                                    },
+                                                    {
+                                                        pattern: /^0\d{9}$/,
+                                                        message: 'Số điện thoại phải có 10 chữ số và bẳt đầu bằng số 0, không chứa kí tự!',
+                                                    },
+                                                ]}
+                                                hasFeedback
+                                            >
+                                                <Input placeholder='Ví dụ: 0972138493' />
+                                            </Form.Item> 
+                                        </Col>
+                                        <Col span={12} md={12} sm={24} xs={24}>
+                                            <Form.Item
+                                                label="Địa chỉ"
+                                                name="address"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Vui lòng nhập đầy đủ thông tin!',
+                                                    },                                                    
+                                                ]}
+                                                hasFeedback
+                                            >
+                                                <Input placeholder='Nhập địa chỉ...' />
+                                            </Form.Item> 
+                                        </Col>
+                                        <Col span={12} md={12} sm={24} xs={24}>
+                                            <Form.Item
+                                                label="Mật khẩu cũ"
+                                                name="password"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Vui lòng nhập đầy đủ thông tin!',
+                                                    },                                                    
+                                                ]}
+                                                hasFeedback
+                                            >
+                                                <Input.Password placeholder='Nhập mật khẩu cũ' />
+                                            </Form.Item> 
+                                        </Col>
+                                        <Col span={12} md={12} sm={24} xs={24}>
+                                            <Form.Item
+                                                label="Mật khẩu mới"
+                                                name="passwordMoi"
+                                                rules={[
+                                                    {
+                                                        required: true,
+                                                        message: 'Vui lòng nhập đầy đủ thông tin!',
+                                                    },                                                    
+                                                ]}
+                                                hasFeedback
+                                            >
+                                                <Input.Password placeholder='Nhập mật khẩu muốn đổi mới' />
+                                            </Form.Item> 
+                                        </Col>
+
+                                        <Col span={6} style={{margin: "auto"}}>
+                                            <Button onClick={() => formAcc.submit()} type="primary" size="large" icon={<FaSave size={25} />}>Đổi thông tin</Button>
+                                        </Col>
+
+                                    </Row>                                    
+                                </Form>                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        {/* progress area end */}
-      </div>
+
+
         </>
     )
 }
-export default Home
+export default Account

@@ -437,9 +437,13 @@ const Account = () => {
                         <Text style={{ fontSize: '16px', marginTop: '8px' }}>
   Tích luỹ thêm <Text style={{ color: 'red' }}>
     {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
-  </Text> để thăng hạng Tigar Bạch Kim{' '}
+  </Text> để thăng hạng <FaStar size={15} style={{ color: "gold", marginRight: 8 }} /><Text style={{ color: '#FFD700' }}>Tigar Bạch Kim</Text>{' '}
   
 </Text>
+<p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
+  (Ưu đãi Tigar Bạch Kim: <Text style={{ color: 'red' }}>Giảm 12% tổng đơn)</Text>{' '}
+  
+</Text></p>
                     </>
                 );
             case "Bạch Kim":
