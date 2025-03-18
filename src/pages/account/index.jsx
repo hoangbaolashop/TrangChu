@@ -446,7 +446,7 @@ const Account = () => {
   
 </Text>
 <p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
-  (Ưu đãi Tigar Bạch Kim: <Text style={{ color: 'red' }}>Giảm 12% tổng đơn)</Text>{' '}
+  (Ưu đãi Tigar Bạch Kim: <Text style={{ color: 'red' }}>Giảm 12% tổng đơn )</Text>{' '}
   
 </Text></p>
                     </>
