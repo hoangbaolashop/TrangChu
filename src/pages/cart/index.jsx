@@ -173,7 +173,7 @@ const MyCart = () => {
                                 <input   
                                 style={{border: "2px solid green", height: "50px", width: "400px", borderRadius: "10px"}}                             
                                 type="text"
-                                placeholder="Nhập mã giảm giá vào đây..."
+                                placeholder="Từ Tigar Vàng sẽ có mã giảm giá"
                                 value={voucherCode}  // Liên kết với state voucherCode
                                 onChange={(e) => setVoucherCode(e.target.value)}  // Cập nhật voucherCode khi người dùng nhập
                                 />
