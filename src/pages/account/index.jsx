@@ -434,6 +434,11 @@ const Account = () => {
                     <>
                         <FaCrown size={25} style={{ color: "gold", marginRight: 8 }} />
                         <span style={{ color: 'navy', fontSize: '20px', color: '#FFD700' }}>Tigar Vàng</span>
+                        <p><Text style={{ fontSize: '12px', marginTop: '8px' }}>
+  (Ưu đãi hiện tại: <Text style={{ color: '#696969' }}> Giảm 10% tổng đơn)</Text>{' '}
+  
+</Text>
+</p>
                         <Text style={{ fontSize: '16px', marginTop: '8px' }}>
   Tích luỹ thêm <Text style={{ color: 'red' }}>
     {Math.abs(tongDoanhThuThanhCong - 5000000).toLocaleString('vi-VN')}đ
