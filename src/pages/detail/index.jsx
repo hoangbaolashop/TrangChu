@@ -503,7 +503,7 @@ const DetailProduct = () => {
                                                 <div className="single-select">                                                  
                                                 <Row gutter={[10,10]}>
                                                     <Col md={16} xs={24} sm={24}>
-                                                    <span className="label">Size</span> 
+                                                    <span className="label">Phân loại: </span> 
                                                     <Select
                                                         disabled={soLuongTonKho === 0 ? true : false} 
                                                         placeholder="CHỌN SIZE"
