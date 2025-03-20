@@ -395,21 +395,21 @@ const Checkout = () => {
                         })}                        
 
                         <div className="top-wrapper">
-                            <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Thành tiền</div>
+                            <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Thành tiền:</div>
                             <div className="price" style={{fontSize: "20px", fontWeight: "500", color: "brown"}}>{Math.ceil(order.totalPriceChuaGiam).toLocaleString()}đ </div>                            
                         </div> 
                         <div className="top-wrapper">
-                            <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Giảm giá</div>
+                            <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Giảm giá:</div>
                             <div className="price" style={{fontSize: "20px", fontWeight: "500", color: "green"}}>
                             -{Math.ceil(order.appliedDiscount).toLocaleString()}đ &nbsp; <br/><span>(giảm {order.soPhanTramGiam}% từ Voucher)</span>    
                             </div>                            
                         </div>
                         <div className="top-wrapper">
-                            <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Phí vận chuyển</div>
+                            <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Phí vận chuyển:</div>
                             <div className="price" style={{fontSize: "17px", fontWeight: "500", color: "green"}}>Miễn phí giao hàng cho hoá đơn mua giá trị từ 300K</div>                            
                         </div>
                         <div className="top-wrapper">
-                            <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Cần thanh toán</div>
+                            <div className="product" style={{fontSize: "20px", fontWeight: "500"}}>Cần thanh toán:</div>
                             <div className="price" style={{fontSize: "20px", fontWeight: "500", color: "red"}}>{Math.ceil(order.totalPrice).toLocaleString()}đ</div>                            
                         </div>
 

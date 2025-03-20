@@ -266,10 +266,10 @@ const Account = () => {
           render: (text, record) => {            
             // Hàm lấy màu và icon cho TinhTrangDonHang
             const getStatusTagForTinhTrangDonHang = (status) => {
-                if (status === "Chưa giao hàng") {
+                if (status === "Tigar đang xử lý") {
                     return { color: 'red', icon: <ExclamationCircleOutlined /> };
                 }
-                if (status === "Đang giao hàng") {
+                if (status === "Đang vận chuyển") {
                     return { color: 'orange', icon: <HourglassOutlined /> };
                 }
                 return { color: 'blue', icon: <CheckCircleOutlined /> }; // "Đã giao hàng"
@@ -342,13 +342,13 @@ const Account = () => {
                     />
                 </Tooltip>
 
-                {record.TinhTrangDonHang === 'Chưa giao hàng' && record.TinhTrangThanhToan === 'Đã Thanh Toán' && record?.TrangThaiHuyDon === 'Không Hủy' ? 
+                {record.TinhTrangDonHang === 'Tigar đang xử lý' && record.TinhTrangThanhToan === 'Đã Thanh Toán' && record?.TrangThaiHuyDon === 'Không Hủy' ? 
                 <Tooltip title="Hủy đơn hàng này" color={'green'} key={'green'}>
                     <MdOutlineCancel onClick={() => huyDonHang(record?._id)} style={{color: "red"}} size={23} />                                           
                 </Tooltip>  : ''
                 }
 
-                {record.TinhTrangDonHang === 'Chưa giao hàng' && record.TinhTrangThanhToan === 'Chưa Thanh Toán' && record?.TrangThaiHuyDon === 'Không Hủy' ? 
+                {record.TinhTrangDonHang === 'Tigar đang xử lý' && record.TinhTrangThanhToan === 'Chưa Thanh Toán' && record?.TrangThaiHuyDon === 'Không Hủy' ? 
                 <Tooltip title="Hủy đơn hàng này" color={'green'} key={'green'}>
                     <MdOutlineCancel onClick={() => huyDonHang(record?._id)} style={{color: "red"}} size={23} />                                           
                 </Tooltip>  : ''
